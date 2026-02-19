@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb   # In-memory database
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true           # Enable H2 web console
+      path: /h2-console       # URL path for console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update       # create, create-drop, update, validate, none
+    show-sql: true            # Show SQL queries in logs
+    properties:
+      hibernate:
+#        format_sql: true      # Pretty-print SQL
+server :
+  port: 7070
