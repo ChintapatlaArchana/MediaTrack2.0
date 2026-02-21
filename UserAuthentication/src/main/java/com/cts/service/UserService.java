@@ -57,6 +57,11 @@ public class UserService implements UserDetailsService{
         return userMapper.toDTO(user);
     }
 
+    public UserResponseDTO getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new GlobalException("Invalid Email Id"));
+        return userMapper.toDTO(user);
+    }
+
 //    public UserResponseDTO loginWithEmail(UserRequestDTO dto) {
 //        User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(()-> new GlobalException("Invalid credentials"));
 //        boolean ok = encoder.matches(dto.getPassword(), user.getPassword());
@@ -106,8 +111,9 @@ public class UserService implements UserDetailsService{
 //    }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        Long userId = Long.parseLong(id);
+        User user = userRepository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
         return new UserPrincipal(user);
 
