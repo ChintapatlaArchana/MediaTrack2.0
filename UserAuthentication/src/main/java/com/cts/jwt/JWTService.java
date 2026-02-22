@@ -19,10 +19,10 @@ import java.util.function.Function;
 public class JWTService {
     public final String secret="Sf4ZTQfXYN6csyxi3ZR4ENqngvGi6eazTlRXgcRXMSI";
 
-    public String generateToken(User user) {
+    public String generateToken(String id) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", user.getRole().name());
-        return createToken(claims, String.valueOf(user.getUserId()));
+//        claims.put("role", user.getRole().name());
+        return createToken(claims, id);
     }
 
     private String createToken(Map<String, Object> claims, String id) {
@@ -41,9 +41,10 @@ public class JWTService {
     public String extractUserId(String token){
         return extractClaim(token, Claims::getSubject);
     }
-    public String extractUserRole(String token){
-        return extractAllClaims(token).get("role", String.class);
-    }
+
+//    public String extractUserRole(String token){
+//        return extractAllClaims(token).get("role", String.class);
+//    }
 
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);

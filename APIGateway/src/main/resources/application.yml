@@ -5,16 +5,20 @@ spring:
     gateway:
       mvc:
         routes:
-          - id: authentication-server
+          - id: user-authentication
             uri: http://localhost:9090
             predicates:
               - Path=/user/**
-          - id: subscription-server
+          - id: subscription
             uri: http://localhost:7070
             predicates:
               - Path=/entitlement/**,/plan/**,/subscription/**
             filters:
               - name: JwtAuthenticationFilter
+          - id: content
+            uri: http://localhost:8090
+            predicates:
+              - Path=/asset/**,/varsions/**,/titles/**,/categories/**
 
 server:
   port: 8082

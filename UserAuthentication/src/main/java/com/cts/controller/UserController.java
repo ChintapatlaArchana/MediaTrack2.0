@@ -14,11 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -45,18 +44,25 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public String generateToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication =  authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-
-        if(authentication.isAuthenticated()) {
-            System.out.println("Generating token");
-            User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
-            return jwtService.generateToken(user);
-        } else {
-            throw new IllegalArgumentException("User Not Found");
+        System.out.println("Controller came here line 51");
+        try {
+            Authentication authentication =  authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            System.out.println("Controller came here line 55");
+            if(authentication.isAuthenticated()) {
+                System.out.println("Generating token");
+                User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
+                return jwtService.generateToken(String.valueOf(user.getUserId()));
+            } else {
+                throw new IllegalArgumentException("User Not Found");
+            }
+        } catch (AuthenticationException e){
+            throw new RuntimeException(e.getMessage());
         }
+
+
     }
 
     @GetMapping("/id/{id}")
@@ -80,7 +86,7 @@ public class UserController {
     @GetMapping("/getUser")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         try {
-            return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.FOUND);
+            return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }

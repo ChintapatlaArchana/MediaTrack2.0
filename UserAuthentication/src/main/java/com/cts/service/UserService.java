@@ -112,10 +112,15 @@ public class UserService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Long userId = Long.parseLong(id);
-        User user = userRepository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
+        final User user;
+        if (id != null && id.matches("^\\d+$")) {
+            user = userRepository.findById(Long.parseLong(id))
+                    .orElseThrow(() -> new UsernameNotFoundException("User Id not found"));
+        } else {
+            user = userRepository.findByEmail(id)
+                    .orElseThrow(() -> new UsernameNotFoundException("User Email not found"));
+        }
         return new UserPrincipal(user);
-
     }
 }
