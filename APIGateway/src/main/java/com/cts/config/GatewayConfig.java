@@ -23,6 +23,8 @@ public class GatewayConfig {
                 .route("subscription", r-> r.path("/subscription/**", "/plan/**", "/entitlement/**")
                         .filters(f -> f.filter(jwtFilter))
                         .uri("http://localhost:7070"))
+                .route("content", r-> r.path("/asset/**","/categories/**","/titles/**","/versions/**")
+                        .uri("http://localhost:8090"))
                 .build();
     }
 }
