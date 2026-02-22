@@ -34,4 +34,14 @@ public class PlanController {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<PlanResponseDTO> getPlanById(@PathVariable("id") Long planId){
+        try{
+            return ResponseEntity.ok(planService.getPlan(planId));
+        }
+        catch(IllegalArgumentException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

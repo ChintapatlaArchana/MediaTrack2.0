@@ -30,6 +30,10 @@ public class PlanService {
         return planMapper.toDTO(planRepository.save(plan));
     }
 
+    public PlanResponseDTO getPlan(Long planId){
+        return planMapper.toDTO(planRepository.findById(planId).orElseThrow());
+    }
+
     public List<PlanResponseDTO> getAllPlans() {
         List<PlanResponseDTO> planResponseDTOList = new ArrayList<>();
         try {
