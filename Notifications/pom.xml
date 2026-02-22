@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>com.cts</groupId>
-    <artifactId>Content</artifactId>
+    <artifactId>Notifications</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Content</name>
+    <name>Notifications</name>
 
     <properties>
         <java.version>21</java.version>
