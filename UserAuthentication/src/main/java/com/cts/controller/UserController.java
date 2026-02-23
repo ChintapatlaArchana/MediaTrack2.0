@@ -5,6 +5,8 @@ import com.cts.dto.UserResponseDTO;
 import com.cts.dto.AuthRequest;
 import com.cts.exception.GlobalException;
 import com.cts.jwt.JWTService;
+import com.cts.model.User;
+import com.cts.repository.UserRepository;
 import com.cts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -28,7 +32,10 @@ public class UserController {
     @Autowired
     private JWTService jwtService;
 
-    @PostMapping("/user/auth")
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping("/add")
     public ResponseEntity<UserResponseDTO> create(@RequestBody UserRequestDTO dto) {
         try {
             return new ResponseEntity<>(userService.create(dto), HttpStatus.CREATED);
@@ -37,21 +44,49 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/token")
+    @PostMapping("/login")
     public String generateToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication =  authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        System.out.println("Controller came here line 51");
+        try {
+            Authentication authentication =  authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            System.out.println("Controller came here line 55");
+            if(authentication.isAuthenticated()) {
+                System.out.println("Generating token");
+                User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
+                return jwtService.generateToken(String.valueOf(user.getUserId()));
+            } else {
+                throw new IllegalArgumentException("User Not Found");
+            }
+        } catch (AuthenticationException e){
+            throw new RuntimeException(e.getMessage());
+        }
 
-        if(authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getEmail());
-        } else {
-            throw new IllegalArgumentException("User Not Found");
+
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable long id) {
+        try {
+            return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        } catch (GlobalException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponseDTO> getUserByEmail(@RequestParam String email) {
+        try {
+            return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.FOUND);
+        } catch (GlobalException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/getUser")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         try {
-            return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.FOUND);
+            return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -76,16 +111,7 @@ public class UserController {
 //        }
 //    }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable long id) {
-        try {
-            return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
-        } catch (GlobalException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping("/user/id/email1/email2")
+    @PutMapping("/id/email1/email2")
     public ResponseEntity<UserResponseDTO> updateUserEmail(@PathVariable long id, @PathVariable String email1, @PathVariable String email2) {
         try {
             return new ResponseEntity<>(userService.updateUserEmail(id, email1, email2), HttpStatus.OK);
@@ -94,7 +120,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/id/phoneNo1/phoneNo2")
+    @PutMapping("/id/phoneNo1/phoneNo2")
     public ResponseEntity<UserResponseDTO> updateUserPhoneNo(@PathVariable long id, @PathVariable String phoneNo1, @PathVariable String phoneNo2) {
         try {
             return new ResponseEntity<>(userService.updateUserPhoneNo(id, phoneNo1, phoneNo2), HttpStatus.OK);

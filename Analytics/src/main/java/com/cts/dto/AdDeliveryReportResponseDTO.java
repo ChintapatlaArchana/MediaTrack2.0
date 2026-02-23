@@ -1,0 +1,13 @@
+package com.cts.dto;
+
+import lombok.Data;
+
+import java.time.LocalDate;
+
+@Data
+public class AdDeliveryReportResponseDTO {
+    private Long AdReportID;
+    private Long campaignId;
+    private com.cts.dto.AdDeliveryReportMetricsDTO adDeliveryReportMetrics;
+    private LocalDate GeneratedDate;
+}

@@ -1,5 +1,6 @@
 package com.cts.jwt;
 
+import com.cts.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,14 +19,15 @@ import java.util.function.Function;
 public class JWTService {
     public final String secret="Sf4ZTQfXYN6csyxi3ZR4ENqngvGi6eazTlRXgcRXMSI";
 
-    public String generateToken(String email) {
+    public String generateToken(String id) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, email);
+//        claims.put("role", user.getRole().name());
+        return createToken(claims, id);
     }
 
-    private String createToken(Map<String, Object> claims, String email) {
+    private String createToken(Map<String, Object> claims, String id) {
         return Jwts.builder().setClaims(claims)
-                .setSubject(email)
+                .setSubject(id)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+ 1000*60*30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
@@ -36,9 +38,13 @@ public class JWTService {
         return Keys.hmacShaKeyFor(decode);
     }
 
-    public String extractUserEmail(String token){
+    public String extractUserId(String token){
         return extractClaim(token, Claims::getSubject);
     }
+
+//    public String extractUserRole(String token){
+//        return extractAllClaims(token).get("role", String.class);
+//    }
 
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
@@ -63,9 +69,9 @@ public class JWTService {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        final String email = extractUserEmail(token);
+        final String id = extractUserId(token);
 
-        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (id.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
 

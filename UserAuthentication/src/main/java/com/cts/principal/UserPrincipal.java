@@ -11,16 +11,15 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
-    private String email;
+    private String id;
     private String password;
     private List<GrantedAuthority> authorities;
 
     public UserPrincipal(User user) {
-        this.email = user.getEmail();
+        this.id = String.valueOf(user.getUserId());
         this.password = user.getPassword();
         String roleName = "ROLE_" + user.getRole().name();
         this.authorities = List.of(new SimpleGrantedAuthority(roleName));
-
     }
 
     @Override
@@ -35,7 +34,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return id;
     }
 
     @Override
