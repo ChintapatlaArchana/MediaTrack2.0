@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>EurekaServer</artifactId>
+    <artifactId>UserAuthentication</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>EurekaServer</name>
+    <name>UserAuthentication</name>
     <description>Demo project for Spring Boot</description>
     <url/>
     <licenses>

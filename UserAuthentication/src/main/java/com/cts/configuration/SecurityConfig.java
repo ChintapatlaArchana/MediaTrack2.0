@@ -44,7 +44,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.csrf(c-> c.ignoringRequestMatchers(PathRequest.toH2Console())
                         .disable())
-                .authorizeHttpRequests(req-> req.requestMatchers("/api/user/auth", "/api/token")
+                .authorizeHttpRequests(req-> req.requestMatchers("/user/add", "/user/login", "/user/id/{id}" )
                         .permitAll())
                 .authorizeHttpRequests(req->req.requestMatchers("/h2-console/**")
                         .permitAll())
