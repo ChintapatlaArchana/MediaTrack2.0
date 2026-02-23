@@ -34,6 +34,10 @@ public class AssetService {
         return assetMapper.toDto(assetRepository.save(asset));
     }
 
+    public AssetResponseDTO getAsset(Long assetId){
+        return assetMapper.toDto(assetRepository.findById(assetId).orElseThrow());
+    }
+
     public AssetResponseDTO updateAsset(Long assetId, AssetRequestDTO dto){
         Asset exist = assetRepository.findById(assetId).orElseThrow();
         Asset updated = assetMapper.toEntity(dto);
