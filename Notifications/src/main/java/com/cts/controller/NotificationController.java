@@ -20,8 +20,8 @@ public class NotificationController {
     }
 
     @PostMapping("/notification")
-    public ResponseEntity<NotificationResponseDTO> create(@RequestBody NotificationRequestDTO dto) {
-        NotificationResponseDTO saved = notificationService.create(dto);
+    public ResponseEntity<NotificationResponseDTO> create(@RequestBody NotificationRequestDTO dto, @RequestHeader("X-User-Id") String id) {
+        NotificationResponseDTO saved = notificationService.create(dto, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 

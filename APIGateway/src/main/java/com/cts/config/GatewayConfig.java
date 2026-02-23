@@ -25,6 +25,12 @@ public class GatewayConfig {
                         .uri("http://localhost:7070"))
                 .route("content", r-> r.path("/asset/**","/categories/**","/titles/**","/versions/**")
                         .uri("http://localhost:8090"))
+                .route("notification", r-> r.path("//**")
+                        .filters(f-> f.filter(jwtFilter))
+                        .uri("http://localhost:8098"))
+                .route("analytics", r-> r.path("/adDeliveryReport/**","/churnCohort/**","/engagementReport/**")
+                        .filters(f -> f.filter(jwtFilter))
+                        .uri("http://localhost:8083"))
                 .build();
     }
 }

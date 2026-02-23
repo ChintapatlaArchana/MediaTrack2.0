@@ -7,6 +7,7 @@ import com.cts.feign.UserFeignClient;
 import com.cts.mapper.NotificationMapper;
 import com.cts.model.Notification;
 import com.cts.repository.NotificationRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,14 +25,16 @@ public class NotificationService {
         this.userFeignClient = userFeignClient;
     }
 
-    public NotificationResponseDTO create(NotificationRequestDTO dto){
+    public NotificationResponseDTO create(NotificationRequestDTO dto, String id){
+        Long userId = Long.parseLong(id);
         Notification notification = notificationMapper.toEntity(dto);
-        UserResponseDTO userResponseDTO = userFeignClient.getUserById(dto.getUserId());
-
-        notification.setUserId(userResponseDTO.getUserId());
-
-        return notificationMapper.toDto(notificationRepository.save(notification));
-
+        ResponseEntity<UserResponseDTO> userResponseDTO = userFeignClient.getUserById(userId);
+        if(userResponseDTO.getStatusCode().is2xxSuccessful()) {
+            notification.setUserId(userResponseDTO.getBody().getUserId());
+            return notificationMapper.toDto(notificationRepository.save(notification));
+        } else {
+            throw new IllegalArgumentException("User Id not found");
+        }
     }
 
     public List<NotificationResponseDTO> getAllNotifications(){
