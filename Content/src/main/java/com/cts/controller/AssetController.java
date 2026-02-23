@@ -31,6 +31,11 @@ public class AssetController {
         return ResponseEntity.ok(assetService.updateAsset(assetId,dto));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AssetResponseDTO> getAssetById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(assetService.getAsset(id));
+    }
+
     @GetMapping("/title/{titleId}")
     public ResponseEntity<List<AssetResponseDTO>> listAssetsByTitle(@PathVariable("titleId") Long titleId){
         return ResponseEntity.ok(assetService.getAssetsByTitle(titleId));

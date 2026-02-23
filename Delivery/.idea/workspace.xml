@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="90797f93-76ea-49db-be36-e71689aeb39f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/controller/CDNController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/controller/DRMEventController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/controller/DeviceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/controller/PlaybackController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/AssetResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/CDNEndpointRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/CDNEndpointResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/DRMEventRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/DRMEventResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/DeviceRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/DeviceResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/PlaybackSessionRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/PlaybackSessionResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/dto/UserResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/feign/AssetFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/feign/UserFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/mapper/CDNEndpointMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/mapper/DRMEventMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/mapper/DeviceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/mapper/PlaybackSessionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/model/CDNEndpoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/model/DRMEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/model/Device.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/model/PlaybackSession.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/repository/CDNRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/repository/DRMEventRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/repository/DeviceRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/repository/PlaybackRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/service/CDNService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/service/DRMEventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/service/DeviceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cts/service/PlaybackService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Content/src/main/java/com/cts/controller/AssetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Content/src/main/java/com/cts/controller/AssetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Content/src/main/java/com/cts/service/AssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Content/src/main/java/com/cts/service/AssetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EurekaServer/src/main/java/com/cts/server/EurekaServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EurekaServer/src/main/java/com/cts/server/EurekaServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EurekaServer/target/classes/com/cts/server/EurekaServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../EurekaServer/target/classes/com/cts/server/EurekaServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserAuthentication/target/classes/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../UserAuthentication/target/classes/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserAuthentication/target/generated-sources/annotations/com/cts/mapper/UserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../UserAuthentication/target/generated-sources/annotations/com/cts/mapper/UserMapperImpl.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Maramreddipooja99&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ChintapatlaArchana/MediaTrack2.0.git&quot;,
+    &quot;accountId&quot;: &quot;a3f54f7c-8463-4bc4-ae44-acd4d5dfd062&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="39vvnu2cOeZPJXgUZY2acJhxqbp" />
+  <component name="ProjectViewState">
+    <option name="foldersAlwaysOnTop" value="false" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortKey" value="BY_TIME_ASCENDING" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="90797f93-76ea-49db-be36-e71689aeb39f" name="Changes" comment="" />
+      <created>1771589528610</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771589528610</updated>
+    </task>
+    <servers />
+  </component>
+</project>
