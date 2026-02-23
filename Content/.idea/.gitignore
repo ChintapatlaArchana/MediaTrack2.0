@@ -1,3 +1,10 @@
-# Default ignored files
-/shelf/
-/workspace.xml
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Ignore build outputs
+target/
+**/target/
+build/
+**/build/
