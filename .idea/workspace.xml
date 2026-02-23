@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="69b99e3f-6988-4130-aafe-f77cf2d14243" name="Changes" comment="&quot;implemented microservices-pipeline&quot;">
+      <change beforePath="$PROJECT_DIR$/EurekaServer/src/main/java/com/cts/server/EurekaServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/EurekaServer/src/main/java/com/cts/server/EurekaServer.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ShilpaS2025&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ChintapatlaArchana/MediaTrack2.0.git&quot;,
+    &quot;accountId&quot;: &quot;9c046cdb-6b4a-4c92-920f-4b3268d97318&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="39t8Ox2lq77kJ0Az59pKylVD2HQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ContentMain.executor": "Run",
+    "Application.EurekaServer.executor": "Run",
+    "Application.PipelineApplication.executor": "Run",
+    "Maven.Pipeline [clean].executor": "Run",
+    "Maven.Pipeline [verify].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/2465998/IdeaProjects/Git/MediaTrack2.0",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "configurable.group.build"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.cts.dto" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.PipelineApplication">
+    <configuration name="ContentMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.ContentMain" />
+      <module name="content-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EurekaServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.server.EurekaServer" />
+      <module name="EurekaServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PipelineApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.PipelineApplication" />
+      <module name="Pipeline" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.PipelineApplication" />
+        <item itemvalue="Application.ContentMain" />
+        <item itemvalue="Application.EurekaServer" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="69b99e3f-6988-4130-aafe-f77cf2d14243" name="Changes" comment="" />
+      <created>1771503977916</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771503977916</updated>
+    </task>
+    <task id="LOCAL-00001" summary="&quot;implemented microservices-pipeline&quot;">
+      <option name="closed" value="true" />
+      <created>1771828737553</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771828737553</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="&quot;implemented microservices-pipeline&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;implemented microservices-pipeline&quot;" />
+  </component>
+</project>

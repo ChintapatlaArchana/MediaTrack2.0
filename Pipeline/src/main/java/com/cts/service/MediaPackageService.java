@@ -1,0 +1,65 @@
+package com.cts.service;
+
+import com.cts.dto.MediaPackageRequestDTO;
+import com.cts.dto.MediaPackageResponseDTO;
+import com.cts.dto.AssetResponseDTO;
+import com.cts.feign.AssetFeignClient;
+import com.cts.mapper.MediaPackageMapper;
+import com.cts.model.MediaPackage;
+import com.cts.model.MediaPackage.QCStatus;
+import com.cts.repository.MediaPackageRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class MediaPackageService {
+
+    private final MediaPackageRepository mediaPackageRepository;
+    private final MediaPackageMapper mediaPackageMapper;
+    private final AssetFeignClient assetFeignClient;
+
+    public MediaPackageService(MediaPackageRepository mediaPackageRepository,
+                               MediaPackageMapper mediaPackageMapper,
+                               AssetFeignClient assetFeignClient) {
+        this.mediaPackageRepository = mediaPackageRepository;
+        this.mediaPackageMapper = mediaPackageMapper;
+        this.assetFeignClient = assetFeignClient;
+    }
+
+    // Create a new media package tied to an asset
+    public MediaPackageResponseDTO createMediaPackage(MediaPackageRequestDTO dto) {
+        MediaPackage pkg = mediaPackageMapper.toEntity(dto);
+
+        // Validate asset via asset-service
+        AssetResponseDTO assetResponse = assetFeignClient.getAssetById(dto.getAssetId());
+        if (assetResponse == null) {
+            throw new RuntimeException("Asset not found with id: " + dto.getAssetId());
+        }
+
+        pkg.setAssetId(dto.getAssetId());
+
+        return mediaPackageMapper.toDTO(mediaPackageRepository.save(pkg));
+    }
+
+    public List<MediaPackageResponseDTO> getAllMediaPackages() {
+        return mediaPackageRepository.findAll()
+                .stream()
+                .map(mediaPackageMapper::toDTO)
+                .toList();
+    }
+
+    public MediaPackageResponseDTO getById(Long id) {
+        MediaPackage pkg = mediaPackageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("MediaPackage not found with id: " + id));
+        return mediaPackageMapper.toDTO(pkg);
+    }
+
+    public MediaPackageResponseDTO updateStatus(Long id, QCStatus status) {
+        MediaPackage pkg = mediaPackageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Media package not found with id: " + id));
+        pkg.setQcStatus(status);
+        pkg = mediaPackageRepository.save(pkg);
+        return mediaPackageMapper.toDTO(pkg);
+    }
+}
