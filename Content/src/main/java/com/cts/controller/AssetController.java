@@ -26,6 +26,11 @@ public class AssetController {
         return ResponseEntity.ok(assetService.createAsset(dto));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AssetResponseDTO> getAssetById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(assetService.getAsset(id));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<AssetResponseDTO> updateAsset(@PathVariable("id") Long assetId,@RequestBody AssetRequestDTO dto){
         return ResponseEntity.ok(assetService.updateAsset(assetId,dto));
