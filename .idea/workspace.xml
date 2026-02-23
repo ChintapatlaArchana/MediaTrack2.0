@@ -13,8 +13,18 @@
   <component name="Git.Merge.Settings">
     <option name="BRANCH" value="origin/main" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ChintapatlaArchana/MediaTrack2.0.git",
+    "accountId": "9c046cdb-6b4a-4c92-920f-4b3268d97318"
+  }
+}]]></component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "git-widget-placeholder": "main",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
