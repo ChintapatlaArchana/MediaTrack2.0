@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/drm")
 public class DRMEventController {
 
     private final DRMEventService drmEventService;

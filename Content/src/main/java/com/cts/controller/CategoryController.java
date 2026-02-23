@@ -5,6 +5,7 @@ import com.cts.dto.CategoryResponseDTO;
 import com.cts.model.Category;
 import com.cts.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,11 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<CategoryResponseDTO> createCategory(@RequestBody CategoryRequestDTO dto){
-        return ResponseEntity.ok(categoryService.createCategory(dto));
+        try {
+            return new ResponseEntity(categoryService.createCategory(dto), HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping

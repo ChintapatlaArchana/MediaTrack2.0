@@ -7,6 +7,8 @@ import com.cts.feign.UserFeignClient;
 import com.cts.mapper.DeviceMapper;
 import com.cts.model.Device;
 import com.cts.repository.DeviceRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +30,21 @@ public class DeviceService {
         this.userClient = userClient;
     }
 
-    public DeviceResponseDTO create(DeviceRequestDTO dto) {
+    public ResponseEntity<DeviceResponseDTO> create(DeviceRequestDTO dto, String id) {
         // Validate user exists in identity-service
-        UserResponseDTO user = userClient.getUserById(dto.getUserId());
+        Long userId = Long.parseLong(id);
+        ResponseEntity<UserResponseDTO> user = userClient.getUserById(userId);
 
+        if(user.getStatusCode().is2xxSuccessful()) {
+            Device device = deviceMapper.toEntity(dto);
+            device.setUserId(user.getBody().getUserId());
+
+            Device saved = deviceRepository.save(device);
+            return new ResponseEntity(deviceMapper.toDto(saved), HttpStatus.OK);
+        } else {
+            throw new RuntimeException("User Id not found");
+        }
         // Map & set userId (no JPA relation across services)
-        Device device = deviceMapper.toEntity(dto);
-        device.setUserId(dto.getUserId());
-
-        Device saved = deviceRepository.save(device);
-        return deviceMapper.toDto(saved);
     }
 
     @Transactional(readOnly = true)

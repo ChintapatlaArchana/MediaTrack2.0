@@ -21,16 +21,18 @@ public class GatewayConfig {
                 .route("user-authentication", r-> r.path("/user/**")
                         .uri("http://localhost:9090"))
                 .route("subscription", r-> r.path("/subscription/**", "/plan/**", "/entitlement/**")
-                        .filters(f -> f.filter(jwtFilter))
                         .uri("http://localhost:7070"))
                 .route("content", r-> r.path("/asset/**","/categories/**","/titles/**","/versions/**")
                         .uri("http://localhost:8090"))
-                .route("notification", r-> r.path("//**")
-                        .filters(f-> f.filter(jwtFilter))
-                        .uri("http://localhost:8098"))
+                .route("delivery", r-> r.path("/playback/**","/drm/**","/cdncontrol/**","/device/**")
+                        .uri("http://localhost:7072"))
+                .route("adInventory", r-> r.path("/adimpression/**","/adslot/**","/campaign/**","/creative/**")
+                        .uri("http://localhost:8089"))
                 .route("analytics", r-> r.path("/adDeliveryReport/**","/churnCohort/**","/engagementReport/**")
-                        .filters(f -> f.filter(jwtFilter))
                         .uri("http://localhost:8083"))
+                .route("notification", r-> r.path("/**")
+                        .uri("http://localhost:8098"))
+
                 .build();
     }
 }

@@ -35,11 +35,11 @@ import java.util.List;
             return ResponseEntity.ok(playBackService.getById(id));
         }
 
-        @PutMapping("/{id}")
-        public ResponseEntity<PlaybackSessionResponseDTO> update(@PathVariable Long id,
-                                                                 @RequestBody PlaybackSessionRequestDTO dto) {
-            return ResponseEntity.ok(playBackService.update(id, dto));
-        }
+//        @PutMapping("/{id}")
+//        public ResponseEntity<PlaybackSessionResponseDTO> update(@PathVariable Long id,
+//                                                                 @RequestBody PlaybackSessionRequestDTO dto) {
+//            return ResponseEntity.ok(playBackService.update(id, dto));
+//        }
 
         @DeleteMapping("/{id}")
         public ResponseEntity<Void> delete(@PathVariable Long id) {

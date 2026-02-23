@@ -18,8 +18,6 @@ public class PlaybackSession {
 
     private Long userId; // Foreign Key to Device table
 
-
-
     private Long assetId;
 
     private LocalDateTime startTime;

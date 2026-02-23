@@ -9,6 +9,7 @@ import com.cts.feign.UserFeignClient;
 import com.cts.mapper.PlaybackSessionMapper;
 import com.cts.model.PlaybackSession;
 import com.cts.repository.PlaybackRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class PlaybackService {
         public PlaybackSessionResponseDTO create(PlaybackSessionRequestDTO dto) {
 
             // Feign client validation (NO var here)
-            UserResponseDTO user = userClient.getUserById(dto.getUserId());
+            ResponseEntity<UserResponseDTO> user = userClient.getUserById(dto.getUserId());
             AssetResponseDTO asset = assetClient.getAssetById(dto.getAssetId());
 
             // Convert DTO → Entity
@@ -75,29 +76,29 @@ public class PlaybackService {
             return dto;
         }
 
-        public PlaybackSessionResponseDTO update(Long id, PlaybackSessionRequestDTO dto) {
-
-            PlaybackSession entity = playbackRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("PlaybackSession not found: " + id));
-
-            // Revalidate only if IDs changed
-            if (dto.getUserId() != null) {
-                UserResponseDTO user = userClient.getUserById(dto.getUserId());
-            }
-
-            if (dto.getAssetId() != null) {
-                AssetResponseDTO asset = assetClient.getAssetById(dto.getAssetId());
-            }
-
-            // Update fields on entity
-            mapper.updateEntity(entity, dto);
-
-            PlaybackSession saved = playbackRepository.save(entity);
-
-            PlaybackSessionResponseDTO response = mapper.toDto(saved);
-
-            return response;
-        }
+//        public PlaybackSessionResponseDTO update(Long id, PlaybackSessionRequestDTO dto) {
+//
+//            PlaybackSession entity = playbackRepository.findById(id)
+//                    .orElseThrow(() -> new IllegalArgumentException("PlaybackSession not found: " + id));
+//
+//            // Revalidate only if IDs changed
+//            if (dto.getUserId() != null) {
+//                UserResponseDTO user = userClient.getUserById(dto.getUserId());
+//            }
+//
+//            if (dto.getAssetId() != null) {
+//                AssetResponseDTO asset = assetClient.getAssetById(dto.getAssetId());
+//            }
+//
+//            // Update fields on entity
+//            mapper.updateEntity(entity, dto);
+//
+//            PlaybackSession saved = playbackRepository.save(entity);
+//
+//            PlaybackSessionResponseDTO response = mapper.toDto(saved);
+//
+//            return response;
+//        }
 
         public void delete(Long id) {
             playbackRepository.deleteById(id);

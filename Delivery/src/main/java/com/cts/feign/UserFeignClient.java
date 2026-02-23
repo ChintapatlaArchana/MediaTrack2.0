@@ -2,13 +2,13 @@ package com.cts.feign;
 
 import com.cts.dto.UserResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "user-authentication",url="http://localhost:9090")
+@FeignClient(name = "user-authentication")
 public interface UserFeignClient {
-
-    @GetMapping("user/{id}")
-    UserResponseDTO getUserById(@PathVariable("id") Long id);
+    @GetMapping("user/id/{id}")
+    ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id);
 
 }

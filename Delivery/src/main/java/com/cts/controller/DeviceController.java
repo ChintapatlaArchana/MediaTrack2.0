@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/device")
 public class DeviceController {
 
     private final DeviceService deviceService;
@@ -21,9 +21,12 @@ public class DeviceController {
     }
 
     @PostMapping("/device")
-    public ResponseEntity<DeviceResponseDTO> create(@RequestBody DeviceRequestDTO dto) {
-        DeviceResponseDTO saved = deviceService.create(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public ResponseEntity<DeviceResponseDTO> create(@RequestBody DeviceRequestDTO dto, @RequestHeader("X-User-Id") String id) {
+        try {
+            return new ResponseEntity(deviceService.create(dto, id), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/devices")

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-20T17:41:15+0530",
-    comments = "version: 1.6.2, compiler: javac, environment: Java 21 (Oracle Corporation)"
+    date = "2026-02-23T14:17:39+0530",
+    comments = "version: 1.6.2, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
 public class DeviceMapperImpl implements DeviceMapper {
