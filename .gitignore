@@ -1,0 +1,13 @@
+
+# Build output
+**/target/
+**/build/
+*.class
+
+# IDE
+.idea/
+*.iml
+
+# OS / misc
+*.log
+.DS_Store
