@@ -9,6 +9,7 @@
     <file url="file://$PROJECT_DIR$/EurekaServer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Notifications/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Pipeline/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SpringConfig/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Subscription/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/UserAuthentication/src/main/java" charset="UTF-8" />
   </component>

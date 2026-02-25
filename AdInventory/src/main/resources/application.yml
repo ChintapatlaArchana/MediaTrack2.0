@@ -1,3 +1,10 @@
+server :
+  port: 8089
 spring:
-  profiles:
-    active: dev
+  application:
+    name: adInventory
+  config:
+    import: optional:configserver:http://localhost:6060
+  cloud:
+    config:
+      uri: http://localhost:6060
