@@ -34,15 +34,16 @@ public class PlaybackService {
             this.assetClient = assetClient;
         }
 
-        public PlaybackSessionResponseDTO create(PlaybackSessionRequestDTO dto) {
+        public PlaybackSessionResponseDTO create(PlaybackSessionRequestDTO dto, String id) {
 
             // Feign client validation (NO var here)
-            ResponseEntity<UserResponseDTO> user = userClient.getUserById(dto.getUserId());
+            Long userId = Long.parseLong(id);
+            ResponseEntity<UserResponseDTO> user = userClient.getUserById(userId);
             AssetResponseDTO asset = assetClient.getAssetById(dto.getAssetId());
 
             // Convert DTO → Entity
             PlaybackSession entity = mapper.toEntity(dto);
-
+            entity.setUserId(user.getBody().getUserId());
             // Save in DB
             PlaybackSession saved = playbackRepository.save(entity);
 

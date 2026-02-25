@@ -20,8 +20,8 @@ import java.util.List;
         }
 
         @PostMapping
-        public ResponseEntity<PlaybackSessionResponseDTO> create(@RequestBody PlaybackSessionRequestDTO dto) {
-            var saved = playBackService.create(dto);
+        public ResponseEntity<PlaybackSessionResponseDTO> create(@RequestBody PlaybackSessionRequestDTO dto, @RequestHeader("X-User-Id") String id) {
+            var saved = playBackService.create(dto, id);
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);
         }
 

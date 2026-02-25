@@ -10,6 +10,7 @@ public class TranscodeJobRequestDTO {
     private Long assetId;
     private String profile;
     private TranscodeStatus transcodeStatus;
+    private LocalDate startedDate;
     private LocalDate completedDate;
 
 }

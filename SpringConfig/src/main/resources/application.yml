@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ChintapatlaArchana/MediaTrack2.0
+          skip-ssl-validation: true
+server:
+  port: 6060

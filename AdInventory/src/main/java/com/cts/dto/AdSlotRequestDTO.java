@@ -1,5 +1,4 @@
 package com.cts.dto;
-import com.cts.model.AdSlot.Placement;
 import tools.jackson.databind.JsonNode;
 
 import lombok.Data;
