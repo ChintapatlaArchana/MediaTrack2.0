@@ -17,7 +17,7 @@ spring:
 #  file:
 #    name: log/person.log
 server :
-  port: 8082
+  port: 8086
 
   eureka:
     client:

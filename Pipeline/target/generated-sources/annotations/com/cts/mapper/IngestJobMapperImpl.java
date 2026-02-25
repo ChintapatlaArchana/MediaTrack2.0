@@ -4,6 +4,7 @@ import com.cts.dto.IngestJobRequestDTO;
 import com.cts.dto.IngestJobResponseDTO;
 import com.cts.model.IngestJob;
 import com.cts.model.IngestJob.IngestStatus;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-20T14:06:54+0530",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
+    date = "2026-02-25T09:46:14+0530",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
 public class IngestJobMapperImpl implements IngestJobMapper {
@@ -28,7 +29,7 @@ public class IngestJobMapperImpl implements IngestJobMapper {
         ingestJob.setAssetId( dto.getAssetId() );
         ingestJob.setSourceUri( dto.getSourceUri() );
 
-        ingestJob.setSubmittedDate( java.time.LocalDate.now() );
+        ingestJob.setSubmittedDate( java.time.LocalDate );
         ingestJob.setIngestStatus( IngestStatus.Queued );
 
         return ingestJob;

@@ -2,8 +2,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/db9
     username: root
-    password: Sql@2003
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#<<<<<<< HEAD:Pipeline/src/main/resources/application-prod.yml
+#    password: Sql@2003
+#=======
+#>>>>>>> 333d8aa57e2300cf5c998c6a48e28a366c4ca525:UserAuthentication/target/classes/application-prod.yml
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     show-sql: true
@@ -14,7 +17,7 @@ spring:
 #  file:
 #    name: log/person.log
 server :
-  port: 8082
+  port: 8086
 
   eureka:
     client:

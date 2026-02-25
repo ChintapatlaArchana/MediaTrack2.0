@@ -8,6 +8,8 @@ import com.cts.model.TranscodeJob;
 import com.cts.model.TranscodeJob.TranscodeStatus;
 import com.cts.repository.TranscodeJobRepository;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.cts.dto.AssetResponseDTO;
@@ -56,7 +58,7 @@ public class TranscodeJobService {
         return transcodeJobMapper.toDTO(job);
     }
 
-    public TranscodeJobResponseDTO updateStatusAndCompletedDate(Long id, TranscodeStatus status, LocalDateTime completedDate) {
+    public TranscodeJobResponseDTO updateStatusAndCompletedDate(Long id, TranscodeStatus status, LocalDate completedDate) {
         TranscodeJob job = transcodeJobRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Transcode job not found with id: " + id));
         job.setTranscodeStatus(status);
