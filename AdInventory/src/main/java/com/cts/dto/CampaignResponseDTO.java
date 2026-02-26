@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 public class CampaignResponseDTO {
     private Long campaignId;
+    private Long creativeId;
     private String name;
     private String advertiser;
     private LocalDateTime startDate;
@@ -29,5 +30,5 @@ public class CampaignResponseDTO {
 //    private List<AdImpression> impressionIds;
 
  //Many to one
-//    private Long creativeId;
+//
 }

@@ -30,7 +30,7 @@ import java.util.List;
             return ResponseEntity.ok(playBackService.getAll());
         }
 
-        @GetMapping("/{id}")
+        @GetMapping("/id/{id}")
         public ResponseEntity<PlaybackSessionResponseDTO> getById(@PathVariable Long id) {
             return ResponseEntity.ok(playBackService.getById(id));
         }
