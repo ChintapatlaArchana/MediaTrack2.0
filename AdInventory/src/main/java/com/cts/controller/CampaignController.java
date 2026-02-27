@@ -46,10 +46,10 @@ public class CampaignController {
 
     @PostMapping("/{creativeId}")
     public ResponseEntity<CampaignResponseDTO> create(
-            @PathVariable Long creativeId,
+            @PathVariable("creativeId") Long creativeId,
             @RequestBody CampaignRequestDTO dto) {
 
-        return ResponseEntity.ok(service.create(creativeId, dto));
+        return ResponseEntity.ok(service.create( dto));
     }
 
     @GetMapping
@@ -58,7 +58,7 @@ public class CampaignController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CampaignResponseDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<CampaignResponseDTO> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 

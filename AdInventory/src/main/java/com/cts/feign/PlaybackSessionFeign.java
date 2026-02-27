@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "delivery")
 public interface PlaybackSessionFeign {
     @GetMapping("/playback/{id}")
-    PlaybackSessionResponseDTO getById(@PathVariable long Id);
+    PlaybackSessionResponseDTO getById(@PathVariable("id") long id);
 
 }

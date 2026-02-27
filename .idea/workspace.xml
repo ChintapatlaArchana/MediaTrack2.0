@@ -4,90 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76659d3e-f0d9-492e-97f4-2ee08d36ac29" name="Changes" comment="&quot;Mapper issue in Pipeline&quot;">
+    <list default="true" id="76808760-6121-465c-925e-033d2aca91fd" name="Changes" comment="changes implemented for adimpression">
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/ServiceTest/AdImpressionServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/ServiceTest/AdSlotServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/ServiceTest/CampaignServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/ServiceTest/CreativeServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/controllerTest/AdImpressionControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/controllerTest/AdSlotControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/controllerTest/CampaignControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/controllerTest/CreativeControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/mapperTest/AdImpressionMapperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/mapperTest/AdSlotMapperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/mapperTest/CampaignMapperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdInventory/src/test/java/com/cts/test/mapperTest/CreativeMapperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APIGateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/APIGateway/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AdInventory/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AdInventory/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/dto/AdSlotRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/dto/AdSlotRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/AdInventory/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Content/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/controller/CampaignController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/controller/CampaignController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/dto/CampaignResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/dto/CampaignResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/mapper/CampaignMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/mapper/CampaignMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/service/CampaignService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdInventory/src/main/java/com/cts/service/CampaignService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/PlaybackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/PlaybackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/feign/AssetFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/feign/AssetFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/PlaybackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/PlaybackService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notifications/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notifications/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notifications/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Notifications/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/dto/IngestJobRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/dto/IngestJobRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/dto/TranscodeJobRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/dto/TranscodeJobRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/mapper/IngestJobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/mapper/IngestJobMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/mapper/TranscodeJobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/mapper/TranscodeJobMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/PipelineApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/controller/IngestJobController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/controller/MediaPackageController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/controller/TranscodeJobController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/dto/AssetResponseDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/dto/IngestJobRequestDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/dto/IngestJobResponseDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/dto/MediaPackageRequestDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/dto/MediaPackageResponseDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/dto/TranscodeJobRequestDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/dto/TranscodeJobResponseDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/exception/IngestJobException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/exception/MediaPackageNotFound.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/feign/AssetFeignClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/mapper/IngestJobMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/mapper/IngestJobMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/mapper/MediaPackageMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/mapper/MediaPackageMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/mapper/TranscodeJobMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/mapper/TranscodeJobMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/model/IngestJob$IngestStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/model/IngestJob.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/model/MediaPackage$QCStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/model/MediaPackage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/model/TranscodeJob$TranscodeStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/model/TranscodeJob.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/repository/IngestJobRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/repository/MediaPackageRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/repository/TranscodeJobRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/service/IngestJobService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/service/MediaPackageService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/classes/com/cts/service/TranscodeJobService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/generated-sources/annotations/com/cts/mapper/IngestJobMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/generated-sources/annotations/com/cts/mapper/MediaPackageMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/target/generated-sources/annotations/com/cts/mapper/TranscodeJobMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/model/Entitlement.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/model/Entitlement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/resources/application-dev.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/resources/application-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -95,19 +44,19 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;ChintapatlaArchana&quot;
+    &quot;assignee&quot;: &quot;Rowe1916&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ChintapatlaArchana/MediaTrack2.0.git&quot;,
-    &quot;accountId&quot;: &quot;51411115-d7f7-48a0-9368-b86e3123928d&quot;
+    &quot;accountId&quot;: &quot;12751161-7def-4252-84d1-72d7ad29f1e1&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="3A7BWfwTCMDCGTED3PgqtlmtdRo" />
+  <component name="ProjectId" id="3A9L2Mty6IP9fd0OqHpSDzfD3IL" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -119,44 +68,150 @@
     "Application.ContentMain.executor": "Run",
     "Application.DeliveryMain.executor": "Run",
     "Application.EurekaServer.executor": "Run",
-    "Application.PipelineApplication.executor": "Run",
     "Application.UserAuthenticationMain.executor": "Run",
-    "Maven.Pipeline [clean].executor": "Run",
+    "JUnit.AdImpressionControllerTest.executor": "Run",
+    "JUnit.AdImpressionMapperTest.executor": "Run",
+    "JUnit.AdImpressionServiceTest.executor": "Run",
+    "JUnit.AdSlotControllerTest.executor": "Run",
+    "JUnit.AdSlotMapperTest.executor": "Run",
+    "JUnit.AdSlotServiceTest.executor": "Run",
+    "JUnit.CampaignControllerTest.executor": "Run",
+    "JUnit.CampaignMapperTest.executor": "Run",
+    "JUnit.CampaignServiceTest.executor": "Run",
+    "JUnit.CampaignServiceTest.testUpdate.executor": "Run",
+    "JUnit.CreativeControllerTest.executor": "Run",
+    "JUnit.CreativeMapperTest.executor": "Run",
+    "JUnit.CreativeServiceTest.executor": "Run",
+    "Maven.AdInventory [clean].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Git_Project/MediaTrack2.0",
-    "project.structure.last.edited": "Project",
+    "last_opened_file_path": "C:/git_project/MediaTrack2.0",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RunManager" selected="JUnit.CampaignServiceTest">
+    <configuration name="CampaignControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AdInventory" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.test.controllerTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cts.test.controllerTest" />
+      <option name="MAIN_CLASS_NAME" value="com.cts.test.controllerTest.CampaignControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CampaignMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AdInventory" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.test.mapperTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cts.test.mapperTest" />
+      <option name="MAIN_CLASS_NAME" value="com.cts.test.mapperTest.CampaignMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CampaignServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AdInventory" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.test.ServiceTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cts.test.ServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="com.cts.test.ServiceTest.CampaignServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CampaignServiceTest.testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AdInventory" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.test.ServiceTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cts.test.ServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="com.cts.test.ServiceTest.CampaignServiceTest" />
+      <option name="METHOD_NAME" value="testUpdate" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CampaignServiceTest.testUpdate_Positive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AdInventory" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.test.ServiceTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cts.test.ServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="com.cts.test.ServiceTest.CampaignServiceTest" />
+      <option name="METHOD_NAME" value="testUpdate_Positive" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CampaignServiceTest" />
+        <item itemvalue="JUnit.CampaignServiceTest.testUpdate_Positive" />
+        <item itemvalue="JUnit.CampaignServiceTest.testUpdate" />
+        <item itemvalue="JUnit.CampaignMapperTest" />
+        <item itemvalue="JUnit.CampaignControllerTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="76659d3e-f0d9-492e-97f4-2ee08d36ac29" name="Changes" comment="" />
-      <created>1771933761751</created>
+      <changelist id="76808760-6121-465c-925e-033d2aca91fd" name="Changes" comment="" />
+      <created>1771999631417</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1771933761751</updated>
+      <updated>1771999631417</updated>
     </task>
-    <task id="LOCAL-00001" summary="&quot;Mapper issue in Pipeline&quot;">
+    <task id="LOCAL-00001" summary="committing">
       <option name="closed" value="true" />
-      <created>1771993136801</created>
+      <created>1772008303287</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1771993136801</updated>
+      <updated>1772008303287</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="changes implemented for adimpression">
+      <option name="closed" value="true" />
+      <created>1772099565756</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772099565756</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="&quot;Mapper issue in Pipeline&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Mapper issue in Pipeline&quot;" />
+    <MESSAGE value="committing" />
+    <MESSAGE value="changes implemented for adimpression" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes implemented for adimpression" />
   </component>
 </project>

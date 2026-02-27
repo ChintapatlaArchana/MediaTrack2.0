@@ -28,15 +28,22 @@ public class CampaignService {
     }
 
     // CREATE
-    public CampaignResponseDTO create(Long creativeId, CampaignRequestDTO dto) {
-
-        Creative creative = creativeRepo.findById(creativeId)
-                .orElseThrow(() -> new RuntimeException("Creative not found: " + creativeId));
-
-        Campaign entity = mapper.toEntity(dto);
-        entity.setCreative(creative);
-
-        return mapper.toDTO(campaignRepo.save(entity));
+//    public CampaignResponseDTO create(Long creativeId, CampaignRequestDTO dto) {
+//
+//        Creative creative = creativeRepo.findById(creativeId)
+//                .orElseThrow(() -> new RuntimeException("Creative not found: " + creativeId));
+//
+//        Campaign entity = mapper.toEntity(dto);
+//        entity.setCreative(creative);
+//
+//        return mapper.toDTO(campaignRepo.save(entity));
+//    }
+    public CampaignResponseDTO create(CampaignRequestDTO dto){
+        Campaign campaign = mapper.toEntity(dto);
+        Creative creative = creativeRepo.findById(dto.getCreativeId())
+                .orElseThrow(()-> new RuntimeException("Creative not found with id"));
+        campaign.setCreative(creative);
+        return mapper.toDTO(campaignRepo.save(campaign));
     }
 
     // GET ALL
