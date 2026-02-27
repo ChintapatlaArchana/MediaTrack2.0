@@ -48,7 +48,7 @@ public class CategoryService {
             }
             categoryRepository.deleteById(id);
         } catch (GlobalException ex) {
-            throw new GlobalException("Error deleting category: " + ex.getMessage());
+            throw new GlobalException( ex.getMessage());
         }
     }
 }
