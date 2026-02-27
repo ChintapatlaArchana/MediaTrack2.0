@@ -21,6 +21,7 @@ CampaignMapper {
     @Mapping(target = "targetingJSON", expression = "java(dto.getTargetingJSON() == null ? null : dto.getTargetingJSON().toString())")
     Campaign toEntity(CampaignRequestDTO dto);
 
+    @Mapping(target = "creativeId",source = "creative.creativeId")
     @Mapping(target="pacing", expression = "java(entity.getPacing())")
     @Mapping(target="status", expression = "java(entity.getStatus())")
     @Mapping(target = "targetingJSON", expression = "java(readJson(entity.getTargetingJSON()))")
