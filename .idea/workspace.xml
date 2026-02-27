@@ -4,26 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76659d3e-f0d9-492e-97f4-2ee08d36ac29" name="Changes" comment="&quot;Mapper issue in Pipeline&quot;">
-      <change afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/exception/GlobalException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/CDNControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/DRMEventControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/DeviceControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/PlaybackControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/CDNMapperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/DRMEventMapperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/DeviceMapperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/PlaybackSessionMapperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/service/CDNServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/service/DRMEventServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/service/DeviceServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/service/PlaybackServiceTest.java" afterDir="false" />
+    <list default="true" id="76659d3e-f0d9-492e-97f4-2ee08d36ac29" name="Changes" comment="&quot;implemented testing&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/CDNService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/CDNService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DRMEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DRMEventService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DeviceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DeviceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/PlaybackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/PlaybackService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/DeviceControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/DeviceControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/PlaybackControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/controller/PlaybackControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/CDNMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/CDNMapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/DeviceMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/DeviceMapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/PlaybackSessionMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/mapper/PlaybackSessionMapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/service/PlaybackServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/service/PlaybackServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserAuthentication/target/generated-sources/annotations/com/cts/mapper/UserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/target/generated-sources/annotations/com/cts/mapper/UserMapperImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,113 +58,110 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.APIGatewayMain.executor": "Run",
-    "Application.AdInventoryMain.executor": "Run",
-    "Application.ContentMain.executor": "Run",
-    "Application.DeliveryMain.executor": "Run",
-    "Application.EurekaServer.executor": "Run",
-    "Application.PipelineApplication.executor": "Run",
-    "Application.UserAuthenticationMain.executor": "Run",
-    "JUnit.CDNControllerTest.executor": "Run",
-    "JUnit.CDNEndpointMapperMockitoTest.executor": "Run",
-    "JUnit.CDNMapperTest.executor": "Run",
-    "JUnit.CDNServiceTest.executor": "Run",
-    "JUnit.DRMEventControllerTest.executor": "Run",
-    "JUnit.DRMEventMapperTest.executor": "Run",
-    "JUnit.DRMEventServiceTest.executor": "Run",
-    "JUnit.DeviceControllerTest.executor": "Run",
-    "JUnit.DeviceMapperTest.executor": "Run",
-    "JUnit.DeviceServiceTest.executor": "Run",
-    "JUnit.PlaybackServiceTest.executor": "Run",
-    "Maven.Pipeline [clean].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/2465922/Downloads/MediaTrack2.0",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.APIGatewayMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AdInventoryMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ContentMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DeliveryMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EurekaServer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PipelineApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserAuthenticationMain.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDNControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDNEndpointMapperMockitoTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDNMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDNServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DRMEventControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DRMEventMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DRMEventServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeviceControllerTest.create_ShouldReturn200.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeviceControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeviceMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeviceServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaybackControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaybackServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaybackServiceTest.testCreatePlaybackSession.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaybackServiceTest.testGetAllPlaybackSessions.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaybackSessionMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Pipeline [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.UserAuthentication [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.UserAuthentication [install].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/2465922/Downloads/MediaTrack2.0&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="JUnit.PlaybackServiceTest">
-    <configuration name="CDNControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Delivery" />
+}</component>
+  <component name="RunManager">
+    <configuration name="APIGatewayMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.APIGatewayMain" />
+      <module name="APIGateway" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cts.Test.controller.*" />
+          <option name="PATTERN" value="com.cts.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cts.Test.controller" />
-      <option name="MAIN_CLASS_NAME" value="com.cts.Test.controller.CDNControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CDNEndpointMapperMockitoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Delivery" />
+    <configuration name="ContentMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.ContentMain" />
+      <module name="Content" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cts.Test.mapper.*" />
+          <option name="PATTERN" value="com.cts.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cts.Test.mapper" />
-      <option name="MAIN_CLASS_NAME" value="com.cts.Test.mapper.CDNEndpointMapperMockitoTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CDNMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DeliveryMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.DeliveryMain" />
       <module name="Delivery" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cts.Test.mapper.*" />
+          <option name="PATTERN" value="com.cts.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cts.Test.mapper" />
-      <option name="MAIN_CLASS_NAME" value="com.cts.Test.mapper.CDNMapperTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CDNServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Delivery" />
+    <configuration name="EurekaServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.server.EurekaServer" />
+      <module name="EurekaServer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cts.Test.service.*" />
+          <option name="PATTERN" value="com.cts.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cts.Test.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cts.Test.service.CDNServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlaybackServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Delivery" />
+    <configuration name="UserAuthenticationMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.UserAuthenticationMain" />
+      <module name="UserAuthentication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cts.Test.service.*" />
+          <option name="PATTERN" value="com.cts.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cts.Test.service" />
-      <option name="MAIN_CLASS_NAME" value="com.cts.Test.service.PlaybackServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -189,11 +179,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlaybackServiceTest" />
-        <item itemvalue="JUnit.CDNEndpointMapperMockitoTest" />
-        <item itemvalue="JUnit.CDNServiceTest" />
-        <item itemvalue="JUnit.CDNMapperTest" />
-        <item itemvalue="JUnit.CDNControllerTest" />
+        <item itemvalue="Application.ContentMain" />
+        <item itemvalue="Application.UserAuthenticationMain" />
+        <item itemvalue="Application.DeliveryMain" />
+        <item itemvalue="Application.APIGatewayMain" />
+        <item itemvalue="Application.EurekaServer" />
       </list>
     </recent_temporary>
   </component>
@@ -213,11 +203,20 @@
       <option name="project" value="LOCAL" />
       <updated>1771993136801</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="&quot;implemented testing&quot;">
+      <option name="closed" value="true" />
+      <created>1772165700238</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772165700238</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="&quot;Mapper issue in Pipeline&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Mapper issue in Pipeline&quot;" />
+    <MESSAGE value="&quot;implemented testing&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;implemented testing&quot;" />
   </component>
 </project>

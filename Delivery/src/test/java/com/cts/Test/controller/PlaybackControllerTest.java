@@ -5,103 +5,107 @@ import com.cts.dto.PlaybackSessionRequestDTO;
 import com.cts.dto.PlaybackSessionResponseDTO;
 import com.cts.model.PlaybackSession;
 import com.cts.service.PlaybackService;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
-@WebMvcTest(controllers = PlaybackController.class)
 class PlaybackControllerTest {
 
-    @Autowired private MockMvc mockMvc;
+    @Mock
+    private PlaybackService playbackService;
 
-    // ✅ Mockito mock registered in Spring test context
-    @MockBean private PlaybackService playbackService;
+    @InjectMocks
+    private PlaybackController playbackController;
 
-    // Small helper to set fields on DTOs that have no setters
-    private static void setField(Object target, String fieldName, Object value) throws Exception {
-        Field f = target.getClass().getDeclaredField(fieldName);
-        f.setAccessible(true);
-        f.set(target, value);
+    public PlaybackControllerTest() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    @DisplayName("POST /playback -> 201 (uses Mockito stubbing)")
-    void createPlayback_noSetters_usesMockito() throws Exception {
-        // Request JSON (request DTO has setters or not — doesn't matter)
-        String requestJson = """
-            { "status": "ACTIVE", "assetId": 100 }
-        """;
+    void testCreatePlaybackSession() {
+        // Arrange
+        PlaybackSessionRequestDTO requestDTO = new PlaybackSessionRequestDTO();
+        requestDTO.setAssetId(10L);
+        requestDTO.setStatus("ACTIVE");
 
-        // Build response DTO via reflection (no setters needed)
-        PlaybackSessionResponseDTO resp = new PlaybackSessionResponseDTO();
-        setField(resp, "id", 1L);
-        setField(resp, "status", PlaybackSession.Status.ACTIVE);
-        setField(resp, "userId", 10L);
-        setField(resp, "assetId", 100L);
+        PlaybackSessionResponseDTO responseDTO = new PlaybackSessionResponseDTO();
+        responseDTO.setUserId(123L);
+        responseDTO.setAssetId(10L);
+        responseDTO.setStatus(PlaybackSession.Status.ACTIVE);
 
-        // ✅ Mockito stubbing
-        Mockito.when(playbackService.create(any(PlaybackSessionRequestDTO.class), eq("10")))
-                .thenReturn(resp);
+        // Controller expects X-User-Id header value (as String)
+        when(playbackService.create(requestDTO, "123")).thenReturn(responseDTO);
 
-        mockMvc.perform(post("/playback")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .header("X-User-Id", "10")
-                        .content(requestJson))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.status").value("ACTIVE"))
-                .andExpect(jsonPath("$.userId").value(10))
-                .andExpect(jsonPath("$.assetId").value(100));
+        // Act
+        ResponseEntity<PlaybackSessionResponseDTO> response =
+                playbackController.create(requestDTO, "123");
+
+        // Assert
+        assertEquals(201, response.getStatusCodeValue());
+        assertEquals(123L, response.getBody().getUserId());
+        assertEquals(10L, response.getBody().getAssetId());
+        assertEquals("ACTIVE", response.getBody().getStatus().name());
+        verify(playbackService, times(1)).create(requestDTO, "123");
     }
 
     @Test
-    @DisplayName("GET /playback -> 200 (uses Mockito stubbing)")
-    void getAll_noSetters_usesMockito() throws Exception {
-        PlaybackSessionResponseDTO r1 = new PlaybackSessionResponseDTO();
-        setField(r1, "id", 1L);
-        setField(r1, "status", PlaybackSession.Status.ACTIVE);
-        setField(r1, "userId", 10L);
-        setField(r1, "assetId", 100L);
+    void testGetAllPlaybackSessions() {
+        // Arrange
+        PlaybackSessionResponseDTO dto1 = new PlaybackSessionResponseDTO();
+        dto1.setAssetId(1L);
+        PlaybackSessionResponseDTO dto2 = new PlaybackSessionResponseDTO();
+        dto2.setAssetId(2L);
 
-        PlaybackSessionResponseDTO r2 = new PlaybackSessionResponseDTO();
-        setField(r2, "id", 2L);
-        // Use an enum that exists in your code (e.g., STOPPED if PAUSED doesn't exist)
-        setField(r2, "status", PlaybackSession.Status.COMPLETED);
-        setField(r2, "userId", 11L);
-        setField(r2, "assetId", 101L);
+        when(playbackService.getAll()).thenReturn(List.of(dto1, dto2));
 
-        // ✅ Mockito stubbing
-        Mockito.when(playbackService.getAll()).thenReturn(List.of(r1, r2));
+        // Act
+        ResponseEntity<List<PlaybackSessionResponseDTO>> response =
+                playbackController.getAll();
 
-        mockMvc.perform(get("/playback"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].status").value("ACTIVE"))
-                .andExpect(jsonPath("$[1].status").value("COMPLETED"));
+        // Assert
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(2, response.getBody().size());
+        assertEquals(1L, response.getBody().get(0).getAssetId());
+        assertEquals(2L, response.getBody().get(1).getAssetId());
+        verify(playbackService, times(1)).getAll();
     }
 
     @Test
-    @DisplayName("DELETE /playback/{id} -> 204 (uses Mockito verify)")
-    void deleteById_usesMockitoVerify() throws Exception {
-        mockMvc.perform(delete("/playback/5"))
-                .andExpect(status().isNoContent());
+    void testGetPlaybackSessionById() {
+        // Arrange
+        PlaybackSessionResponseDTO dto = new PlaybackSessionResponseDTO();
+        dto.setUserId(321L);
+        dto.setAssetId(9L);
+        dto.setStatus(PlaybackSession.Status.COMPLETED);
 
-        // ✅ Mockito verification
-        Mockito.verify(playbackService).delete(5L);
+        when(playbackService.getById(5L)).thenReturn(dto);
+
+        // Act
+        ResponseEntity<PlaybackSessionResponseDTO> response =
+                playbackController.getById(5L);
+
+        // Assert
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(321L, response.getBody().getUserId());
+        assertEquals(9L, response.getBody().getAssetId());
+        assertEquals("COMPLETED", response.getBody().getStatus().name());
+        verify(playbackService, times(1)).getById(5L);
+    }
+
+    @Test
+    void testDeletePlaybackSession() {
+        // Act
+        ResponseEntity<Void> response = playbackController.delete(7L);
+
+        // Assert
+        assertEquals(204, response.getStatusCodeValue());
+        verify(playbackService, times(1)).delete(7L);
     }
 }

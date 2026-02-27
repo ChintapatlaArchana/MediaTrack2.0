@@ -1,54 +1,70 @@
-package com.cts.mapper;
+package com.cts.Test.mapper;
 
-import com.cts.dto.PlaybackSessionRequestDTO;
 import com.cts.dto.PlaybackSessionResponseDTO;
+import com.cts.mapper.PlaybackSessionMapper;
 import com.cts.model.PlaybackSession;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class PlaybackSessionMapperBasicTest {
+class PlaybackSessionMapperTest {
 
-    // Use real MapStruct mapper
-    private final PlaybackSessionMapper mapper =
-            Mappers.getMapper(PlaybackSessionMapper.class);
+    // Use the real MapStruct implementation as a Spy (so you can stub/verify if needed).
+    @Spy
+    private PlaybackSessionMapper mapper = Mappers.getMapper(PlaybackSessionMapper.class);
 
     @Test
-    void test_toDto_basic() {
-        // Mock entity so we never call entity.setId() etc.
-        PlaybackSession entity = Mockito.mock(PlaybackSession.class);
+    void toDto_mapsAllFieldsCorrectly() {
+        // Arrange: build an entity with all fields filled
+        PlaybackSession entity = new PlaybackSession();
+        entity.setSessionId(1001L); // will map to response.sessionId
+        entity.setUserId(2002L);
+        entity.setAssetId(3003L);
+        entity.setStartTime(LocalDateTime.of(2026, 2, 1, 10, 15, 30));
+        entity.setEndTime(LocalDateTime.of(2026, 2, 1, 11, 45, 0));
+        entity.setBitrateAvg(3750.5);
+        entity.setBufferEvents(3);
+        entity.setStatus(PlaybackSession.Status.COMPLETED);
 
-        when(entity.getId()).thenReturn(1L);
-        when(entity.getStatus()).thenReturn(PlaybackSession.Status.ACTIVE);
-        when(entity.getUserId()).thenReturn(10L);
-        when(entity.getAssetId()).thenReturn(100L);
-
-        // When
+        // Act
         PlaybackSessionResponseDTO dto = mapper.toDto(entity);
 
-        // Then
-        assertThat(dto.getId()).isEqualTo(1L);
-        assertThat(dto.getStatus()).isEqualTo(PlaybackSession.Status.ACTIVE);
-        assertThat(dto.getUserId()).isEqualTo(10L);
-        assertThat(dto.getAssetId()).isEqualTo(100L);
+        // Assert
+        assertNotNull(dto);
+        assertEquals(1001L, dto.getSessionId());           // id -> sessionId
+        assertEquals(2002L, dto.getUserId());
+        assertEquals(3003L, dto.getAssetId());
+        assertEquals(LocalDateTime.of(2026, 2, 1, 10, 15, 30), dto.getStartTime());
+        assertEquals(LocalDateTime.of(2026, 2, 1, 11, 45, 0), dto.getEndTime());
+        assertEquals(3750.5, dto.getBitrateAvg(), 0.0001);
+        assertEquals(3, dto.getBufferEvents());
+        assertEquals(PlaybackSession.Status.COMPLETED, dto.getStatus());
     }
 
     @Test
-    void test_toEntity_basic() {
-        PlaybackSessionRequestDTO req = new PlaybackSessionRequestDTO();
-        req.setStatus("ACTIVE");
-        req.setAssetId(100L);
+    void toDto_handlesNullsGracefully() {
+        // Arrange: all fields null/defaults
+        PlaybackSession entity = new PlaybackSession();
 
-        PlaybackSession entity = mapper.toEntity(req);
+        // Act
+        PlaybackSessionResponseDTO dto = mapper.toDto(entity);
 
-        // Basic assertions (entity uses real getters)
-        assertThat(entity.getStatus()).isEqualTo(PlaybackSession.Status.ACTIVE);
-        assertThat(entity.getAssetId()).isEqualTo(100L);
+        // Assert
+        assertNotNull(dto);
+        assertNull(dto.getSessionId());
+        assertNull(dto.getUserId());
+        assertNull(dto.getAssetId());
+        assertNull(dto.getStartTime());
+        assertNull(dto.getEndTime());
+        assertEquals(0.0, dto.getBitrateAvg(), 0.0); // primitive double defaults to 0.0 in entity if left unset
+        assertEquals(0, dto.getBufferEvents());      // primitive int defaults to 0
+        assertNull(dto.getStatus());
     }
 }

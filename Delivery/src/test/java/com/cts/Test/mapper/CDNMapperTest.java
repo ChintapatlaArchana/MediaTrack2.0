@@ -11,7 +11,7 @@ import org.mockito.*;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CDNEndpointMapperMockitoTest {
+class CDNMapperTest {
 
     @Mock
     private CDNEndpointMapper mapper;  // <-- Mocking the mapper
@@ -21,9 +21,7 @@ class CDNEndpointMapperMockitoTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    /* -------------------------------------------------------
-       Test: toEntity() using Mockito
-    ------------------------------------------------------- */
+
     @Test
     void testToEntity_WithMockito() {
         CDNEndpointRequestDTO request = new CDNEndpointRequestDTO();
@@ -37,9 +35,7 @@ class CDNEndpointMapperMockitoTest {
         verify(mapper, times(1)).toEntity(request);
     }
 
-    /* -------------------------------------------------------
-       Test: toDto() using Mockito
-    ------------------------------------------------------- */
+
     @Test
     void testToDto_WithMockito() {
         CDNEndpoint entity = new CDNEndpoint();
@@ -53,10 +49,6 @@ class CDNEndpointMapperMockitoTest {
         verify(mapper, times(1)).toDto(entity);
     }
 
-    /* -------------------------------------------------------
-       Test: setting default status Active via mock
-       (We control what mock returns)
-    ------------------------------------------------------- */
     @Test
     void testMockDefaultStatus() {
         CDNEndpointRequestDTO request = new CDNEndpointRequestDTO();

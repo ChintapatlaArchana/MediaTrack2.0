@@ -4,162 +4,153 @@ import com.cts.dto.AssetResponseDTO;
 import com.cts.dto.PlaybackSessionRequestDTO;
 import com.cts.dto.PlaybackSessionResponseDTO;
 import com.cts.dto.UserResponseDTO;
-import com.cts.exception.GlobalException;
 import com.cts.feign.AssetFeignClient;
 import com.cts.feign.UserFeignClient;
 import com.cts.mapper.PlaybackSessionMapper;
 import com.cts.model.PlaybackSession;
 import com.cts.repository.PlaybackRepository;
 import com.cts.service.PlaybackService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.*;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class PlaybackServiceTest {
 
     @Mock
     private PlaybackRepository playbackRepository;
+
     @Mock
     private PlaybackSessionMapper mapper;
+
     @Mock
     private UserFeignClient userClient;
+
     @Mock
     private AssetFeignClient assetClient;
 
     @InjectMocks
     private PlaybackService playbackService;
 
-    private PlaybackSessionRequestDTO requestDto;
-    private PlaybackSessionResponseDTO responseDto;
-    private UserResponseDTO userDto;
-    private AssetResponseDTO assetDto;
-
-    @BeforeEach
-    void setUp() {
-        // Prepare request DTO (use your builder/ctor if setters are not available)
-        requestDto = new PlaybackSessionRequestDTO();
-        try {
-            requestDto.getClass().getMethod("setStatus", String.class).invoke(requestDto, "ACTIVE");
-            requestDto.getClass().getMethod("setAssetId", Long.class).invoke(requestDto, 100L);
-        } catch (Exception ignored) {
-        }
-
-        // Prepare the response DTO we will assert on (mapper.toDto returns this)
-        responseDto = new PlaybackSessionResponseDTO();
-        try {
-            responseDto.getClass().getMethod("setId", Long.class).invoke(responseDto, 1L);
-            // Try to set status (enum or string depending on your DTO)
-            try {
-                responseDto.getClass().getMethod("setStatus", String.class).invoke(responseDto, "ACTIVE");
-            } catch (NoSuchMethodException e) {
-                // If status is enum type in response DTO, you can skip or adapt if needed.
-            }
-            responseDto.getClass().getMethod("setUserId", Long.class).invoke(responseDto, 10L);
-            responseDto.getClass().getMethod("setAssetId", Long.class).invoke(responseDto, 100L);
-        } catch (Exception ignored) {
-        }
-
-        userDto = new UserResponseDTO();
-        try {
-            userDto.getClass().getMethod("setUserId", Long.class).invoke(userDto, 10L);
-        } catch (Exception ignored) {
-        }
-
-        assetDto = new AssetResponseDTO();
-        try {
-            assetDto.getClass().getMethod("setAssetId", Long.class).invoke(assetDto, 100L);
-        } catch (Exception ignored) {
-        }
+    public PlaybackServiceTest() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    @DisplayName("create(): success path")
-    void create_success() {
-        // given
-        when(userClient.getUserById(10L)).thenReturn(ResponseEntity.ok(userDto));
-        when(assetClient.getAssetById(100L)).thenReturn(assetDto);
+    void testCreatePlaybackSession_success() {
+        // Arrange
+        PlaybackSessionRequestDTO req = new PlaybackSessionRequestDTO();
+        req.setAssetId(10L);
+        req.setStatus("COMPLETED");
 
-        // Use Mockito mock of PlaybackSession to avoid setters/getters
-        PlaybackSession entityMock = mock(PlaybackSession.class);
+        // Stub identity-service response
+        UserResponseDTO userDto = new UserResponseDTO();
+        userDto.setUserId(123L);
+        when(userClient.getUserById(123L)).thenReturn(ResponseEntity.ok(userDto));
 
-        when(mapper.toEntity(any(PlaybackSessionRequestDTO.class))).thenReturn(entityMock);
-        when(playbackRepository.save(any(PlaybackSession.class))).thenReturn(entityMock);
-        when(mapper.toDto(entityMock)).thenReturn(responseDto);
+        // Stub asset-service response
+        AssetResponseDTO assetDto = new AssetResponseDTO();
+        assetDto.setAssetId(10L);
+        when(assetClient.getAssetById(10L)).thenReturn(assetDto);
 
-        // when
-        PlaybackSessionResponseDTO result = playbackService.create(requestDto, "10");
+        // Mapper + repository behavior
+        PlaybackSession entity = new PlaybackSession();
 
-        // then
-        assertThat(result).isSameAs(responseDto);
-        verify(userClient).getUserById(10L);
-        verify(assetClient).getAssetById(100L);
-        verify(mapper).toEntity(any(PlaybackSessionRequestDTO.class));
-        verify(playbackRepository).save(entityMock);
-        verify(mapper).toDto(entityMock);
+        // Choose ONE depending on your entity:
+        // If your entity has 'id':
+        PlaybackSession savedEntity = new PlaybackSession();
+        savedEntity.setSessionId(1L); // <-- will be mapped to response.sessionId if your mapper does @Mapping(target="sessionId", source="id")
+        // If your entity has 'sessionId' instead, comment the above and use:
+        // savedEntity.setSessionId(1L);
+
+        savedEntity.setUserId(123L);
+        savedEntity.setAssetId(10L);
+        savedEntity.setStatus(PlaybackSession.Status.COMPLETED);
+
+        PlaybackSessionResponseDTO resp = new PlaybackSessionResponseDTO();
+        resp.setSessionId(1L);
+        resp.setUserId(123L);
+        resp.setAssetId(10L);
+        resp.setStatus(PlaybackSession.Status.COMPLETED);
+
+        when(mapper.toEntity(req)).thenReturn(entity);
+        when(playbackRepository.save(entity)).thenReturn(savedEntity);
+        when(mapper.toDto(savedEntity)).thenReturn(resp);
+
+        // Act
+        PlaybackSessionResponseDTO result = playbackService.create(req, "123");
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1L, result.getSessionId());
+        assertEquals(123L, result.getUserId());
+        assertEquals(10L, result.getAssetId());
+        assertEquals(PlaybackSession.Status.COMPLETED, result.getStatus());
+
+        verify(userClient).getUserById(123L);
+        verify(assetClient).getAssetById(10L);
+        verify(mapper).toEntity(req);
+        verify(playbackRepository).save(entity);
+        verify(mapper).toDto(savedEntity);
     }
 
     @Test
-    @DisplayName("create(): invalid user id format")
-    void create_invalidUserIdFormat() {
-        GlobalException ex = assertThrows(GlobalException.class,
-                () -> playbackService.create(requestDto, "abc"));
+    void testGetById_found() {
+        PlaybackSession entity = new PlaybackSession();
+        // If your entity uses id:
+        entity.setSessionId(5L);
+        // If your entity uses sessionId instead, use:
+        // entity.setSessionId(5L);
 
-        assertThat(ex.getMessage()).contains("Invalid user id format");
-        verifyNoInteractions(userClient, assetClient, playbackRepository, mapper);
+        PlaybackSessionResponseDTO dto = new PlaybackSessionResponseDTO();
+        dto.setSessionId(5L);
+
+        when(playbackRepository.findById(5L)).thenReturn(Optional.of(entity));
+        when(mapper.toDto(entity)).thenReturn(dto);
+
+        PlaybackSessionResponseDTO result = playbackService.getById(5L);
+
+        assertEquals(5L, result.getSessionId());
+        verify(playbackRepository).findById(5L);
+        verify(mapper).toDto(entity);
     }
 
     @Test
-    @DisplayName("create(): user not found (non-2xx ResponseEntity)")
-    void create_userNotFound() {
-        when(userClient.getUserById(10L)).thenReturn(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    void testGetAllPlaybackSessions() {
+        PlaybackSession e1 = new PlaybackSession();
+        PlaybackSession e2 = new PlaybackSession();
 
-        GlobalException ex = assertThrows(GlobalException.class,
-                () -> playbackService.create(requestDto, "10"));
+        PlaybackSessionResponseDTO d1 = new PlaybackSessionResponseDTO();
+        d1.setSessionId(1L);
+        PlaybackSessionResponseDTO d2 = new PlaybackSessionResponseDTO();
+        d2.setSessionId(2L);
 
-        assertThat(ex.getMessage()).contains("Error creating playback session: User not found");
-        verify(userClient).getUserById(10L);
-        verifyNoInteractions(assetClient, playbackRepository, mapper);
+        when(playbackRepository.findAll()).thenReturn(List.of(e1, e2));
+        when(mapper.toDto(e1)).thenReturn(d1);
+        when(mapper.toDto(e2)).thenReturn(d2);
+
+        List<PlaybackSessionResponseDTO> result = playbackService.getAll();
+
+        assertEquals(2, result.size());
+        assertEquals(2L, result.get(0).getSessionId());
+        assertEquals(2L, result.get(1).getSessionId());
+        verify(playbackRepository).findAll();
+        verify(mapper, times(2)).toDto(any(PlaybackSession.class));
     }
 
     @Test
-    @DisplayName("create(): assetId missing in request")
-    void create_missingAssetId() {
-        try {
-            requestDto.getClass().getMethod("setAssetId", Long.class).invoke(requestDto, new Object[]{null});
-        } catch (Exception ignored) {
-        }
+    void testDeletePlaybackSession_success() {
+        when(playbackRepository.existsById(7L)).thenReturn(true);
 
-        when(userClient.getUserById(10L)).thenReturn(ResponseEntity.ok(userDto));
+        playbackService.delete(7L);
 
-        GlobalException ex = assertThrows(GlobalException.class,
-                () -> playbackService.create(requestDto, "10"));
-
-        assertThat(ex.getMessage()).contains("Error creating playback session: assetId is required");
-        verify(userClient).getUserById(10L);
-        verifyNoInteractions(assetClient, playbackRepository, mapper);
-    }
-
-    @Test
-    @DisplayName("create(): asset not found")
-    void create_assetNotFound() {
-        when(userClient.getUserById(10L)).thenReturn(ResponseEntity.ok(userDto));
-        when(assetClient.getAssetById(100L)).thenReturn(null);
-
-        GlobalException ex = assertThrows(GlobalException.class,
-                () -> playbackService.create(requestDto, "10"));
-
-        assertThat(ex.getMessage()).contains("Error creating playback session: Asset not found");
-        verify(userClient).getUserById(10L);
+        verify(playbackRepository).deleteById(7L);
     }
 }

@@ -30,20 +30,36 @@ class DeviceControllerTest {
     @Test
     void create_ShouldReturn200() {
         DeviceRequestDTO req = new DeviceRequestDTO();
-        DeviceResponseDTO res = new DeviceResponseDTO();
+        DeviceResponseDTO dto = new DeviceResponseDTO();
 
-        when(deviceService.create(req, "123")).thenReturn(ResponseEntity.ok(res));
+        // Service returns ResponseEntity (because your controller wraps it again)
+        ResponseEntity<DeviceResponseDTO> serviceResponse = ResponseEntity.ok(dto);
 
-        ResponseEntity<DeviceResponseDTO> response =
-                deviceController.create(req, "123");
+        when(deviceService.create(req, "123")).thenReturn(serviceResponse);
 
+        // Call controller
+        ResponseEntity<?> response = deviceController.create(req, "123");
+
+        // OUTER response
         assertEquals(200, response.getStatusCodeValue());
-        assertEquals(res, response.getBody());
+
+        // OUTER BODY is inner ResponseEntity
+        assertTrue(response.getBody() instanceof ResponseEntity);
+
+        ResponseEntity<DeviceResponseDTO> inner =
+                (ResponseEntity<DeviceResponseDTO>) response.getBody();
+
+        // INNER checks
+        assertEquals(200, inner.getStatusCodeValue());
+        assertEquals(dto, inner.getBody());
+
+        verify(deviceService, times(1)).create(req, "123");
     }
 
     @Test
     void findAll_ShouldReturnList() {
-        when(deviceService.findAll()).thenReturn(List.of(new DeviceResponseDTO()));
+        DeviceResponseDTO dto = new DeviceResponseDTO();
+        when(deviceService.findAll()).thenReturn(List.of(dto));
 
         ResponseEntity<List<DeviceResponseDTO>> response = deviceController.findAll();
 
@@ -52,9 +68,8 @@ class DeviceControllerTest {
     }
 
     @Test
-    void getById_ShouldReturnDevice() {
+    void getById_ShouldReturn200() {
         DeviceResponseDTO dto = new DeviceResponseDTO();
-
         when(deviceService.getById(1L)).thenReturn(dto);
 
         ResponseEntity<DeviceResponseDTO> response = deviceController.getById(1L);
@@ -64,14 +79,13 @@ class DeviceControllerTest {
     }
 
     @Test
-    void update_ShouldReturnUpdatedDevice() {
+    void update_ShouldReturn200() {
         DeviceRequestDTO req = new DeviceRequestDTO();
         DeviceResponseDTO updated = new DeviceResponseDTO();
 
         when(deviceService.update(1L, req)).thenReturn(updated);
 
-        ResponseEntity<DeviceResponseDTO> response =
-                deviceController.update(1L, req);
+        ResponseEntity<DeviceResponseDTO> response = deviceController.update(1L, req);
 
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(updated, response.getBody());

@@ -9,12 +9,14 @@ import com.cts.model.PlaybackSession;
 import com.cts.repository.DRMEventRepository;
 import com.cts.repository.PlaybackRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @Transactional
+@Slf4j
 public class DRMEventService {
 
     private final DRMEventRepository drmEventRepository;
@@ -29,52 +31,86 @@ public class DRMEventService {
         this.drmEventMapper = drmEventMapper;
     }
 
+    // Create
     public DRMEventResponseDTO create(DRMEventRequestDTO dto) {
+        log.info("Creating DRM event for playbackSessionId: {}", dto.getPlaybackSessionId());
         try {
             DRMEvent entity = drmEventMapper.toEntity(dto);
 
             if (dto.getPlaybackSessionId() == null) {
+                log.error("playbackSessionId is required");
                 throw new GlobalException("playbackSessionId is required");
             }
 
             PlaybackSession session = playbackSessionRepository.findById(dto.getPlaybackSessionId())
-                    .orElseThrow(() -> new GlobalException("PlaybackSession not found: " + dto.getPlaybackSessionId()));
+                    .orElseThrow(() -> {
+                        log.error("PlaybackSession not found: {}", dto.getPlaybackSessionId());
+                        return new GlobalException("PlaybackSession not found: " + dto.getPlaybackSessionId());
+                    });
+
             entity.setPlaybackSession(session);
 
             DRMEvent saved = drmEventRepository.save(entity);
+            log.info("DRM event created successfully with id: {}", saved.getDrmEventID());
             return drmEventMapper.toDto(saved);
         } catch (GlobalException ex) {
+            log.error("Error creating DRM event: {}", ex.getMessage());
             throw new GlobalException("Error creating DRM event: " + ex.getMessage());
         }
     }
 
+    // Read All (optionally filtered by playbackSessionId)
     @Transactional(Transactional.TxType.SUPPORTS)
     public List<DRMEventResponseDTO> findAll(Long sessionId) {
         try {
             List<DRMEvent> events = (sessionId == null)
                     ? drmEventRepository.findAll()
                     : drmEventRepository.findByPlaybackSession_SessionId(sessionId);
+
+            if (events.isEmpty()) {
+                if (sessionId == null) {
+                    log.error("No DRM events found");
+                    throw new GlobalException("No DRM events found");
+                } else {
+                    log.error("No DRM events found for playbackSessionId: {}", sessionId);
+                    throw new GlobalException("No DRM events found for playbackSessionId: " + sessionId);
+                }
+            }
+
+            log.info("Retrieved {} DRM events{}", events.size(),
+                    sessionId == null ? "" : (" for playbackSessionId: " + sessionId));
             return events.stream().map(drmEventMapper::toDto).toList();
         } catch (GlobalException ex) {
+            log.error("Error fetching DRM events: {}", ex.getMessage());
             throw new GlobalException("Error fetching DRM events: " + ex.getMessage());
         }
     }
 
+    // Read by ID
     @Transactional(Transactional.TxType.SUPPORTS)
     public DRMEventResponseDTO findById(Long id) {
         try {
             DRMEvent entity = drmEventRepository.findById(id)
-                    .orElseThrow(() -> new GlobalException("DRMEvent not found: " + id));
+                    .orElseThrow(() -> {
+                        log.error("DRMEvent not found: {}", id);
+                        return new GlobalException("DRMEvent not found: " + id);
+                    });
+            log.info("Found DRM event with id: {}", id);
             return drmEventMapper.toDto(entity);
         } catch (GlobalException ex) {
+            log.error("Error fetching DRM event id {}: {}", id, ex.getMessage());
             throw new GlobalException("Error fetching DRM event: " + ex.getMessage());
         }
     }
 
+    // Update
     public DRMEventResponseDTO update(Long id, DRMEventRequestDTO dto) {
         try {
             DRMEvent entity = drmEventRepository.findById(id)
-                    .orElseThrow(() -> new GlobalException("DRMEvent not found: " + id));
+                    .orElseThrow(() -> {
+                        log.error("Cannot update. DRMEvent not found: {}", id);
+                        return new GlobalException("DRMEvent not found: " + id);
+                    });
 
             // Update simple fields via mapper
             drmEventMapper.updateEntity(entity, dto);
@@ -82,24 +118,33 @@ public class DRMEventService {
             // Optionally update playbackSession if provided
             if (dto.getPlaybackSessionId() != null) {
                 PlaybackSession session = playbackSessionRepository.findById(dto.getPlaybackSessionId())
-                        .orElseThrow(() -> new GlobalException("PlaybackSession not found: " + dto.getPlaybackSessionId()));
+                        .orElseThrow(() -> {
+                            log.error("PlaybackSession not found: {}", dto.getPlaybackSessionId());
+                            return new GlobalException("PlaybackSession not found: " + dto.getPlaybackSessionId());
+                        });
                 entity.setPlaybackSession(session);
             }
 
             DRMEvent saved = drmEventRepository.save(entity);
+            log.info("DRM event updated successfully with id: {}", id);
             return drmEventMapper.toDto(saved);
         } catch (GlobalException ex) {
+            log.error("Error updating DRM event id {}: {}", id, ex.getMessage());
             throw new GlobalException("Error updating DRM event: " + ex.getMessage());
         }
     }
 
+    // Delete
     public void delete(Long id) {
         try {
             if (!drmEventRepository.existsById(id)) {
+                log.error("Cannot delete. DRMEvent not found: {}", id);
                 throw new GlobalException("DRMEvent not found: " + id);
             }
             drmEventRepository.deleteById(id);
+            log.info("Deleted DRM event with id: {}", id);
         } catch (GlobalException ex) {
+            log.error("Error deleting DRM event id {}: {}", id, ex.getMessage());
             throw new GlobalException("Error deleting DRM event: " + ex.getMessage());
         }
     }
