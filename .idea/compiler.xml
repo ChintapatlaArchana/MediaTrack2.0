@@ -8,10 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
-        <module name="APIGateway" />
         <module name="SpringConfig" />
+        <module name="APIGateway" />
       </profile>
-      <profile name="Annotation profile for Notifications" enabled="true">
+      <profile name="Annotation profile for Analytics Service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -22,21 +22,8 @@
         </processorPath>
         <module name="Delivery" />
         <module name="Notifications" />
-        <module name="Content" />
         <module name="Analytics" />
-      </profile>
-      <profile name="Annotation profile for UserAuthentication" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
-        </processorPath>
-        <module name="UserAuthentication" />
-        <module name="Subscription" />
-        <module name="Pipeline (1)" />
+        <module name="Content" />
       </profile>
       <profile name="Annotation profile for AdInventory" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -47,6 +34,10 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
+        <module name="Pipeline (1)" />
+        <module name="AdInventory" />
+        <module name="Subscription" />
+        <module name="UserAuthentication" />
         <module name="Pipeline" />
       </profile>
     </annotationProcessing>
@@ -58,6 +49,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="APIGateway" options="-parameters" />
+      <module name="AdInventory" options="-parameters" />
       <module name="Analytics" options="-parameters" />
       <module name="Content" options="-parameters" />
       <module name="Delivery" options="-parameters" />

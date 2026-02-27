@@ -2,6 +2,7 @@ package com.cts.service;
 
 import com.cts.dto.CDNEndpointRequestDTO;
 import com.cts.dto.CDNEndpointResponseDTO;
+import com.cts.exception.GlobalException;
 import com.cts.mapper.CDNEndpointMapper;
 import com.cts.model.CDNEndpoint;
 import com.cts.repository.CDNRepository;
@@ -23,53 +24,73 @@ public class CDNService {
     }
 
     public CDNEndpointResponseDTO create(CDNEndpointRequestDTO request) {
-        CDNEndpoint entity = cdnEndpointMapper.toEntity(request);
-        CDNEndpoint saved = cdnRepository.save(entity);
-        return cdnEndpointMapper.toDto(saved);
+        try {
+            CDNEndpoint entity = cdnEndpointMapper.toEntity(request);
+            CDNEndpoint saved = cdnRepository.save(entity);
+            return cdnEndpointMapper.toDto(saved);
+        } catch (GlobalException ex) {
+            throw new GlobalException("Error creating CDN endpoint: " + ex.getMessage());
+        }
     }
 
     @Transactional(Transactional.TxType.SUPPORTS)
     public List<CDNEndpointResponseDTO> findAll() {
-        return cdnRepository.findAll()
-                .stream()
-                .map(cdnEndpointMapper::toDto)
-                .toList();
+        try {
+            return cdnRepository.findAll().stream()
+                    .map(cdnEndpointMapper::toDto)
+                    .toList();
+        } catch (GlobalException ex) {
+            throw new GlobalException("Error fetching CDN endpoints: " + ex.getMessage());
+        }
     }
 
     @Transactional(Transactional.TxType.SUPPORTS)
     public CDNEndpointResponseDTO findById(Long id) {
-        CDNEndpoint entity = cdnRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CDNEndpoint not found: " + id));
-        return cdnEndpointMapper.toDto(entity);
+        try {
+            CDNEndpoint entity = cdnRepository.findById(id)
+                    .orElseThrow(() -> new GlobalException("CDN endpoint not found with id: " + id));
+            return cdnEndpointMapper.toDto(entity);
+        } catch (GlobalException ex) {
+            throw new GlobalException("Error fetching CDN endpoint: " + ex.getMessage());
+        }
     }
 
     public CDNEndpointResponseDTO update(Long id, CDNEndpointRequestDTO request) {
-        CDNEndpoint entity = cdnRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CDNEndpoint not found: " + id));
+        try {
+            CDNEndpoint entity = cdnRepository.findById(id)
+                    .orElseThrow(() -> new GlobalException("CDN endpoint not found with id: " + id));
 
-        entity.setName(request.getName());
-        entity.setBaseURL(request.getBaseURL());
-        entity.setRegion(request.getRegion());
-        entity.setStatus(request.getStatus());
+            entity.setName(request.getName());
+            entity.setBaseURL(request.getBaseURL());
+            entity.setRegion(request.getRegion());
+            entity.setStatus(request.getStatus());
 
-        CDNEndpoint saved = cdnRepository.save(entity);
-        return cdnEndpointMapper.toDto(saved);
+            CDNEndpoint saved = cdnRepository.save(entity);
+            return cdnEndpointMapper.toDto(saved);
+        } catch (GlobalException ex) {
+            throw new GlobalException("Error updating CDN endpoint: " + ex.getMessage());
+        }
     }
 
     public void delete(Long id) {
-        CDNEndpoint entity = cdnRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CDNEndpoint not found: " + id));
-        cdnRepository.delete(entity);
+        try {
+            CDNEndpoint entity = cdnRepository.findById(id)
+                    .orElseThrow(() -> new GlobalException("CDN endpoint not found with id: " + id));
+            cdnRepository.delete(entity);
+        } catch (GlobalException ex) {
+            throw new GlobalException("Error deleting CDN endpoint: " + ex.getMessage());
+        }
     }
 
     public CDNEndpointResponseDTO updateStatus(Long id, CDNEndpoint.Status status) {
-        CDNEndpoint entity = cdnRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CDNEndpoint not found: " + id));
-
-        entity.setStatus(status);
-        CDNEndpoint saved = cdnRepository.save(entity);
-
-        return cdnEndpointMapper.toDto(saved);
+        try {
+            CDNEndpoint entity = cdnRepository.findById(id)
+                    .orElseThrow(() -> new GlobalException("CDN endpoint not found with id: " + id));
+            entity.setStatus(status);
+            CDNEndpoint saved = cdnRepository.save(entity);
+            return cdnEndpointMapper.toDto(saved);
+        } catch (GlobalException ex) {
+            throw new GlobalException("Error updating CDN endpoint status: " + ex.getMessage());
+        }
     }
 }
-
