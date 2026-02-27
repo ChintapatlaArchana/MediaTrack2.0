@@ -1,18 +1,15 @@
 package com.cts.dto;
 
-import com.cts.model.AdImpression;
-import com.cts.model.Campaign.TargetingJSON;
 import com.cts.model.Campaign.Pacing;
 import com.cts.model.Campaign.Status;
 
 
-import com.cts.model.Creative;
 import lombok.Data;
 import tools.jackson.databind.JsonNode;
 
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 @Data
 public class CampaignResponseDTO {
     private Long campaignId;
