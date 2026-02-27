@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.function.Function;
 
+/**
+ * Author: Archana Chintapatla
+ * Date: 26-02-2026
+ */
 @Component
 public class JwtService {
     public final String secret="Sf4ZTQfXYN6csyxi3ZR4ENqngvGi6eazTlRXgcRXMSI";

@@ -26,15 +26,6 @@ public class UserController {
     @Autowired
     private  UserService userService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JWTService jwtService;
-
-    @Autowired
-    private UserRepository userRepository;
-
     @PostMapping("/add")
     public ResponseEntity<UserResponseDTO> create(@RequestBody UserRequestDTO dto) {
         try {
@@ -46,23 +37,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String generateToken(@RequestBody AuthRequest authRequest) {
-        System.out.println("Controller came here line 51");
-        try {
-            Authentication authentication =  authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-            System.out.println("Controller came here line 55");
-            if(authentication.isAuthenticated()) {
-                System.out.println("Generating token");
-                User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
-                return jwtService.generateToken(String.valueOf(user.getUserId()));
-            } else {
-                throw new IllegalArgumentException("User Not Found");
-            }
-        } catch (AuthenticationException e){
-            throw new RuntimeException(e.getMessage());
-        }
-
-
+        return userService.generateToken(authRequest);
     }
 
     @GetMapping("/id/{id}")

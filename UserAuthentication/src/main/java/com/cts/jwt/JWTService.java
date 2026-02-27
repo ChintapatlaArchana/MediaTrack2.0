@@ -1,6 +1,5 @@
 package com.cts.jwt;
 
-import com.cts.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

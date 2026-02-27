@@ -1,18 +1,26 @@
 package com.cts.service;
 
+import com.cts.dto.AuthRequest;
 import com.cts.dto.UserRequestDTO;
 import com.cts.dto.UserResponseDTO;
 import com.cts.exception.GlobalException;
+import com.cts.jwt.JWTService;
 import com.cts.mapper.UserMapper;
 import com.cts.model.User;
 import com.cts.principal.UserPrincipal;
 import com.cts.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,66 +31,94 @@ public class UserService implements UserDetailsService{
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private AuthenticationManager authenticationManager;
+    private JWTService jwtService;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper){
+    public UserService(UserRepository userRepository, UserMapper userMapper, JWTService jwtService, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+        log.error("User service is being used");
+
     }
+
     public UserResponseDTO create(UserRequestDTO dto) {
         if(userRepository.existsByEmail(dto.getEmail())) {
+            log.error("User cannot be created as email already exists");
             throw new GlobalException("Email is already registered");
         } else if (userRepository.existsByPhone(dto.getPhone())) {
+            log.error("User cannot be created as phone number already exists");
             throw new GlobalException("Phone number is already registered");
         }
         User entity = userMapper.toEntity(dto);
         entity.setPassword(new BCryptPasswordEncoder(12).encode(dto.getPassword())); // glue step
         User saved = userRepository.save(entity);
+        log.info("New got user added");
         return userMapper.toDTO(saved);
+    }
+
+    public String generateToken(@RequestBody AuthRequest authRequest) {
+        System.out.println("Controller came here line 51");
+        try {
+            Authentication authentication =  authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            if(authentication.isAuthenticated()) {
+                log.info("Generating user token");
+                User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
+                return jwtService.generateToken(String.valueOf(user.getUserId()));
+            } else {
+                log.error("UserId is not found to generate user token");
+                throw new IllegalArgumentException("User Not Found");
+            }
+        } catch (AuthenticationException e){
+            log.error("Error in generating user token "+e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public List<UserResponseDTO> getAllUsers() {
         List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
         if(userRepository.findAll().size() == 0) {
+            log.info("No user got registered to get all users list");
             throw new GlobalException("No one got registered");
         } else {
             for (User u: userRepository.findAll()) {
                 userResponseDTOList.add(userMapper.toDTO(u));
             }
         }
+        log.info("Returning all users list");
         return userResponseDTOList;
     }
 
     public UserResponseDTO getUserById(long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
+        User user;
+        try {
+            user = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
+            log.info("User is fetched using userId");
+        } catch (Exception e) {
+            log.error("Error in getting user using userId"+e.getMessage());
+            throw new GlobalException("User Id not found");
+        }
         return userMapper.toDTO(user);
     }
 
     public UserResponseDTO getUserByEmail(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new GlobalException("Invalid Email Id"));
+        User user;
+        try {
+            user = userRepository.findByEmail(email).orElseThrow(() -> new GlobalException("Invalid Email Id"));
+            log.info("User is fetched using email");
+        } catch (Exception e) {
+            log.error("Error in getting user using email"+e.getMessage());
+            throw new GlobalException("User Id not found");
+        }
         return userMapper.toDTO(user);
     }
-
-//    public UserResponseDTO loginWithEmail(UserRequestDTO dto) {
-//        User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(()-> new GlobalException("Invalid credentials"));
-//        boolean ok = encoder.matches(dto.getPassword(), user.getPassword());
-//        if(!ok) {
-//            throw new GlobalException("Invalid credentials");
-//        }
-//        return userMapper.toDTO(user);
-//    }
-//
-//    public UserResponseDTO loginWithPhoneNo(UserRequestDTO dto) {
-//        User user = userRepository.findByPhone(dto.getPhone()).orElseThrow(()-> new GlobalException("Invalid credentials"));
-//        boolean ok = encoder.matches(dto.getPassword(), user.getPassword());
-//        if(!ok) {
-//            throw new GlobalException("Invalid credentials");
-//        }
-//        return userMapper.toDTO(user);
-//    }
 
     public UserResponseDTO updateUserEmail(long id,String oldEmail ,String newEmail) {
         User userById = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
         if(!userById.getEmail().equals(oldEmail)) {
+            log.error("User want to change password but old password is not matching");
             throw new GlobalException("Invalid Old Email");
         } else {
             userById.setEmail(newEmail);
@@ -100,16 +136,6 @@ public class UserService implements UserDetailsService{
         return userMapper.toDTO(userById);
     }
 
-//    public UserResponseDTO updateUserPassword(long id, String oldPassword, String newPassword) {
-//        User userById = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
-//        if (!encoder.matches(oldPassword, newPassword)) {
-//            throw new GlobalException("Invalid Old Password");
-//        } else {
-//            userById.setPhone(newPassword);
-//        }
-//        return userMapper.toDTO(userById);
-//    }
-
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
@@ -123,4 +149,16 @@ public class UserService implements UserDetailsService{
         }
         return new UserPrincipal(user);
     }
+
+//    public UserResponseDTO updateUserPassword(long id, String oldPassword, String newPassword) {
+//        User userById = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
+//        if (!encoder.matches(oldPassword, newPassword)) {
+//            throw new GlobalException("Invalid Old Password");
+//        } else {
+//            userById.setPhone(newPassword);
+//        }
+//        return userMapper.toDTO(userById);
+//    }
+
+
 }

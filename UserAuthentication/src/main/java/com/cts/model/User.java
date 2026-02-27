@@ -1,8 +1,10 @@
 package com.cts.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+//@Data
 @Table(name = "user1")
 public class User {
     @Id

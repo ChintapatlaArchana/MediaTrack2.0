@@ -2,13 +2,12 @@ package com.cts.feign;
 
 import com.cts.dto.PlaybackSessionResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "delivery-service")
+@FeignClient(name = "delivery")
 public interface PlaybackSessionFeign {
-    @GetMapping("playback/{id}")
+    @GetMapping("/playback/{id}")
     PlaybackSessionResponseDTO getById(@PathVariable long Id);
 
 }
