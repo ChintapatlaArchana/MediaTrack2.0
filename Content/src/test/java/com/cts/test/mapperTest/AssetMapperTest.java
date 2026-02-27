@@ -3,23 +3,25 @@ package com.cts.test.mapperTest;
 import com.cts.dto.AssetRequestDTO;
 import com.cts.dto.AssetResponseDTO;
 import com.cts.mapper.AssetMapper;
+import com.cts.mapper.AssetMapperImpl; // ✅ Import the generated implementation
 import com.cts.model.Asset;
 import com.cts.model.Title;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 class AssetMapperTest {
 
-    @Autowired
     private AssetMapper mapper;
 
+    @BeforeEach
+    void setUp() {
+        mapper = new AssetMapperImpl(); // ✅ Use the generated implementation
+    }
 
 
     @Test

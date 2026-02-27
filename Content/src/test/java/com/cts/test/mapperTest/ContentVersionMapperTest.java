@@ -4,19 +4,26 @@ package com.cts.test.mapperTest;
 import com.cts.dto.ContentVersionRequestDTO;
 import com.cts.dto.ContentVersionResponseDTO;
 import com.cts.mapper.ContentVersionMapper;
+import com.cts.mapper.ContentVersionMapperImpl;
 import com.cts.model.Asset;
 import com.cts.model.ContentVersion;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+
 class ContentVersionMapperTest {
 
-    @Autowired
+
     private ContentVersionMapper mapper;
+
+    @BeforeEach
+    void setUp(){
+        mapper = new ContentVersionMapperImpl();
+    }
 
     @Test
     void testMapVersionLabelFromString() {
