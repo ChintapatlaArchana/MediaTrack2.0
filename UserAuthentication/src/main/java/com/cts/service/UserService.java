@@ -10,7 +10,6 @@ import com.cts.model.User;
 import com.cts.principal.UserPrincipal;
 import com.cts.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -45,10 +44,10 @@ public class UserService implements UserDetailsService{
 
     public UserResponseDTO create(UserRequestDTO dto) {
         if(userRepository.existsByEmail(dto.getEmail())) {
-            log.error("User cannot be created as email already exists");
+            log.warn("User cannot be created as email already exists");
             throw new GlobalException("Email is already registered");
         } else if (userRepository.existsByPhone(dto.getPhone())) {
-            log.error("User cannot be created as phone number already exists");
+            log.warn("User cannot be created as phone number already exists");
             throw new GlobalException("Phone number is already registered");
         }
         User entity = userMapper.toEntity(dto);
@@ -68,7 +67,7 @@ public class UserService implements UserDetailsService{
                 User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
                 return jwtService.generateToken(String.valueOf(user.getUserId()));
             } else {
-                log.error("UserId is not found to generate user token");
+                log.warn("UserId is not found to generate user token");
                 throw new IllegalArgumentException("User Not Found");
             }
         } catch (AuthenticationException e){
@@ -80,7 +79,7 @@ public class UserService implements UserDetailsService{
     public List<UserResponseDTO> getAllUsers() {
         List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
         if(userRepository.findAll().size() == 0) {
-            log.info("No user got registered to get all users list");
+            log.warn("No user got registered to get all users list");
             throw new GlobalException("No one got registered");
         } else {
             for (User u: userRepository.findAll()) {
@@ -95,7 +94,7 @@ public class UserService implements UserDetailsService{
         User user;
         try {
             user = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
-            log.info("User is fetched using userId");
+            log.info("User data is getting fetched using userId");
         } catch (Exception e) {
             log.error("Error in getting user using userId"+e.getMessage());
             throw new GlobalException("User Id not found");
@@ -118,7 +117,7 @@ public class UserService implements UserDetailsService{
     public UserResponseDTO updateUserEmail(long id,String oldEmail ,String newEmail) {
         User userById = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
         if(!userById.getEmail().equals(oldEmail)) {
-            log.error("User want to change password but old password is not matching");
+            log.warn("User want to change password but old password is not matching");
             throw new GlobalException("Invalid Old Email");
         } else {
             userById.setEmail(newEmail);
@@ -129,6 +128,7 @@ public class UserService implements UserDetailsService{
     public UserResponseDTO updateUserPhoneNo(long id, String oldPhoneNo, String newPhoneNo) {
         User userById = userRepository.findById(id).orElseThrow(() -> new GlobalException("Invalid User Id"));
         if (!userById.getPhone().equals(oldPhoneNo)) {
+            log.warn("User want to change password but old email is not matching");
             throw new GlobalException("Invalid Old Phone Number");
         } else {
             userById.setPhone(newPhoneNo);

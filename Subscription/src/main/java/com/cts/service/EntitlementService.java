@@ -42,7 +42,7 @@ public class EntitlementService {
                 log.info("Entitlement added successfully");
                 return new ResponseEntity(entitlementMapper.toDto(entitlementRepository.save(entitlement)), HttpStatus.CREATED);
             }
-            log.error("Problem in adding entitlement- User Id not found");
+            log.warn("Problem in adding entitlement- User Id not found");
             throw new IllegalArgumentException("User Id not found");
         } catch (FeignException.FeignClientException e) {
             log.error("Feign Error in adding entitlement"+e.getMessage());
@@ -54,7 +54,7 @@ public class EntitlementService {
         List<EntitlementResponseDTO> entitlementList = new ArrayList<>();
         try {
             if(entitlementRepository.findAll().size() == 0) {
-                log.info("Get all entitlements list is empty");
+                log.warn("Get all entitlements list is empty");
                 throw new RuntimeException("No Entitlements");
             } else {
                 for(Entitlement e : entitlementRepository.findAll()) {

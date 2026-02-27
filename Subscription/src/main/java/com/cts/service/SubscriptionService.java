@@ -64,6 +64,7 @@ public class SubscriptionService {
                 log.info("Subscription Added");
                 return new ResponseEntity<>(subscriptionMapper.toDTO(subscriptionRepository.save(sub)), HttpStatus.CREATED);
             }
+            log.warn("UserId not found to add Subscription");
             throw new IllegalArgumentException("User id not present");
         } catch (RuntimeException e) {
             log.error("Cannot add the Subscription"+e.getMessage());
@@ -74,7 +75,7 @@ public class SubscriptionService {
     public List<SubscriptionResponseDTO> getAllSubscriptions() {
         List<SubscriptionResponseDTO> subscriptionResponseDTOList = new ArrayList<>();
         if(subscriptionRepository.findAll().size() == 0) {
-            log.error("There are no Subscription");
+            log.warn("There are no Subscription");
             throw new GlobalException("No one took a subscription");
         } else {
             for (Subscription s: subscriptionRepository.findAll()) {

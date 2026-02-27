@@ -20,8 +20,6 @@ class AssetMapperTest {
     @Autowired
     private AssetMapper mapper;
 
-
-
     @Test
     void testMapAssetTypeToString() {
         String type = mapper.mapAssetType(Asset.AssetType.clip);

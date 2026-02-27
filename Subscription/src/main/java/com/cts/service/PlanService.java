@@ -43,7 +43,7 @@ public class PlanService {
         List<PlanResponseDTO> planResponseDTOList = new ArrayList<>();
         try {
             if(planRepository.findAll().size() == 0) {
-                log.info("No plans are created");
+                log.warn("No plans are created");
                 throw new GlobalException("No Plan are created");
             } else {
                 for(Plan p : planRepository.findAll()) {
