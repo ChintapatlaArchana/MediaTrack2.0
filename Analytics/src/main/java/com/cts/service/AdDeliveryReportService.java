@@ -15,36 +15,59 @@ import java.util.List;
 @Service
 public class AdDeliveryReportService {
 
-    public AdDeliveryReportService(AdDeliveryReportRepository adDeliveryReportRepository, AdDeliveryReportMapper adDeliveryReportMapper, CampaignFeignClient campaignFeignClient) {
+    private final AdDeliveryReportRepository adDeliveryReportRepository;
+    private final AdDeliveryReportMapper adDeliveryReportMapper;
+    private final CampaignFeignClient campaignFeignClient;
+
+    public AdDeliveryReportService(AdDeliveryReportRepository adDeliveryReportRepository,
+                                   AdDeliveryReportMapper adDeliveryReportMapper,
+                                   CampaignFeignClient campaignFeignClient) {
         this.adDeliveryReportRepository = adDeliveryReportRepository;
         this.adDeliveryReportMapper = adDeliveryReportMapper;
         this.campaignFeignClient = campaignFeignClient;
     }
 
-    private final AdDeliveryReportRepository adDeliveryReportRepository;
-    private final AdDeliveryReportMapper adDeliveryReportMapper;
-    private final CampaignFeignClient campaignFeignClient;
+    public AdDeliveryReportResponseDTO generateAdDeliveryReport(AdDeliveryReportRequestDTO dto) {
+        try {
+            AdDeliveryReport adDeliveryReport = adDeliveryReportMapper.toEntity(dto);
 
-    public AdDeliveryReportResponseDTO generateAdDeliveryReport(AdDeliveryReportRequestDTO dto){
-        AdDeliveryReport adDeliveryReport = adDeliveryReportMapper.toEntity(dto);
-        CampaignResponseDTO campaignResponseDTO = campaignFeignClient.getCampaignById(dto.getCampaignId());
+            CampaignResponseDTO campaignResponseDTO = campaignFeignClient.getCampaignById(dto.getCampaignId());
+            if (campaignResponseDTO == null) {
+                throw new RuntimeException("Campaign not found with id: " + dto.getCampaignId());
+            }
 
-        adDeliveryReport.setCampaignId(campaignResponseDTO.getCampaignId());
-
-        return adDeliveryReportMapper.toDto(adDeliveryReportRepository.save(adDeliveryReport));
-    }
-
-    public List<AdDeliveryReportResponseDTO> getAllAdDeliveryReports(){
-        return adDeliveryReportRepository.findAll().stream().map(adDeliveryReportMapper::toDto).toList();
-    }
-
-    public void deleteAdDeliveryReport(Long id){
-        if(adDeliveryReportRepository.existsById(id)){
-            adDeliveryReportRepository.deleteById(id);
+            adDeliveryReport.setCampaignId(campaignResponseDTO.getCampaignId());
+            return adDeliveryReportMapper.toDto(adDeliveryReportRepository.save(adDeliveryReport));
+        } catch (Exception ex) {
+            throw new RuntimeException("Error generating ad delivery report: " + ex.getMessage(), ex);
         }
+    }
 
-        else {
-            throw new RuntimeException("Ad Delivery report does not exist with id: "+id);
+    public List<AdDeliveryReportResponseDTO> getAllAdDeliveryReports() {
+        try {
+            List<AdDeliveryReportResponseDTO> reports = adDeliveryReportRepository.findAll()
+                    .stream()
+                    .map(adDeliveryReportMapper::toDto)
+                    .toList();
+
+            if (reports.isEmpty()) {
+                throw new RuntimeException("No ad delivery reports found");
+            }
+            return reports;
+        } catch (Exception ex) {
+            throw new RuntimeException("Error fetching ad delivery reports: " + ex.getMessage(), ex);
+        }
+    }
+
+    public void deleteAdDeliveryReport(Long id) {
+        try {
+            if (adDeliveryReportRepository.existsById(id)) {
+                adDeliveryReportRepository.deleteById(id);
+            } else {
+                throw new RuntimeException("Ad Delivery report does not exist with id: " + id);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Error deleting ad delivery report: " + ex.getMessage(), ex);
         }
     }
 }
