@@ -3,8 +3,10 @@ package com.cts.test.mapperTest;
 import com.cts.dto.TitleRequestDTO;
 import com.cts.dto.TitleResponseDTO;
 import com.cts.mapper.TitleMapper;
+import com.cts.mapper.TitleMapperImpl;
 import com.cts.model.Category;
 import com.cts.model.Title;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +15,16 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+
 class TitleMapperTest {
 
-    @Autowired
+
     private TitleMapper mapper;
+
+    @BeforeEach
+    void setUp(){
+        mapper = new TitleMapperImpl();
+    }
 
     @Test
     void testMapApplicationStatusFromString() {

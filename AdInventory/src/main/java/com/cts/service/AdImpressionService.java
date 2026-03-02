@@ -40,7 +40,7 @@ public class AdImpressionService {
     }
 
     // CREATE
-    public AdImpressionResponseDTO create(Long campaignId, Long slotId, Long sessionId, AdImpressionRequestDTO dto) {
+    public AdImpressionResponseDTO create(Long campaignId, Long slotId, Long id, AdImpressionRequestDTO dto) {
 
         // Fetch campaign
         Campaign campaign = campaignRepo.findById(campaignId)
@@ -50,8 +50,8 @@ public class AdImpressionService {
         AdSlot slot = adSlotRepo.findById(slotId)
                 .orElseThrow(() -> new RuntimeException("AdSlot not found"));
 
-        // ⭐⭐⭐ FEIGN CLIENT CALL — GET PLAYBACK SESSION FROM DELIVERY-SERVICE ⭐⭐⭐
-        PlaybackSessionResponseDTO session = playbackClient.getById(sessionId);
+        //FEIGN CLIENT CALL
+        PlaybackSessionResponseDTO session = playbackClient.getById(id);
 
         if (session == null) {
             throw new RuntimeException("Session not found in Delivery-Service");
