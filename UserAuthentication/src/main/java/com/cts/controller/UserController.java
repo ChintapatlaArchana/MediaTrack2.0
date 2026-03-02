@@ -8,6 +8,7 @@ import com.cts.jwt.JWTService;
 import com.cts.model.User;
 import com.cts.repository.UserRepository;
 import com.cts.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-    @Autowired
-    private  UserService userService;
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository, JWTService jwtService, AuthenticationManager authenticationManager, UserService userService) {
+        this.userRepository = userRepository;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<UserResponseDTO> create(@RequestBody UserRequestDTO dto) {
@@ -37,7 +48,22 @@ public class UserController {
 
     @PostMapping("/login")
     public String generateToken(@RequestBody AuthRequest authRequest) {
-        return userService.generateToken(authRequest);
+        System.out.println("Controller came here line 51");
+        try {
+            Authentication authentication =  authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            if(authentication.isAuthenticated()) {
+                log.info("Generating user token");
+                User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
+                return jwtService.generateToken(user);
+            } else {
+                log.warn("UserId is not found to generate user token");
+                throw new IllegalArgumentException("User Not Found");
+            }
+        } catch (AuthenticationException e){
+            log.error("Error in generating user token "+e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @GetMapping("/id/{id}")

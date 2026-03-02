@@ -1,5 +1,6 @@
 package com.cts.jwt;
 
+import com.cts.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,10 +19,10 @@ import java.util.function.Function;
 public class JWTService {
     public final String secret="Sf4ZTQfXYN6csyxi3ZR4ENqngvGi6eazTlRXgcRXMSI";
 
-    public String generateToken(String id) {
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-//        claims.put("role", user.getRole().name());
-        return createToken(claims, id);
+        claims.put("role", user.getRole().name());
+        return createToken(claims, String.valueOf(user.getUserId()));
     }
 
     private String createToken(Map<String, Object> claims, String id) {
@@ -41,9 +42,9 @@ public class JWTService {
         return extractClaim(token, Claims::getSubject);
     }
 
-//    public String extractUserRole(String token){
-//        return extractAllClaims(token).get("role", String.class);
-//    }
+    public String extractUserRole(String token){
+        return extractAllClaims(token).get("role", String.class);
+    }
 
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);

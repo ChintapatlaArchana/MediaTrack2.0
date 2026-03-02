@@ -30,14 +30,11 @@ public class UserService implements UserDetailsService{
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private AuthenticationManager authenticationManager;
-    private JWTService jwtService;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, JWTService jwtService, AuthenticationManager authenticationManager) {
+
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
-        this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
         log.error("User service is being used");
 
     }
@@ -55,25 +52,6 @@ public class UserService implements UserDetailsService{
         User saved = userRepository.save(entity);
         log.info("New got user added");
         return userMapper.toDTO(saved);
-    }
-
-    public String generateToken(@RequestBody AuthRequest authRequest) {
-        System.out.println("Controller came here line 51");
-        try {
-            Authentication authentication =  authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-            if(authentication.isAuthenticated()) {
-                log.info("Generating user token");
-                User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
-                return jwtService.generateToken(String.valueOf(user.getUserId()));
-            } else {
-                log.warn("UserId is not found to generate user token");
-                throw new IllegalArgumentException("User Not Found");
-            }
-        } catch (AuthenticationException e){
-            log.error("Error in generating user token "+e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
 
     public List<UserResponseDTO> getAllUsers() {
