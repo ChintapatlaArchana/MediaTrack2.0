@@ -26,61 +26,42 @@ public class TitleService {
     }
 
     public TitleResponseDTO createTitle(TitleRequestDTO dto) {
-        try {
-            Title title = titleMapper.toEntity(dto);
+        Title title = titleMapper.toEntity(dto);
 
-            Category category = categoryRepository.findById(dto.getCategoryId())
-                    .orElseThrow(() -> new GlobalException("Category not found with id: " + dto.getCategoryId()));
-            title.setCategory(category);
+        Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() -> new GlobalException("Category not found with id: " + dto.getCategoryId()));
+        title.setCategory(category);
 
-            return titleMapper.toDto(titleRepository.save(title));
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error creating title: " + ex.getMessage());
-        }
+        return titleMapper.toDto(titleRepository.save(title));
     }
 
     public TitleResponseDTO updateTitle(Long titleId, TitleRequestDTO dto) {
-        try {
-            Title title = titleRepository.findById(titleId)
-                    .orElseThrow(() -> new GlobalException("Title not found with id: " + titleId));
+        Title title = titleRepository.findById(titleId)
+                .orElseThrow(() -> new GlobalException("Title not found with id: " + titleId));
 
-            Title updated = titleMapper.toEntity(dto);
-            updated.setTitleId(title.getTitleId());
+        Title updated = titleMapper.toEntity(dto);
+        updated.setTitleId(title.getTitleId());
 
-            return titleMapper.toDto(titleRepository.save(updated));
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error updating title: " + ex.getMessage());
-        }
+        return titleMapper.toDto(titleRepository.save(updated));
     }
 
     public List<TitleResponseDTO> getAllTitles() {
-        try {
-            return titleRepository.findAll().stream()
-                    .map(titleMapper::toDto)
-                    .toList();
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error fetching titles: " + ex.getMessage());
-        }
+        return titleRepository.findAll()
+                .stream()
+                .map(titleMapper::toDto)
+                .toList();
     }
 
     public TitleResponseDTO getTitle(Long titleID) {
-        try {
-            Title title = titleRepository.findById(titleID)
-                    .orElseThrow(() -> new GlobalException("Title not found with id: " + titleID));
-            return titleMapper.toDto(title);
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error fetching title: " + ex.getMessage());
-        }
+        Title title = titleRepository.findById(titleID)
+                .orElseThrow(() -> new GlobalException("Title not found with id: " + titleID));
+        return titleMapper.toDto(title);
     }
 
     public void deleteTitle(Long id) {
-        try {
-            if (!titleRepository.existsById(id)) {
-                throw new GlobalException("Title not found with id: " + id);
-            }
-            titleRepository.deleteById(id);
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error deleting title: " + ex.getMessage());
+        if (!titleRepository.existsById(id)) {
+            throw new GlobalException("Title not found with id: " + id);
         }
+        titleRepository.deleteById(id);
     }
 }
