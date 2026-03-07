@@ -12,6 +12,7 @@ import com.cts.repository.NotificationRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 public class NotificationService {
@@ -41,6 +42,8 @@ public class NotificationService {
 
         if (userResponseDTO.getStatusCode().is2xxSuccessful() && userResponseDTO.getBody() != null) {
             notification.setUserId(userResponseDTO.getBody().getUserId());
+            LocalDate created = dto.getCreatedDate() != null ? dto.getCreatedDate() : LocalDate.now();
+            notification.setCreatedDate(created);
             return notificationMapper.toDto(notificationRepository.save(notification));
         } else {
             throw new ResourceNotFoundException("User not found with id: " + userId);
