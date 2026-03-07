@@ -22,35 +22,21 @@ public class CategoryService {
     }
 
     public CategoryResponseDTO createCategory(CategoryRequestDTO dto) {
-        try {
-            Category cat = categoryMapper.toEntity(dto);
-            return categoryMapper.toDto(categoryRepository.save(cat));
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error creating category: " + ex.getMessage());
-        }
+        Category cat = categoryMapper.toEntity(dto);
+        return categoryMapper.toDto(categoryRepository.save(cat));
     }
 
     public List<CategoryResponseDTO> getAllCategories() {
-        try {
-            return categoryRepository.findAll()
-                    .stream()
-                    .map(categoryMapper::toDto)
-                    .toList();
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error fetching categories: " + ex.getMessage());
-        }
+        return categoryRepository.findAll()
+                .stream()
+                .map(categoryMapper::toDto)
+                .toList();
     }
 
     public void deleteCategory(Long id) {
-        try {
-            if (!categoryRepository.existsById(id)) {
-                throw new GlobalException("Category not found with id: " + id);
-            }
-            categoryRepository.deleteById(id);
-        } catch (GlobalException ex) {
-            throw new GlobalException( ex.getMessage());
+        if (!categoryRepository.existsById(id)) {
+            throw new GlobalException("Category not found with id: " + id);
         }
+        categoryRepository.deleteById(id);
     }
 }
-
-
