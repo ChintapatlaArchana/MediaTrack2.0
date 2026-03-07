@@ -31,7 +31,7 @@ public class SubscriptionController {
     @GetMapping("/getAll")
     public ResponseEntity<List<SubscriptionResponseDTO>> getAllSubscriptions() {
         try {
-            return new ResponseEntity(subscriptionService.getAllSubscriptions(), HttpStatus.FOUND);
+            return new ResponseEntity(subscriptionService.getAllSubscriptions(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
