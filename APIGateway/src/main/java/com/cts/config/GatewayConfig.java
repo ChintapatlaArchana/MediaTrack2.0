@@ -26,7 +26,7 @@ public class GatewayConfig {
                         .uri("http://localhost:8090"))
                 .route("pipeline", r-> r.path("/ingest/**","/media/**","/transcode/**")
                         .uri("http://localhost:8086"))
-                .route("delivery", r-> r.path("/playback/**","/drm/**","/cdncontrol/**","/device/**")
+                .route("delivery", r-> r.path("/playback/**","/drm/**","/cdn/**","/device/**")
                         .uri("http://localhost:7072"))
                 .route("adInventory", r-> r.path("/adimpression/**","/adslot/**","/campaign/**","/creative/**")
                         .uri("http://localhost:8089"))

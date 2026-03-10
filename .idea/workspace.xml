@@ -5,13 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76659d3e-f0d9-492e-97f4-2ee08d36ac29" name="Changes" comment="&quot;added slf4j&quot;">
+      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/repository/CDNRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/repository/DRMEventRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/repository/DeviceRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Delivery/src/test/java/com/cts/Test/repository/PlaybackRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIGateway/src/main/java/com/cts/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/APIGateway/src/main/java/com/cts/config/GatewayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/CDNController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/CDNController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DRMEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DRMEventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DeviceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DeviceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAuthentication/target/generated-sources/annotations/com/cts/mapper/UserMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/target/generated-sources/annotations/com/cts/mapper/UserMapperImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExportTestResults" outputFolder="$USER_HOME$/OneDrive - Cognizant/Desktop" userTempatePath="" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -59,19 +71,25 @@
     &quot;JUnit.CDNControllerTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.CDNEndpointMapperMockitoTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.CDNMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDNRepositoryTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.CDNServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DRMEventControllerTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DRMEventMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DRMEventRepositoryTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DRMEventServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DeviceControllerTest.create_ShouldReturn200.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DeviceControllerTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DeviceMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeviceRepositoryTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.DeviceServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.PlaybackControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaybackRepositoryTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.PlaybackServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.PlaybackServiceTest.testCreatePlaybackSession.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.PlaybackServiceTest.testGetAllPlaybackSessions.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.PlaybackSessionMapperTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.com.cts.Test in Delivery.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.com.cts.test in Content.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Pipeline [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.UserAuthentication [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.UserAuthentication [install].executor&quot;: &quot;Run&quot;,
@@ -81,44 +99,19 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/2465922/Downloads/MediaTrack2.0&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/gitProjects/MediaTrack2.0&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.APIGatewayMain">
-    <configuration name="APIGatewayMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cts.APIGatewayMain" />
-      <module name="APIGateway" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cts.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.com.cts.Test in Delivery">
     <configuration name="ContentMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.cts.ContentMain" />
       <module name="Content" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cts.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DeliveryMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cts.DeliveryMain" />
-      <module name="Delivery" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.cts.*" />
@@ -155,24 +148,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="MediaTrack2.0" />
+    <configuration name="com.cts.Test in Delivery" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Delivery" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cts.Test" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="MediaTrack2.0" />
-      <option name="filePath" />
-      <method v="2" />
+    <configuration name="com.cts.test in Content" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Content" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.cts.test" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DeliveryMain" />
-        <item itemvalue="Application.APIGatewayMain" />
-        <item itemvalue="Application.EurekaServer" />
+        <item itemvalue="JUnit.com.cts.Test in Delivery" />
         <item itemvalue="Application.ContentMain" />
         <item itemvalue="Application.UserAuthenticationMain" />
+        <item itemvalue="Application.EurekaServer" />
+        <item itemvalue="JUnit.com.cts.test in Content" />
       </list>
     </recent_temporary>
   </component>

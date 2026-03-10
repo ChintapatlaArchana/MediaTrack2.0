@@ -21,7 +21,7 @@ public class DRMEventController {
         this.drmEventService = drmEventService;
     }
 
-    @PostMapping("/drmevent")
+    @PostMapping
     public ResponseEntity<DRMEventResponseDTO> create(@RequestBody DRMEventRequestDTO request) {
         DRMEventResponseDTO saved = drmEventService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
@@ -32,7 +32,7 @@ public class DRMEventController {
         return ResponseEntity.ok(drmEventService.findAll(sessionId));
     }
 
-    @GetMapping("/drmevent/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<DRMEventResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(drmEventService.findById(id));
     }
