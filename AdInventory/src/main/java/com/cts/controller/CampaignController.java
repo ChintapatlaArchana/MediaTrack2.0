@@ -26,6 +26,8 @@
 //}
 package com.cts.controller;
 
+import com.cts.dto.AdImpressionRequestDTO;
+import com.cts.dto.AdImpressionResponseDTO;
 import com.cts.dto.CampaignRequestDTO;
 import com.cts.dto.CampaignResponseDTO;
 import com.cts.service.CampaignService;
@@ -44,13 +46,13 @@ public class CampaignController {
         this.service = service;
     }
 
-    @PostMapping("/{creativeId}")
-    public ResponseEntity<CampaignResponseDTO> create(
-            @PathVariable("creativeId") Long creativeId,
-            @RequestBody CampaignRequestDTO dto) {
 
-        return ResponseEntity.ok(service.create( dto));
+
+    @PostMapping
+    public ResponseEntity<CampaignResponseDTO> create(@RequestBody CampaignRequestDTO request) {
+        return ResponseEntity.ok(service.create(request));
     }
+
 
     @GetMapping
     public ResponseEntity<List<CampaignResponseDTO>> getAll() {
