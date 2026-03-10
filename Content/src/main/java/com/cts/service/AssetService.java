@@ -26,65 +26,45 @@ public class AssetService {
     }
 
     public AssetResponseDTO createAsset(AssetRequestDTO dto) {
-        try {
-            Asset asset = assetMapper.toEntity(dto);
+        Asset asset = assetMapper.toEntity(dto);
 
-            Title title = titleRepository.findById(dto.getTitleId())
-                    .orElseThrow(() -> new GlobalException("Title not found with id: " + dto.getTitleId()));
-            asset.setTitle(title);
+        Title title = titleRepository.findById(dto.getTitleId())
+                .orElseThrow(() -> new GlobalException("Title not found with id: " + dto.getTitleId()));
+        asset.setTitle(title);
 
-            return assetMapper.toDto(assetRepository.save(asset));
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error creating asset: " + ex.getMessage());
-        }
+        return assetMapper.toDto(assetRepository.save(asset));
     }
 
     public AssetResponseDTO getAsset(Long assetId) {
-        try {
-            Asset asset = assetRepository.findById(assetId)
-                    .orElseThrow(() -> new GlobalException("Asset not found with id: " + assetId));
-            return assetMapper.toDto(asset);
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error fetching asset: " + ex.getMessage());
-        }
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow(() -> new GlobalException("Asset not found with id: " + assetId));
+        return assetMapper.toDto(asset);
     }
 
     public AssetResponseDTO updateAsset(Long assetId, AssetRequestDTO dto) {
-        try {
-            Asset exist = assetRepository.findById(assetId)
-                    .orElseThrow(() -> new GlobalException("Asset not found with id: " + assetId));
+        Asset exist = assetRepository.findById(assetId)
+                .orElseThrow(() -> new GlobalException("Asset not found with id: " + assetId));
 
-            Asset updated = assetMapper.toEntity(dto);
-            updated.setAssetId(exist.getAssetId());
+        Asset updated = assetMapper.toEntity(dto);
+        updated.setAssetId(exist.getAssetId());
 
-            return assetMapper.toDto(assetRepository.save(updated));
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error updating asset: " + ex.getMessage());
-        }
+        return assetMapper.toDto(assetRepository.save(updated));
     }
 
     public List<AssetResponseDTO> getAssetsByTitle(Long titleId) {
-        try {
-            if (!titleRepository.existsById(titleId)) {
-                throw new GlobalException("Title not found with id: " + titleId);
-            }
-            return assetRepository.findByTitle_TitleId(titleId)
-                    .stream()
-                    .map(assetMapper::toDto)
-                    .toList();
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error fetching assets for title id: " + titleId);
+        if (!titleRepository.existsById(titleId)) {
+            throw new GlobalException("Title not found with id: " + titleId);
         }
+        return assetRepository.findByTitle_TitleId(titleId)
+                .stream()
+                .map(assetMapper::toDto)
+                .toList();
     }
 
     public void deleteAsset(Long id) {
-        try {
-            if (!assetRepository.existsById(id)) {
-                throw new GlobalException("Asset not found with id: " + id);
-            }
-            assetRepository.deleteById(id);
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error deleting asset: " + ex.getMessage());
+        if (!assetRepository.existsById(id)) {
+            throw new GlobalException("Asset not found with id: " + id);
         }
+        assetRepository.deleteById(id);
     }
 }
