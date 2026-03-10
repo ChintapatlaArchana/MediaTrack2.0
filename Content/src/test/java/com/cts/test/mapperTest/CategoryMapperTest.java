@@ -3,18 +3,25 @@ package com.cts.test.mapperTest;
 import com.cts.dto.CategoryRequestDTO;
 import com.cts.dto.CategoryResponseDTO;
 import com.cts.mapper.CategoryMapper;
+import com.cts.mapper.CategoryMapperImpl;
 import com.cts.model.Category;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+
 public class CategoryMapperTest {
 
-    @Autowired
-    private CategoryMapper mapper;  // injected by Spring
+
+    private CategoryMapper mapper;
+
+    @BeforeEach
+    void setUp(){
+        mapper = new CategoryMapperImpl();
+    }// injected by Spring
 
     @Test
     public void testToEntity() {

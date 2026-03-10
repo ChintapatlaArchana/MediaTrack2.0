@@ -48,11 +48,9 @@ class AssetControllerTest {
     void testGetAssetById() {
         AssetResponseDTO dto = new AssetResponseDTO();
         dto.setLanguage("French");
-
         when(assetService.getAsset(1L)).thenReturn(dto);
 
         ResponseEntity<AssetResponseDTO> response = assetController.getAssetById(1L);
-
         assertEquals("French", response.getBody().getLanguage());
     }
 

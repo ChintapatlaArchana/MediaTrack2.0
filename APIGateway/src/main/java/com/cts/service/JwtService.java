@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.function.Function;
 
+/**
+ * Author: Archana Chintapatla
+ * Date: 26-02-2026
+ */
 @Component
 public class JwtService {
     public final String secret="Sf4ZTQfXYN6csyxi3ZR4ENqngvGi6eazTlRXgcRXMSI";
@@ -22,9 +26,9 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-//    public String extractUserRole(String token){
-//        return extractAllClaims(token).get("role", String.class);
-//    }
+    public String extractUserRole(String token){
+        return extractAllClaims(token).get("role", String.class);
+    }
 
     private  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);

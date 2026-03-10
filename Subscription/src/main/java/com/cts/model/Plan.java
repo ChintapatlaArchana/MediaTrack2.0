@@ -1,11 +1,7 @@
 package com.cts.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
 
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "plan")

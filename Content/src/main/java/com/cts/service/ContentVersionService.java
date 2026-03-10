@@ -28,30 +28,22 @@ public class ContentVersionService {
     }
 
     public ContentVersionResponseDTO createContentVersion(ContentVersionRequestDTO dto) {
-        try {
-            ContentVersion contentVersion = contentVersionMapper.toEntity(dto);
+        ContentVersion contentVersion = contentVersionMapper.toEntity(dto);
 
-            Asset asset = assetRepository.findById(dto.getAssetId())
-                    .orElseThrow(() -> new GlobalException("Asset not found with id: " + dto.getAssetId()));
-            contentVersion.setAsset(asset);
+        Asset asset = assetRepository.findById(dto.getAssetId())
+                .orElseThrow(() -> new GlobalException("Asset not found with id: " + dto.getAssetId()));
+        contentVersion.setAsset(asset);
 
-            return contentVersionMapper.toDto(contentVersionRepository.save(contentVersion));
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error creating content version: " + ex.getMessage());
-        }
+        return contentVersionMapper.toDto(contentVersionRepository.save(contentVersion));
     }
 
     public List<ContentVersionResponseDTO> getVersionsByAsset(Long assetId) {
-        try {
-            if (!assetRepository.existsById(assetId)) {
-                throw new GlobalException("Asset not found with id: " + assetId);
-            }
-            return contentVersionRepository.findByAsset_AssetId(assetId)
-                    .stream()
-                    .map(contentVersionMapper::toDto)
-                    .toList();
-        } catch (GlobalException ex) {
-            throw new GlobalException("Error fetching content versions for asset id: " + assetId);
+        if (!assetRepository.existsById(assetId)) {
+            throw new GlobalException("Asset not found with id: " + assetId);
         }
+        return contentVersionRepository.findByAsset_AssetId(assetId)
+                .stream()
+                .map(contentVersionMapper::toDto)
+                .toList();
     }
 }

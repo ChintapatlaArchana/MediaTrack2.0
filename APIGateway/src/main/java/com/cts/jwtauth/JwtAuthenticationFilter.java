@@ -37,12 +37,12 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         String token = authHeader.substring(7);
 
         if(jwtService.validateToken(token)){
-//            String role = jwtService.extractUserRole(token);
-//
-//            if(path.contains("/plan/add") && !role.equals("Admin")) {
-//                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-//                return exchange.getResponse().setComplete();
-//            }
+            String role = jwtService.extractUserRole(token);
+
+            if(path.contains("/plan/add") && !role.equals("Admin")) {
+                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+                return exchange.getResponse().setComplete();
+            }
 
             String id = jwtService.extractUserId(token);
             ServerWebExchange mutatedExchange = exchange.mutate()

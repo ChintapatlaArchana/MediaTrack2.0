@@ -27,7 +27,7 @@ public class ContentVersionController {
     }
 
     @GetMapping("/asset/{assetId}")
-    public ResponseEntity<List<ContentVersionResponseDTO>> listVersionByAsset(@PathVariable("id") Long assetId){
+    public ResponseEntity<List<ContentVersionResponseDTO>> listVersionByAsset(@PathVariable("assetId") Long assetId){
         return ResponseEntity.ok(contentVersionService.getVersionsByAsset(assetId));
     }
 
