@@ -35,14 +35,12 @@ class CampaignControllerTest {
     // ---------------- CREATE ----------------
     @Test
     void testCreate() {
-        Long creativeId = 1L;
         CampaignRequestDTO requestDTO = new CampaignRequestDTO();
         CampaignResponseDTO responseDTO = new CampaignResponseDTO();
 
         when(service.create(requestDTO)).thenReturn(responseDTO);
 
-        ResponseEntity<CampaignResponseDTO> response =
-                controller.create(creativeId, requestDTO);
+        ResponseEntity<CampaignResponseDTO> response = controller.create(requestDTO);
 
         assertEquals(responseDTO, response.getBody());
         verify(service).create(requestDTO);
