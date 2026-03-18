@@ -1,0 +1,70 @@
+@startuml
+
+hide empty members
+
+class User {
+    private Long userId
+    private String name
+    private Role role
+    private String email
+    private String phone
+    private String password
+}
+
+enum Role {
+    Viewer
+    Editor
+    AdOps
+    Operator
+    Admin
+}
+
+class Plan {
+    private Long planId
+    private String name
+    private double price
+    private BillingCycle billingCycle
+    private String entitlementsJSON
+    private Status status
+}
+
+class Subscription {
+    private long subscriptionId
+    private long userId
+    private LocalDate startDate
+    private LocalDate endDate
+    private Status status
+}
+
+enum Status {
+    Active
+    Grace
+    Lapsed
+    Cancelled
+}
+
+class Entitlement {
+    private long entitlementId
+    private long userId
+    private ContentScope contentScope
+    private LocalDate grantedDate
+    private LocalDate expiryDate
+}
+
+enum ContentScope {
+    All
+    Category
+    Title
+}
+
+' Relationships
+User "1" -- "0..1" Subscription : has >
+Subscription "many" --o "1" Plan : based on >
+User "1" -- "0..*" Entitlement : possesses >
+
+' Link enums to classes for clarity
+User +-- Role
+Subscription +-- Status
+Entitlement +-- ContentScope
+
+@enduml
