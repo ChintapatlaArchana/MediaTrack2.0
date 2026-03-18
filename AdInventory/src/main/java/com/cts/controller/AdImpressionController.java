@@ -1,26 +1,3 @@
-//package com.cts.controller.ads;
-//
-//
-//import com.cts.model.AdImpression;
-//import com.cts.model.AdSlot;
-//import com.cts.service.ads.AdImpressionService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping
-//public class AdImpressionController {
-//    @Autowired
-//    private AdImpressionService adImpressionService;
-//
-//    @PostMapping("/adimpression")
-//    public AdImpression addAdImpression(@RequestBody AdImpression adImp) { return adImpressionService.addAdImpression(adImp); }
-//
-//    @GetMapping("/adimpression")
-//    public List<AdImpression> getAllAdImpressions(){ return adImpressionService.getAllAdImpression(); }
-//}
 package com.cts.controller;
 
 import com.cts.dto.AdImpressionRequestDTO;
@@ -41,15 +18,20 @@ public class AdImpressionController {
         this.service = service;
     }
 
-    @PostMapping("/{campaignId}/{slotId}/{sessionId}")
-    public ResponseEntity<AdImpressionResponseDTO> create(
-            @PathVariable Long campaignId,
-            @PathVariable Long slotId,
-            @PathVariable Long sessionId,
-            @RequestBody AdImpressionRequestDTO dto
-    ) {
-        return ResponseEntity.ok(service.create(campaignId, slotId, sessionId, dto));
+
+    @PostMapping
+    public ResponseEntity<AdImpressionResponseDTO> create(@RequestBody AdImpressionRequestDTO request) {
+        // Pull IDs from the JSON body and pass them to the existing service method signature
+        return ResponseEntity.ok(
+                service.create(
+                        request.getCampaignId(),
+                        request.getSlotId(),
+                        request.getSessionId(),
+                        request
+                )
+        );
     }
+
 
     @GetMapping
     public ResponseEntity<List<AdImpressionResponseDTO>> getAll() {
