@@ -2,16 +2,11 @@ package com.cts.mapper;
 
 import com.cts.dto.PlaybackSessionRequestDTO;
 import com.cts.dto.PlaybackSessionResponseDTO;
-//import com.cts.model.DRMEvent;
-//import com.cts.model.AdImpression;
 import com.cts.model.PlaybackSession;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-
-import java.util.List;
-import java.util.Objects;
 
 @Mapper(componentModel = "spring", imports= {PlaybackSession.Status.class})
 public interface PlaybackSessionMapper {
