@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TranscodeJobRepository extends JpaRepository <TranscodeJob,Long> {
+    long countByTranscodeStatus(TranscodeJob.TranscodeStatus status);
 }

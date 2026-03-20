@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MediaPackageRepository extends JpaRepository<MediaPackage,Long> {
+    long countByQcStatus(MediaPackage.QCStatus status);
 }

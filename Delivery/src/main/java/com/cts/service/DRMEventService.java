@@ -5,6 +5,7 @@ import com.cts.dto.DRMEventResponseDTO;
 import com.cts.exception.GlobalException;
 import com.cts.mapper.DRMEventMapper;
 import com.cts.model.DRMEvent;
+import com.cts.model.DRMEvent.LicenseStatus;
 import com.cts.model.PlaybackSession;
 import com.cts.repository.DRMEventRepository;
 import com.cts.repository.PlaybackRepository;
@@ -12,7 +13,9 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -148,4 +151,27 @@ public class DRMEventService {
             throw new GlobalException("Error deleting DRM event: " + ex.getMessage());
         }
     }
+    public Map<String, Object> getDrmMetrics() {
+        long granted = drmEventRepository.countByLicenseStatus(LicenseStatus.Granted);
+        long denied = drmEventRepository.countByLicenseStatus(LicenseStatus.Denied);
+        long total = granted + denied;
+
+        double rate = (total > 0) ? ((double) granted / total) * 100 : 0.0;
+
+        Map<String, Object> metrics = new HashMap<>();
+        metrics.put("granted", granted);
+        metrics.put("denied", denied);
+        metrics.put("rate", rate);
+
+        return metrics;
+    }
+    public double getDrmSuccessRate() {
+        long granted = drmEventRepository.countByLicenseStatus(DRMEvent.LicenseStatus.Granted);
+        long denied = drmEventRepository.countByLicenseStatus(DRMEvent.LicenseStatus.Denied);
+
+        long total = granted + denied;
+        return total > 0 ? (granted * 100.0 / total) : 0.0;
+    }
+
+
 }

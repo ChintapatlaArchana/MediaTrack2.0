@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/ingest")
@@ -41,6 +42,18 @@ public class IngestJobController {
                                                                    @RequestBody IngestJobRequestDTO dto) {
         return ResponseEntity.ok(ingestJobService.updateStatus(id, dto.getIngestStatus()));
     }
+
+    @GetMapping("/metrics")
+    public ResponseEntity<Map<String, Long>> getMetrics() {
+        return ResponseEntity.ok(ingestJobService.getIngestMetrics());
+    }
+
+    @GetMapping("/metrics/health")
+    public ResponseEntity<Double> getIngestPipelineHealth() {
+        return ResponseEntity.ok(ingestJobService.getIngestPipelineHealth());
+    }
+
+
 
     // NEW: Get all ingest jobs for a given asset
 //    @GetMapping("/assets/{assetId}/ingest-jobs")

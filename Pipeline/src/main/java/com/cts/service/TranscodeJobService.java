@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.cts.dto.AssetResponseDTO;
 
 
@@ -66,4 +69,27 @@ public class TranscodeJobService {
         job = transcodeJobRepository.save(job);
         return transcodeJobMapper.toDTO(job);
     }
+
+    public Map<String, Long> getTranscodeMetrics() {
+        long active = transcodeJobRepository.countByTranscodeStatus(TranscodeStatus.Failed);
+        long queued = transcodeJobRepository.countByTranscodeStatus(TranscodeStatus.Queued);
+        long completed = transcodeJobRepository.countByTranscodeStatus(TranscodeStatus.Completed);
+
+        Map<String, Long> metrics = new HashMap<>();
+        metrics.put("active", active);
+        metrics.put("queued", queued);
+        metrics.put("completed", completed);
+
+        return metrics;
+    }
+    public double getTranscodePipelineHealth() {
+        long failed = transcodeJobRepository.countByTranscodeStatus(TranscodeStatus.Failed);
+        long queued = transcodeJobRepository.countByTranscodeStatus(TranscodeStatus.Queued);
+        long completed = transcodeJobRepository.countByTranscodeStatus(TranscodeStatus.Completed);
+
+        long total = failed + queued + completed;
+        return total > 0 ? (completed * 100.0 / total) : 0.0;
+    }
+
+
 }
