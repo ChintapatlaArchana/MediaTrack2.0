@@ -13,7 +13,6 @@ public class ChurnCohort {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long cohortId;
 
-
     private Long planId;
 
     private LocalDate startPeriod;

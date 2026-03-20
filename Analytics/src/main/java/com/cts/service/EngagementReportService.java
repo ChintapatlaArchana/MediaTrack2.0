@@ -7,6 +7,7 @@ import com.cts.repository.EngagementReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -53,5 +54,14 @@ public class EngagementReportService {
         } catch (Exception ex) {
             throw new RuntimeException("Error deleting engagement report: " + ex.getMessage(), ex);
         }
+    }
+
+    public Double getQuickStats() {
+        LocalDate today = LocalDate.now();
+        LocalDate thirtyDaysLater = today.plusDays(30);
+
+        Double ratio = engagementReportRepository.getLatestRatio();
+
+        return ratio;
     }
 }

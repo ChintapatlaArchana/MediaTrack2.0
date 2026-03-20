@@ -17,7 +17,7 @@ public class AdDeliveryReport {
     private Long campaignId;
 
     @Embedded
-    private AdDeliveryReportMetrics adDeliveryReportMetrics;
+    private AdDeliveryReportMetrics metrics;
 
     private LocalDate GeneratedDate;
 }

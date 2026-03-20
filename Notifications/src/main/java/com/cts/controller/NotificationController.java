@@ -33,4 +33,13 @@ public class NotificationController {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/admin/unreadNotiications")
+    public ResponseEntity<Long> getUnreadNotifications() {
+        try {
+            return ResponseEntity.ok(notificationService.unreadNotifications());
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

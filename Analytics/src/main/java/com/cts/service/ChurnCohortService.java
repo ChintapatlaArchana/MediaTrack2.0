@@ -9,6 +9,7 @@ import com.cts.model.ChurnCohort;
 import com.cts.repository.ChurnCohortRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -68,5 +69,20 @@ public class ChurnCohortService {
         } catch (Exception ex) {
             throw new RuntimeException("Error deleting churn cohort: " + ex.getMessage(), ex);
         }
+    }
+
+    public double calculateChurnRate() {
+        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
+
+        // 1. Total users who WERE active 30 days ago
+        long totalUsersAtStart = userRepository.count();
+
+        // 2. Users who are currently Lapsed or Cancelled
+        long lostUsers = subscriptionRepository.countByStatusInAndLastModifiedDateAfter(
+                List.of("Lapsed", "Cancelled"), thirtyDaysAgo);
+
+        if (totalUsersAtStart == 0) return 0.0;
+
+        return ((double) lostUsers / totalUsersAtStart) * 100;
     }
 }

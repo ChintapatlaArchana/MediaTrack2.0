@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 @Embeddable
 public class AdDeliveryReportMetrics {
-    private int Impressions;
-    private double ViewabilityRate;
+    private int impressions;
+    private double viewabilityRate;
     private double CTR;
-    private double FillRate;
+    private double fillRate;
     private double eCPM;
 }

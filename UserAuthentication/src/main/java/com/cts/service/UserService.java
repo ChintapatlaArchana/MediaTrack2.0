@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -112,6 +114,26 @@ public class UserService implements UserDetailsService{
             userById.setPhone(newPhoneNo);
         }
         return userMapper.toDTO(userById);
+    }
+
+    public long getTotalUserCount() {
+        return userRepository.count();
+    }
+
+    public long findDistinctUserIds() {
+        return userRepository.countTotalUsers();
+    }
+
+    public long countByRole() {
+        return userRepository.countByRole();
+    }
+
+    public Map<String, Long> getUserRoleDistribution() {
+        List<Object[]> results = userRepository.countUsersByRole();
+        return results.stream().collect(Collectors.toMap(
+                array -> ((User.Role) array[0]).name(),
+                array -> (Long) array[1]
+        ));
     }
 
     @Override

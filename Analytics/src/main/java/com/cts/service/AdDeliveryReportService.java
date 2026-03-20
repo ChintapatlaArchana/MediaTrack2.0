@@ -10,6 +10,10 @@ import com.cts.model.AdDeliveryReport;
 import com.cts.repository.AdDeliveryReportRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -70,4 +74,18 @@ public class AdDeliveryReportService {
             throw new RuntimeException("Error deleting ad delivery report: " + ex.getMessage(), ex);
         }
     }
+
+    public BigDecimal getMonthlyAdRevenue() {
+        // Get the first day of the current month at 00:00:00
+        LocalDateTime startOfMonth = LocalDate.now()
+                .withDayOfMonth(1)
+                .atStartOfDay();
+
+        BigDecimal revenue = adDeliveryReportRepository.calculateMonthlyAdRevenue(startOfMonth);
+
+        // Return 0.00 if no ads have been served yet
+        return (revenue != null) ? revenue.setScale(2, RoundingMode.HALF_UP) : BigDecimal.ZERO;
+    }
+
+
 }
