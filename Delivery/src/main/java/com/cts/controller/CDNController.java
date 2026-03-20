@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cdn")
@@ -56,6 +57,16 @@ public class CDNController {
         cdnService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/metrics")
+    public ResponseEntity<Map<String, Long>> getMetrics() {
+        return ResponseEntity.ok(cdnService.getCdnMetrics());
+    }
+    @GetMapping("/metrics/health")
+    public ResponseEntity<Double> getCdnAvailability() {
+        return ResponseEntity.ok(cdnService.getCdnAvailability());
+    }
+
+
 }
 
 

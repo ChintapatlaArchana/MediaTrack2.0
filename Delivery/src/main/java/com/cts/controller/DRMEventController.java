@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/drm")
@@ -48,4 +49,14 @@ public class DRMEventController {
         drmEventService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/metrics")
+    public ResponseEntity<Map<String, Object>> getMetrics() {
+        return ResponseEntity.ok(drmEventService.getDrmMetrics());
+    }
+
+    @GetMapping("/metrics/health")
+    public ResponseEntity<Double> getDrmSuccessRate() {
+        return ResponseEntity.ok(drmEventService.getDrmSuccessRate());
+    }
+
 }

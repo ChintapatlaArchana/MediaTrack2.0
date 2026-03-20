@@ -5,10 +5,13 @@ import com.cts.dto.IngestJobRequestDTO;
 import com.cts.dto.IngestJobResponseDTO;
 import com.cts.mapper.IngestJobMapper;
 import com.cts.model.IngestJob;
+import com.cts.model.IngestJob.IngestStatus;
 import com.cts.repository.IngestJobRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import com.cts.feign.AssetFeignClient;   // <-- use AssetFeignClient
@@ -67,4 +70,26 @@ public class IngestJobService {
 
         return ingestJobMapper.toDTO(job);
     }
+    public Map<String, Long> getIngestMetrics() {
+        long failed = ingestJobRepository.countByIngestStatus(IngestStatus.Failed);
+        long queued = ingestJobRepository.countByIngestStatus(IngestStatus.Queued);
+        long completed = ingestJobRepository.countByIngestStatus(IngestStatus.Completed);
+
+        Map<String, Long> metrics = new HashMap<>();
+        metrics.put("failed", failed);
+        metrics.put("queued", queued);
+        metrics.put("completed", completed);
+
+        return metrics;
+    }
+    public double getIngestPipelineHealth() {
+        long failed = ingestJobRepository.countByIngestStatus(IngestStatus.Failed);
+        long queued = ingestJobRepository.countByIngestStatus(IngestStatus.Queued);
+        long completed = ingestJobRepository.countByIngestStatus(IngestStatus.Completed);
+
+        long total = failed + queued + completed;
+        return total > 0 ? (completed * 100.0 / total) : 0.0;
+    }
+
+
 }

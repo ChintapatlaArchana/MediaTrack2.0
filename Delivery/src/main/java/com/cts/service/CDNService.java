@@ -10,7 +10,9 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -109,4 +111,21 @@ public class CDNService {
 
         return cdnEndpointMapper.toDto(saved);
     }
+    public Map<String, Long> getCdnMetrics() {
+        long active = cdnRepository.countByStatus(CDNEndpoint.Status.Active);
+        long total = cdnRepository.count();
+
+        Map<String, Long> metrics = new HashMap<>();
+        metrics.put("active", active);
+        metrics.put("total", total);
+
+        return metrics;
+    }
+    public double getCdnAvailability() {
+        long active = cdnRepository.countByStatus(CDNEndpoint.Status.Active);
+        long total = cdnRepository.count();
+        return total > 0 ? (active * 100.0 / total) : 0.0;
+    }
+
+
 }
