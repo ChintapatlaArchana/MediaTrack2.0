@@ -1,63 +1,130 @@
-//package com.cts.controller;
-//
-//import com.cts.dto.SubscriptionRequestDTO;
-//import com.cts.dto.SubscriptionResponseDTO;
-//import com.cts.service.SubscriptionService;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.Mockito;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-//import org.springframework.boot.test.mock.mockito.MockBean;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.test.web.servlet.MockMvc;
-//
-//import java.util.List;
-//
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-//
-//@WebMvcTest(SubscriptionController.class)
-//class SubscriptionControllerTest {
-//
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @MockBean
-//    private SubscriptionService subscriptionService;
-//
-//    @Autowired
-//    private ObjectMapper objectMapper;
-//
+package com.cts.controller;
+
+import com.cts.dto.SubscriptionRequestDTO;
+
+import com.cts.dto.SubscriptionResponseDTO;
+
+import com.cts.service.SubscriptionService;
+
+import org.junit.jupiter.api.BeforeEach;
+
+import org.junit.jupiter.api.Test;
+
+import org.mockito.InjectMocks;
+
+import org.mockito.Mock;
+
+import org.mockito.MockitoAnnotations;
+
+import org.springframework.http.HttpStatus;
+
+import org.springframework.http.ResponseEntity;
+
+import java.util.Arrays;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.mockito.Mockito.*;
+
+class SubscriptionControllerTest {
+
+    @Mock
+
+    private SubscriptionService subscriptionService;
+
+    @InjectMocks
+
+    private SubscriptionController subscriptionController;
+
+    @BeforeEach
+
+    void setUp() {
+
+        MockitoAnnotations.openMocks(this);
+
+    }
+
 //    @Test
-//    void create_shouldReturn201() throws Exception {
-//        SubscriptionResponseDTO resp = new SubscriptionResponseDTO();
-//        resp.setSubscriptionId(1L);
-//
-//        Mockito.when(subscriptionService.create(any(SubscriptionRequestDTO.class), eq("999")))
-//                .thenReturn(ResponseEntity.status(HttpStatus.CREATED).body(resp));
-//
-//        SubscriptionRequestDTO req = new SubscriptionRequestDTO();
-//        req.setPlanId(10L);
-//
-//        mockMvc.perform(post("/subscription/add")
-//                        .header("X-User-Id", "999")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(req)))
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.subscriptionId").value(1));
+//    void testCreateSubscription_Success() {
+//        SubscriptionRequestDTO requestDTO = new SubscriptionRequestDTO();
+//        SubscriptionResponseDTO responseDTO = new SubscriptionResponseDTO();
+//        // Explicitly tell Mockito the return type
+//        when(subscriptionService.create(eq(requestDTO), eq("123")))
+//                .thenReturn(responseDTO);
+//        ResponseEntity<SubscriptionResponseDTO> response =
+//                subscriptionController.create(requestDTO, "123");
+//        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+//        assertEquals(responseDTO, response.getBody());
+//        verify(subscriptionService, times(1)).create(requestDTO, "123");
 //    }
-//
-//    @Test
-//    void getAll_shouldReturn200() throws Exception {
-//        SubscriptionResponseDTO dto = new SubscriptionResponseDTO();
-//        dto.setSubscriptionId(1L);
-//
-//        Mockito.when(subscriptionService.getAllSubscriptions()).thenReturn(List.of(dto));
-//
-//        mockMvc.perform(get("/subscription/getAll"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$[0].subscriptionId").value(1));
-//    }
-//}
+
+    @Test
+
+    void testCreateSubscription_Failure() {
+
+        SubscriptionRequestDTO requestDTO = new SubscriptionRequestDTO();
+
+        when(subscriptionService.create(eq(requestDTO), eq("123")))
+
+                .thenThrow(new IllegalArgumentException("User not found"));
+
+        ResponseEntity<SubscriptionResponseDTO> response =
+
+                subscriptionController.create(requestDTO, "123");
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+
+        assertEquals("User not found", response.getBody());
+
+        verify(subscriptionService, times(1)).create(requestDTO, "123");
+
+    }
+
+    @Test
+
+    void testGetAllSubscriptions_Success() {
+
+        SubscriptionResponseDTO responseDTO1 = new SubscriptionResponseDTO();
+
+        SubscriptionResponseDTO responseDTO2 = new SubscriptionResponseDTO();
+
+        List<SubscriptionResponseDTO> subscriptions = Arrays.asList(responseDTO1, responseDTO2);
+
+        when(subscriptionService.getAllSubscriptions()).thenReturn(subscriptions);
+
+        ResponseEntity<List<SubscriptionResponseDTO>> response =
+
+                subscriptionController.getAllSubscriptions();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        assertEquals(subscriptions, response.getBody());
+
+        verify(subscriptionService, times(1)).getAllSubscriptions();
+
+    }
+
+    @Test
+
+    void testGetAllSubscriptions_Failure() {
+
+        when(subscriptionService.getAllSubscriptions())
+
+                .thenThrow(new RuntimeException("Database error"));
+
+        ResponseEntity<List<SubscriptionResponseDTO>> response =
+
+                subscriptionController.getAllSubscriptions();
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+
+        assertEquals("Database error", response.getBody());
+
+        verify(subscriptionService, times(1)).getAllSubscriptions();
+
+    }
+
+}
+

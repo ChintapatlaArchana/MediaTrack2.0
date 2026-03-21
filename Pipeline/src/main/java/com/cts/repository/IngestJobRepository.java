@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IngestJobRepository extends JpaRepository<IngestJob, Long> {
-
+    long countByIngestStatus(IngestJob.IngestStatus status);
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/media")
@@ -40,6 +41,15 @@ public class MediaPackageController {
                                                                 @RequestBody MediaPackageRequestDTO dto) {
         return ResponseEntity.ok(mediaPackageService.updateStatus(id, dto.getQcStatus()));
     }
+    @GetMapping("/metrics")
+    public ResponseEntity<Map<String, Long>> getQcMetrics() {
+        return ResponseEntity.ok(mediaPackageService.getQcMetrics());
+    }
+    @GetMapping("/metrics/health")
+    public ResponseEntity<Double> getQcPassRate() {
+        return ResponseEntity.ok(mediaPackageService.getQcPassRate());
+    }
+
 
     // NEW: Get all packages for a given asset
 //    @GetMapping("/assets/{assetId}/packages")

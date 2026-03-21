@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/transcode")
@@ -42,6 +43,14 @@ public class TranscodeJobController {
                 transcodeJobService.updateStatusAndCompletedDate(id, dto.getTranscodeStatus(), dto.getCompletedDate())
         );
     }
+    @GetMapping("/metrics")
+    public ResponseEntity<Map<String, Long>> getMetrics() {
+        return ResponseEntity.ok(transcodeJobService.getTranscodeMetrics());
+    }
+
+
+
+
 
 //    // NEW: Get all transcode jobs for a given asset
 //    @GetMapping("/assets/{assetId}/transcode-jobs")

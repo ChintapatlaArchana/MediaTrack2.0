@@ -1,5 +1,5 @@
 package com.cts.configuration;
-import com.cts.jwt.AuthFilter;
+
 import com.cts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
@@ -15,12 +15,12 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private AuthFilter authFilter;
+//    @Autowired
+//    private AuthFilter authFilter;
 
     @Autowired
     private UserService userService;
@@ -42,7 +42,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http.csrf(c-> c.ignoringRequestMatchers(PathRequest.toH2Console())
                         .disable())
-                .authorizeHttpRequests(req-> req.requestMatchers("/user/add", "/user/login", "/user/id/{id}" )
+                .authorizeHttpRequests(req-> req.requestMatchers("/user/**")
                         .permitAll())
                 .authorizeHttpRequests(req->req.requestMatchers("/h2-console/**")
                         .permitAll())
@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(ses-> ses.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 

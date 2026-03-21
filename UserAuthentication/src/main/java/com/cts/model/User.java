@@ -1,11 +1,9 @@
 package com.cts.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity
-//@Data
-@Table(name = "user1")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,7 +10,9 @@ import com.cts.model.MediaPackage.QCStatus;
 import com.cts.repository.MediaPackageRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MediaPackageService {
@@ -62,4 +64,26 @@ public class MediaPackageService {
         pkg = mediaPackageRepository.save(pkg);
         return mediaPackageMapper.toDTO(pkg);
     }
+    public Map<String, Long> getQcMetrics() {
+        long passed = mediaPackageRepository.countByQcStatus(QCStatus.Passed);
+        long failed = mediaPackageRepository.countByQcStatus(QCStatus.Failed);
+        long pending = mediaPackageRepository.countByQcStatus(QCStatus.Pending);
+
+        Map<String, Long> metrics = new HashMap<>();
+        metrics.put("passed", passed);
+        metrics.put("failed", failed);
+        metrics.put("pending", pending);
+
+        return metrics;
+    }
+    public double getQcPassRate() {
+        long passed = mediaPackageRepository.countByQcStatus(QCStatus.Passed);
+        long failed = mediaPackageRepository.countByQcStatus(QCStatus.Failed);
+        long pending = mediaPackageRepository.countByQcStatus(QCStatus.Pending);
+
+        long total = passed + failed + pending;
+        return total > 0 ? (passed * 100.0 / total) : 0.0;
+    }
+
+
 }
