@@ -84,4 +84,28 @@ public class CampaignService {
         campaignRepo.deleteById(id);
         return "Campaign deleted successfully";
     }
+    // Add this method to your existing CampaignService class for the dashboard in the frontend
+
+
+    // Inside CampaignService.java
+    // Inside CampaignService.java
+
+    public List<CampaignResponseDTO> getDashboardCampaigns() {
+        // Define which statuses count as "Dashboard-ready"
+        List<Campaign.Status> dashboardStatuses = List.of(
+                Campaign.Status.Active,
+                Campaign.Status.Paused
+        );
+
+        return campaignRepo.findDashboardCampaigns(dashboardStatuses)
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+
+
+    public long getActiveCount() {
+        return campaignRepo.countByStatus(Campaign.Status.Active);
+    }
 }
