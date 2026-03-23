@@ -38,8 +38,10 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
     // 1. For the KPI Card
     long countByStatus(Campaign.Status status);
 
-    // 2. Fix for the dashboard list error
-    // We pass the statuses as a list to avoid hardcoding the Enum path
+    // 2. For the Dashboard (Active & Paused only)
     @Query("SELECT c FROM Campaign c WHERE c.status IN :statuses ORDER BY c.startDate DESC")
     List<Campaign> findDashboardCampaigns(@Param("statuses") List<Campaign.Status> statuses);
+
+    // 3. For the "View All" Directory (Everything)
+    List<Campaign> findAllByOrderByStartDateDesc();
 }

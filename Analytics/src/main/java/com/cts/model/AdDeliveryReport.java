@@ -19,5 +19,7 @@ public class AdDeliveryReport {
     @Embedded
     private AdDeliveryReportMetrics metrics;
 
-    private LocalDate GeneratedDate;
+    private LocalDate generatedDate;
+
+    //private AdDeliveryReportMetrics adDeliveryReportMetrics;
 }

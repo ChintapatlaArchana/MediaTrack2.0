@@ -52,10 +52,17 @@ public class CampaignController {
     public ResponseEntity<CampaignResponseDTO> create(@RequestBody CampaignRequestDTO request) {
         return ResponseEntity.ok(service.create(request));
     }
+    //frontend
+
+
+    @GetMapping("/active-count")
+    public ResponseEntity<Long> getActiveCount() {
+        return ResponseEntity.ok(service.getActiveCount());
+    }
+
     @GetMapping("/dashboard")
     public ResponseEntity<List<CampaignResponseDTO>> getDashboardCampaigns() {
-        // RIGHT: Using the injected instance variable
-        return ResponseEntity.ok(service.getDashboardCampaigns());
+        return ResponseEntity.ok(service.getDashboardList());
     }
 
 
@@ -79,10 +86,7 @@ public class CampaignController {
 
     // for frontend
 
-    @GetMapping("/active-count")
-    public ResponseEntity<Long> getActiveCount() {
-        return ResponseEntity.ok(service.getActiveCount());
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {

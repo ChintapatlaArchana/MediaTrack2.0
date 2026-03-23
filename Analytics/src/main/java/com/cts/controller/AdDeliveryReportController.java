@@ -37,17 +37,25 @@ public class AdDeliveryReportController {
         return ResponseEntity.noContent().build();
     }
     //for frontend
-    // Inside AdDeliveryReportController.java
 
-    @GetMapping("/metrics")
-    public ResponseEntity<AdDeliveryReportMetricsDTO> getDashboardKpis() {
-        // Calling the simple logic we just wrote in the Service
-        return ResponseEntity.ok(adDeliveryReportService.getDashboardMetrics());
+    // Add to AdDeliveryReportController.java
+
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Object>> getDashboardStats() {
+        return ResponseEntity.ok(adDeliveryReportService.getDashboardStats());
     }
-    // Inside AdDeliveryReportController.java
 
-    @GetMapping("/charts")
-    public ResponseEntity<List<Map<String, Object>>> getChartData() {
+    // AdDeliveryReportController.java
+
+    @GetMapping("/stats/chart")
+    public ResponseEntity<List<Map<String, Object>>> getPerformanceChart() {
         return ResponseEntity.ok(adDeliveryReportService.getChartData());
     }
+
+    @GetMapping("/stats/summary")
+    public ResponseEntity<Map<String, Object>> getDashboardSummary() {
+        return ResponseEntity.ok(adDeliveryReportService.getDashboardWithGrowth());
+    }
+    // Inside AdDeliveryReportController.java
+
 }

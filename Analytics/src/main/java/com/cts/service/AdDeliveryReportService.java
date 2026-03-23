@@ -10,10 +10,11 @@ import com.cts.mapper.AdDeliveryReportMapper;
 import com.cts.model.AdDeliveryReport;
 import com.cts.repository.AdDeliveryReportRepository;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 @Service
 public class AdDeliveryReportService {
@@ -73,114 +74,88 @@ public class AdDeliveryReportService {
             throw new RuntimeException("Error deleting ad delivery report: " + ex.getMessage(), ex);
         }
     }
-    // Add this to your existing AdDeliveryReportService.java for the frontend
 
-//    public AdDeliveryReportMetricsDTO getDashboardMetrics() {
-//        List<AdDeliveryReport> reports = adDeliveryReportRepository.findAll();
-//        AdDeliveryReportMetricsDTO metrics = new AdDeliveryReportMetricsDTO();
-//
-//        // 1. Return empty metrics if no data exists to avoid Division by Zero
-//        if (reports.isEmpty()) {
-//            return metrics;
-//        }
-//
-//        int totalImpressions = 0;
-//        double totalClicks = 0;
-//        double sumEcpm = 0;
-//        double sumFillRate = 0;
-//        double sumViewability = 0;
-//
-//        for (AdDeliveryReport r : reports) {
-//            // 2. Reach into the @Embedded object correctly
-//            if (r.getAdDeliveryReportMetrics() != null) {
-//                var m = r.getAdDeliveryReportMetrics();
-//
-//                totalImpressions += m.getImpressions();
-//
-//                // Logic: (CTR / 100) * Impressions gives us the raw click count
-//                totalClicks += (m.getCTR() / 100.0) * m.getImpressions();
-//
-//                // 3. FIX: Ensure you use getECPM() to match the 'eCPM' field in your DTO
-//                sumEcpm += m.getECPM();
-//                sumFillRate += m.getFillRate();
-//                sumViewability += m.getViewabilityRate();
-//            }
-//        }
-//
-//        // 4. Set the final totals and averages into the DTO
-//        metrics.setImpressions(totalImpressions);
-//
-//        int reportCount = reports.size();
-//
-//        // Calculate Averages
-//        metrics.setECPM(sumEcpm / reportCount);
-//        metrics.setFillRate(sumFillRate / reportCount);
-//        metrics.setViewabilityRate(sumViewability / reportCount);
-//
-//        // Calculate overall Weighted CTR
-//        if (totalImpressions > 0) {
-//            metrics.setCTR((totalClicks / totalImpressions) * 100);
-//        } else {
-//            metrics.setCTR(0.0);
-//        }
-//
-//        return metrics;
-//    }
 
-    public AdDeliveryReportMetricsDTO getDashboardMetrics() {
-        List<AdDeliveryReport> reports = adDeliveryReportRepository.findAll();
-        AdDeliveryReportMetricsDTO metrics = new AdDeliveryReportMetricsDTO();
+    // FOR FRONTEND DASHBOARD
+    // Add to AdDeliveryReportService.java
 
-        if (reports.isEmpty()) return metrics;
+    public Map<String, Object> getDashboardStats() {
+        Map<String, Object> stats = new HashMap<>();
 
-        int totalImpressions = 0;
-        double totalClicks = 0;
-        double sumEcpm = 0;
-        double sumFill = 0;
-        double sumView = 0;
+        Long totalImpressions = adDeliveryReportRepository.getTotalImpressions();
+        Double avgCTR = adDeliveryReportRepository.getAverageCTR();
+        Double avgECPM = adDeliveryReportRepository.getAverageECPM();
+        Long activeCampaigns = adDeliveryReportRepository.getActiveCampaignCount();
 
-        for (AdDeliveryReport r : reports) {
-            // You MUST check the embedded metrics object first
-            if (r.getAdDeliveryReportMetrics() != null) {
-                var m = r.getAdDeliveryReportMetrics();
+        // Handling nulls in case the database is empty
+        stats.put("totalImpressions", totalImpressions != null ? totalImpressions : 0);
+        stats.put("ctr", avgCTR != null ? avgCTR : 0.0);
+        stats.put("ecpm", avgECPM != null ? avgECPM : 0.0);
+        stats.put("activeCampaigns", activeCampaigns != null ? activeCampaigns : 0);
 
-                totalImpressions += m.getImpressions();
-                // Calculate raw clicks from CTR percentage
-                totalClicks += (m.getCTR() / 100.0) * m.getImpressions();
-
-                // FIX: Use the exact getter for eCPM
-                sumEcpm += m.getECPM();
-                sumFill += m.getFillRate();
-                sumView += m.getViewabilityRate();
-            }
-        }
-
-        metrics.setImpressions(totalImpressions);
-
-        // Set Averages
-        int count = reports.size();
-        metrics.setECPM(sumEcpm / count);
-        metrics.setFillRate(sumFill / count);
-        metrics.setViewabilityRate(sumView / count);
-
-        if (totalImpressions > 0) {
-            metrics.setCTR((totalClicks / totalImpressions) * 100);
-        }
-
-        return metrics;
+        return stats;
     }
-    // Inside AdDeliveryReportService.java
+    // AdDeliveryReportService.java
 
     public List<Map<String, Object>> getChartData() {
-        List<AdDeliveryReport> reports = adDeliveryReportRepository.findAll();
+        List<Object[]> results = adDeliveryReportRepository.getDailyChartData();
+        List<Map<String, Object>> chartData = new ArrayList<>();
 
-        // We transform the reports into a simple format for the Frontend Chart library
-        return reports.stream().map(report -> {
+        for (Object[] row : results) {
             Map<String, Object> dataPoint = new HashMap<>();
-            dataPoint.put("date", report.getGeneratedDate());
-            dataPoint.put("impressions", report.getAdDeliveryReportMetrics().getImpressions());
-            dataPoint.put("ctr", report.getAdDeliveryReportMetrics().getCTR());
-            return dataPoint;
-        }).toList();
+            dataPoint.put("date", row[0]);
+            dataPoint.put("impressions", row[1]);
+            dataPoint.put("ctr", row[2]);
+            chartData.add(dataPoint);
+        }
+        return chartData;
+    }
+
+    public Map<String, Object> getDashboardWithGrowth() {
+        LocalDate now = LocalDate.now();
+
+        // 1. Fetch the lists
+        List<Object[]> currentList = adDeliveryReportRepository.getStatsForPeriod(now.minusDays(30), now);
+        List<Object[]> previousList = adDeliveryReportRepository.getStatsForPeriod(now.minusDays(60), now.minusDays(31));
+
+        // 2. Extract the actual data row (Object[]) from the list
+        Object[] currentData = (currentList != null && !currentList.isEmpty()) ? currentList.get(0) : null;
+        Object[] previousData = (previousList != null && !previousList.isEmpty()) ? previousList.get(0) : null;
+
+        Map<String, Object> response = new HashMap<>();
+
+        // 3. Use the extracted "Data" row, NOT the list
+        long currImp = getAsLong(currentData, 0);
+        response.put("totalImpressions", currImp);
+        response.put("ctr", getAsDouble(currentData, 1));
+        response.put("ecpm", getAsDouble(currentData, 2));
+        response.put("activeCampaigns", getAsLong(currentData, 3));
+
+        long prevImp = getAsLong(previousData, 0);
+        if (prevImp > 0) {
+            double growth = ((double) (currImp - prevImp) / prevImp) * 100;
+            response.put("impressionGrowth", String.format("%+.1f%%", growth));
+        } else {
+            response.put("impressionGrowth", "+0%");
+        }
+
+        return response;
+    }
+    private long getAsLong(Object[] result, int index) {
+        if (result == null || result.length <= index || result[index] == null) return 0L;
+        return ((Number) result[index]).longValue();
+    }
+
+    private double getAsDouble(Object[] result, int index) {
+        if (result == null || result.length <= index || result[index] == null) return 0.0;
+        return ((Number) result[index]).doubleValue();
     }
 }
+
+
+
+
+
+
+
+

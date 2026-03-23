@@ -10,5 +10,5 @@ public class AdDeliveryReportRequestDTO
 {
     private Long campaignId;
     private com.cts.dto.AdDeliveryReportMetricsDTO adDeliveryReportMetrics;
-    private LocalDate GeneratedDate;
+    private LocalDate generatedDate;
 }
