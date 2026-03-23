@@ -1,8 +1,6 @@
 package com.cts.controller;
 
-import com.cts.dto.UserRequestDTO;
-import com.cts.dto.UserResponseDTO;
-import com.cts.dto.AuthRequest;
+import com.cts.dto.*;
 import com.cts.exception.GlobalException;
 import com.cts.jwt.JWTService;
 import com.cts.model.User;
@@ -18,6 +16,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String generateToken(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<LoginResponse> generateToken(@RequestBody AuthRequest authRequest) {
         System.out.println("Controller came here line 51");
         try {
             Authentication authentication =  authenticationManager
@@ -54,7 +54,10 @@ public class UserController {
             if(authentication.isAuthenticated()) {
                 log.info("Generating user token");
                 User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
-                return jwtService.generateToken(user);
+                String token = jwtService.generateToken(user);
+                String role = user.getRole().toString();
+                LoginResponse response = new LoginResponse(token, role);
+                return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
                 log.warn("UserId is not found to generate user token");
                 throw new IllegalArgumentException("User Not Found");
@@ -93,24 +96,6 @@ public class UserController {
 
     }
 
-//    @PostMapping("/user/login/email")
-//    public ResponseEntity<UserResponseDTO> loginWithEmail(@RequestBody UserRequestDTO dto) {
-//        try {
-//            return new ResponseEntity<>(userService.loginWithEmail(dto), HttpStatus.FOUND);
-//        } catch (GlobalException e) {
-//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
-//    @PostMapping("/user/login/ph")
-//    public ResponseEntity<UserResponseDTO> loginWithPhoneNo(@RequestBody UserRequestDTO dto) {
-//        try {
-//            return new ResponseEntity<>(userService.loginWithPhoneNo(dto), HttpStatus.FOUND);
-//        } catch (GlobalException e) {
-//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//    }
-
     @PutMapping("/id/email1/email2")
     public ResponseEntity<UserResponseDTO> updateUserEmail(@PathVariable long id, @PathVariable String email1, @PathVariable String email2) {
         try {
@@ -129,12 +114,60 @@ public class UserController {
         }
     }
 
+    @GetMapping("count")
+    public ResponseEntity<Long> getTotalUsers() {
+        long count = userService.getTotalUserCount();
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/admin/unique-user-ids")
+    public ResponseEntity<Long> getUniqueUserIds() {
+        return ResponseEntity.ok(userService.findDistinctUserIds());
+    }
+
+    @GetMapping("/admin/admin-user-ids")
+    public ResponseEntity<Long> countUserByRole() {
+        return ResponseEntity.ok(userService.countByRole());
+    }
+
+    @GetMapping("/admin/roles-count")
+    public ResponseEntity<Map<String, Long>> allUserCountByRole() {
+        return ResponseEntity.ok(userService.getUserRoleDistribution());
+    }
+
+    @PostMapping("/admin/batch-details")
+    public Map<Long, UserDetailsDTO> getBatchDetails(@RequestBody List<Long> userIds) {
+        return userRepository.findAllByUserIdIn(userIds).stream()
+                .collect(Collectors.toMap(
+                        User::getUserId,
+                        u -> new UserDetailsDTO(u.getName(), u.getEmail())
+                ));
+    }
+
 //    @PutMapping("/user/id/oldPassword/newPassword")
 //    public ResponseEntity<UserResponseDTO> updateUserPassword(@PathVariable long id, @PathVariable String oldPassword, @PathVariable String newPassword) {
 //        try {
 //            return new ResponseEntity<>(userService.updateUserPassword(id, oldPassword, newPassword), HttpStatus.OK);
 //        } catch (GlobalException e) {
 //            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+//        }
+//    }
+
+//    @PostMapping("/user/login/email")
+//    public ResponseEntity<UserResponseDTO> loginWithEmail(@RequestBody UserRequestDTO dto) {
+//        try {
+//            return new ResponseEntity<>(userService.loginWithEmail(dto), HttpStatus.FOUND);
+//        } catch (GlobalException e) {
+//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//    }
+//
+//    @PostMapping("/user/login/ph")
+//    public ResponseEntity<UserResponseDTO> loginWithPhoneNo(@RequestBody UserRequestDTO dto) {
+//        try {
+//            return new ResponseEntity<>(userService.loginWithPhoneNo(dto), HttpStatus.FOUND);
+//        } catch (GlobalException e) {
+//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 //        }
 //    }
 }

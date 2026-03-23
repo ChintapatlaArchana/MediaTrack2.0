@@ -59,4 +59,8 @@ public class NotificationService {
                 .map(notificationMapper::toDto)
                 .toList();
     }
+
+    public Long unreadNotifications() {
+        return notificationRepository.countUnreadNotifications();
+    }
 }
