@@ -85,5 +85,34 @@ public class MediaPackageService {
         return total > 0 ? (passed * 100.0 / total) : 0.0;
     }
 
+    public Map<String, Double> getQcStatusDistribution() {
+        long passed = mediaPackageRepository.countByQcStatus(QCStatus.Passed);
+        long failed = mediaPackageRepository.countByQcStatus(QCStatus.Failed);
+        long pending = mediaPackageRepository.countByQcStatus(QCStatus.Pending);
+
+        long total = passed + failed + pending;
+
+        Map<String, Double> distribution = new HashMap<>();
+        if (total > 0) {
+            distribution.put("passed", (passed * 100.0) / total);
+            distribution.put("failed", (failed * 100.0) / total);
+            distribution.put("pending", (pending * 100.0) / total);
+        } else {
+            distribution.put("passed", 0.0);
+            distribution.put("failed", 0.0);
+            distribution.put("pending", 0.0);
+        }
+
+        return distribution;
+    }
+
+    public Map<String, Long> getFormatDistribution() {
+        Map<String, Long> formatCounts = new HashMap<>();
+        formatCounts.put("HLS", mediaPackageRepository.countByFormat("HLS"));
+        formatCounts.put("DASH", mediaPackageRepository.countByFormat("DASH"));
+        formatCounts.put("MSS", mediaPackageRepository.countByFormat("MSS"));
+        return formatCounts;
+    }
+
 
 }

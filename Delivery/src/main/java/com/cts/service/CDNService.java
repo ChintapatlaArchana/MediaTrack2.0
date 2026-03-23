@@ -126,6 +126,47 @@ public class CDNService {
         long total = cdnRepository.count();
         return total > 0 ? (active * 100.0 / total) : 0.0;
     }
+    //  Active Endpoints
+    public long getActiveEndpoints() {
+        return cdnRepository.countByStatus(CDNEndpoint.Status.Active);
+    }
+
+    //  Total Endpoints
+    public long getTotalEndpoints() {
+        return cdnRepository.count();
+    }
+
+    //  Average Latency (simulated since no latency field exists)
+// Here we just compute availability percentage as a proxy
+    public double getAverageLatency() {
+        long active = cdnRepository.countByStatus(CDNEndpoint.Status.Active);
+        long total = cdnRepository.count();
+        return total > 0 ? (active * 100.0 / total) : 0.0;
+    }
+
+    // Regional Metrics
+    public Map<String, Object> getRegionPerformance(String region) {
+        List<CDNEndpoint> endpoints = cdnRepository.findByRegion(region);
+
+        long activeNodes = endpoints.stream()
+                .filter(e -> e.getStatus() == CDNEndpoint.Status.Active)
+                .count();
+
+        long totalNodes = endpoints.size();
+
+        String status;
+        if (activeNodes == totalNodes && totalNodes > 0) status = "Excellent";
+        else if (activeNodes > 0) status = "Good";
+        else status = "Inactive";
+
+        Map<String, Object> performance = new HashMap<>();
+        performance.put("region", region);
+        performance.put("status", status);
+        performance.put("activeNodes", activeNodes);
+        performance.put("totalNodes", totalNodes);
+
+        return performance;
+    }
 
 
 }

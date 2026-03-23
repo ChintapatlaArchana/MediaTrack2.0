@@ -49,6 +49,16 @@ public class MediaPackageController {
     public ResponseEntity<Double> getQcPassRate() {
         return ResponseEntity.ok(mediaPackageService.getQcPassRate());
     }
+    @GetMapping("/metrics/status-distribution")
+    public ResponseEntity<Map<String, Double>> getQcStatusDistribution() {
+        return ResponseEntity.ok(mediaPackageService.getQcStatusDistribution());
+    }
+
+    @GetMapping("/metrics/format-distribution")
+    public ResponseEntity<Map<String, Long>> getFormatDistribution() {
+        return ResponseEntity.ok(mediaPackageService.getFormatDistribution());
+    }
+
 
 
     // NEW: Get all packages for a given asset

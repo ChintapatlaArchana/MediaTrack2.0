@@ -59,4 +59,31 @@ public class DRMEventController {
         return ResponseEntity.ok(drmEventService.getDrmSuccessRate());
     }
 
+
+    @GetMapping("/granted")
+    public ResponseEntity<Long> getGrantedCount() {
+        return ResponseEntity.ok(drmEventService.getGrantedCount());
+    }
+
+    @GetMapping("/denied")
+    public ResponseEntity<Long> getDeniedCount() {
+        return ResponseEntity.ok(drmEventService.getDeniedCount());
+    }
+
+    @GetMapping("/expired")
+    public ResponseEntity<Long> getExpiredCount() {
+        return ResponseEntity.ok(drmEventService.getExpiredCount());
+    }
+
+    @GetMapping("/success-rate")
+    public ResponseEntity<Double> getSuccessRate() {
+        return ResponseEntity.ok(drmEventService.getSuccessRate());
+    }
+
+    @GetMapping("/distribution")
+    public ResponseEntity<Map<String, Double>> getDrmTypeDistribution() {
+        return ResponseEntity.ok(drmEventService.getDrmTypeDistribution());
+    }
 }
+
+
