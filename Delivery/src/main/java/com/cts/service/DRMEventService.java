@@ -173,5 +173,47 @@ public class DRMEventService {
         return total > 0 ? (granted * 100.0 / total) : 0.0;
     }
 
+    // Licenses Granted
+    public long getGrantedCount() {
+        return drmEventRepository.countByLicenseStatus(LicenseStatus.Granted);
+    }
+
+    //  Licenses Denied
+    public long getDeniedCount() {
+        return drmEventRepository.countByLicenseStatus(LicenseStatus.Denied);
+    }
+
+    //Licenses Expired
+    public long getExpiredCount() {
+        return drmEventRepository.countByLicenseStatus(LicenseStatus.Expired);
+    }
+
+    //  Success Rate
+    public double getSuccessRate() {
+        long granted = drmEventRepository.countByLicenseStatus(LicenseStatus.Granted);
+        long denied = drmEventRepository.countByLicenseStatus(LicenseStatus.Denied);
+        long expired = drmEventRepository.countByLicenseStatus(LicenseStatus.Expired);
+
+        long total = granted + denied + expired;
+        return total > 0 ? (granted * 100.0 / total) : 0.0;
+    }
+
+    // DRM Type Distribution
+    public Map<String, Double> getDrmTypeDistribution() {
+        long total = drmEventRepository.count();
+
+        Map<String, Double> distribution = new HashMap<>();
+        long widevine = drmEventRepository.countByDrmType("Widevine");
+        long playReady = drmEventRepository.countByDrmType("PlayReady");
+        long fairPlay = drmEventRepository.countByDrmType("FairPlay");
+
+        if (total > 0) {
+            distribution.put("Widevine", (widevine * 100.0) / total);
+            distribution.put("PlayReady", (playReady * 100.0) / total);
+            distribution.put("FairPlay", (fairPlay * 100.0) / total);
+        }
+        return distribution;
+    }
+
 
 }

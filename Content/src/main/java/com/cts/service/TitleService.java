@@ -10,7 +10,11 @@ import com.cts.repository.CategoryRepository;
 import com.cts.repository.TitleRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TitleService {
@@ -63,5 +67,34 @@ public class TitleService {
             throw new GlobalException("Title not found with id: " + id);
         }
         titleRepository.deleteById(id);
+    }
+
+    public Map<Title.ApplicationStatus, Long> getCountByStatus() {
+        List<Object[]> results = titleRepository.countByStatus();
+
+        // Convert List of Object arrays to a Map
+        return results.stream().collect(Collectors.toMap(
+                result -> (Title.ApplicationStatus) result[0],
+                result -> (Long) result[1]
+        ));
+    }
+    public Title updateTitle(Long id, String name, String genre, LocalDate releaseDate) {
+        Optional<Title> optionalTitle = titleRepository.findById(id);
+        if (optionalTitle.isEmpty()) {
+            throw new RuntimeException("Title not found with id: " + id);
+        }
+
+        Title title = optionalTitle.get();
+        if (name != null) {
+            title.setName(name);
+        }
+        if (genre != null) {
+            title.setGenre(genre);
+        }
+        if (releaseDate != null) {
+            title.setReleaseDate(releaseDate);
+        }
+
+        return titleRepository.save(title);
     }
 }
