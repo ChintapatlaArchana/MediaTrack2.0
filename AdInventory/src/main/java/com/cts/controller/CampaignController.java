@@ -52,6 +52,18 @@ public class CampaignController {
     public ResponseEntity<CampaignResponseDTO> create(@RequestBody CampaignRequestDTO request) {
         return ResponseEntity.ok(service.create(request));
     }
+    //frontend
+
+
+    @GetMapping("/active-count")
+    public ResponseEntity<Long> getActiveCount() {
+        return ResponseEntity.ok(service.getActiveCount());
+    }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<List<CampaignResponseDTO>> getDashboardCampaigns() {
+        return ResponseEntity.ok(service.getDashboardList());
+    }
 
 
     @GetMapping
@@ -71,6 +83,10 @@ public class CampaignController {
 
         return ResponseEntity.ok(service.update(id, dto));
     }
+
+    // for frontend
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {

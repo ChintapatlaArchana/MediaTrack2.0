@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/titles")
@@ -47,6 +49,21 @@ public class TitleController {
     public ResponseEntity<Void> deleteTitle(@PathVariable Long id){
         titleService.deleteTitle(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/counts")
+    public ResponseEntity<Map<Title.ApplicationStatus, Long>> getStatusCounts() {
+        return ResponseEntity.ok(titleService.getCountByStatus());
+    }
+
+    @PutMapping("/{id}")
+    public Title updateTitle(
+            @PathVariable Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) LocalDate releaseDate) {
+
+        return titleService.updateTitle(id, name, genre, releaseDate);
     }
 
 

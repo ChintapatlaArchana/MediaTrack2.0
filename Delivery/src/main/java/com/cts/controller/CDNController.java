@@ -67,6 +67,33 @@ public class CDNController {
     }
 
 
+        //  Active Endpoints
+        @GetMapping("/active")
+        public ResponseEntity<Long> getActiveEndpoints() {
+            return ResponseEntity.ok(cdnService.getActiveEndpoints());
+        }
+
+        // Total Endpoints
+        @GetMapping("/total")
+        public ResponseEntity<Long> getTotalEndpoints() {
+            return ResponseEntity.ok(cdnService.getTotalEndpoints());
+        }
+
+        // Average Latency (availability proxy)
+        @GetMapping("/average-latency")
+        public ResponseEntity<Double> getAverageLatency() {
+            return ResponseEntity.ok(cdnService.getAverageLatency());
+        }
+
+        //  Regional Metrics
+        @GetMapping("/region/{region}")
+        public ResponseEntity<Map<String, Object>> getRegionPerformance(@PathVariable String region) {
+            return ResponseEntity.ok(cdnService.getRegionPerformance(region));
+        }
+
+
+
+
 }
 
 

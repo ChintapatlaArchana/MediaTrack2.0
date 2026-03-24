@@ -84,4 +84,30 @@ public class CampaignService {
         campaignRepo.deleteById(id);
         return "Campaign deleted successfully";
     }
+
+    public List<CampaignResponseDTO> getDashboardList() {
+        // Only fetch Active and Paused for the main dashboard view
+        List<Campaign.Status> dashboardStatuses = List.of(Campaign.Status.Active, Campaign.Status.Paused);
+        return campaignRepo.findDashboardCampaigns(dashboardStatuses)
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<CampaignResponseDTO> getAllCampaignsForDirectory() {
+        // Fetch every campaign for the "View All" page
+        return campaignRepo.findAllByOrderByStartDateDesc()
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+    // Add this method to your existing CampaignService class for the dashboard in the frontend
+
+
+
+
+
+    public long getActiveCount() {
+        return campaignRepo.countByStatus(Campaign.Status.Active);
+    }
 }
