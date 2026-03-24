@@ -7,18 +7,17 @@ import com.cts.service.AdDeliveryReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/adDeliveryReport")
 public class AdDeliveryReportController {
-
+    private final AdDeliveryReportService adDeliveryReportService;
 
     public AdDeliveryReportController(AdDeliveryReportService adDeliveryReportService) {
         this.adDeliveryReportService = adDeliveryReportService;
     }
-
-    private final AdDeliveryReportService adDeliveryReportService;
 
     @PostMapping
     public ResponseEntity<AdDeliveryReportResponseDTO> generateAdDeliveryReport(@RequestBody AdDeliveryReportRequestDTO dto){
@@ -33,5 +32,10 @@ public class AdDeliveryReportController {
     public ResponseEntity<Void> deleteAdDeliveryReport(@PathVariable("id") Long id){
         adDeliveryReportService.deleteAdDeliveryReport(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/admin/monthlyAdRevenue")
+    public ResponseEntity<BigDecimal> getMonthlyAdRevenue() {
+        return ResponseEntity.ok(adDeliveryReportService.getMonthlyAdRevenue());
     }
 }

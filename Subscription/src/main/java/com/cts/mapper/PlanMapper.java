@@ -5,8 +5,9 @@ import com.cts.dto.PlanResponseDTO;
 import com.cts.model.Plan;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Mapper(componentModel = "spring", imports = {Plan.BillingCycle.class, Plan.Status.class, ObjectMapper.class})
 
@@ -21,17 +22,7 @@ public interface PlanMapper {
 
     @Mapping(target = "billingCycle", expression = "java(entity.getBillingCycle())")
     @Mapping(target = "status", expression = "java(entity.getStatus())")
-    @Mapping(target = "entitlementsJSON", expression = "java(readJson(entity.getEntitlementsJSON()))")
+    @Mapping(target = "entitlementsJSON", source = "entitlementsJSON")
 
     PlanResponseDTO toDTO(Plan entity);
-
-    default JsonNode readJson(String json) {
-        try {
-            return json == null ? null : new ObjectMapper().readTree(json);
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
-
 }

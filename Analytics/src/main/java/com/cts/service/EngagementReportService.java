@@ -56,7 +56,7 @@ public class EngagementReportService {
         }
     }
 
-    public Double getQuickStats() {
+    public Double getDAUMAUStats() {
         LocalDate today = LocalDate.now();
         LocalDate thirtyDaysLater = today.plusDays(30);
 

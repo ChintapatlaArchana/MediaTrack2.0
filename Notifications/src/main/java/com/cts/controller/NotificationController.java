@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/notification")
 public class NotificationController {
 
     private final NotificationService notificationService;
@@ -34,7 +34,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/admin/unreadNotiications")
+    @GetMapping("/admin/openAlerts")
     public ResponseEntity<Long> getUnreadNotifications() {
         try {
             return ResponseEntity.ok(notificationService.unreadNotifications());

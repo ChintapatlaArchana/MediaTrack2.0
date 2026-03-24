@@ -114,7 +114,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("count")
+    @GetMapping("/admin/count")
     public ResponseEntity<Long> getTotalUsers() {
         long count = userService.getTotalUserCount();
         return ResponseEntity.ok(count);
