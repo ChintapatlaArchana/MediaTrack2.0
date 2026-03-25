@@ -10,7 +10,11 @@ import com.cts.mapper.AdDeliveryReportMapper;
 import com.cts.model.AdDeliveryReport;
 import com.cts.repository.AdDeliveryReportRepository;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +79,16 @@ public class AdDeliveryReportService {
         }
     }
 
+    public BigDecimal getMonthlyAdRevenue() {
+        // Get the first day of the current month at 00:00:00
+        LocalDate startOfMonth = LocalDate.now()
+                .withDayOfMonth(1);
 
+        BigDecimal revenue = adDeliveryReportRepository.calculateMonthlyAdRevenue(startOfMonth);
+
+        return (revenue != null) ? revenue.setScale(2, RoundingMode.HALF_UP) : BigDecimal.ZERO;
+
+    }
     // FOR FRONTEND DASHBOARD
     // Add to AdDeliveryReportService.java
 
