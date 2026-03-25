@@ -5,7 +5,6 @@ import tools.jackson.databind.JsonNode;
 
 @Data
 public class PlanRequestDTO {
-
     private String name;
     private Double price;
     private String billingCycle;

@@ -45,6 +45,11 @@ public class SubscriptionController {
         return ResponseEntity.ok(activeCount);
     }
 
+    @GetMapping("/admin/MRR")
+    public ResponseEntity<BigDecimal> getMRR(){
+        return ResponseEntity.ok(subscriptionService.calculateNormalizedMRR());
+    }
+
     @GetMapping("/admin/ARR")
     public ResponseEntity<BigDecimal> getARR(){
         return ResponseEntity.ok(subscriptionService.getARR());
@@ -53,6 +58,11 @@ public class SubscriptionController {
     @GetMapping("/admin/ARPU")
     public ResponseEntity<BigDecimal> getARPU(){
         return ResponseEntity.ok(subscriptionService.getARPU());
+    }
+
+    @GetMapping("/admin/churnCount")
+    public ResponseEntity<Double> getRecentChurnCount() {
+        return ResponseEntity.ok(subscriptionService.getRecentChurnCount());
     }
 
     @GetMapping("/admin/action/dailyExpiry")

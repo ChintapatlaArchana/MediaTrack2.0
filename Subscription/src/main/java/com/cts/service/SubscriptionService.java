@@ -97,13 +97,15 @@ public class SubscriptionService {
         BigDecimal totalMrr = BigDecimal.ZERO;
 
         for (Object[] result : results) {
-            String cycle = (String) result[0];
-            BigDecimal revenue = (BigDecimal) result[1];
-            if ("Yearly".equalsIgnoreCase(cycle)) {
-                // Normalize: Yearly Price / 12
+            if (result[0] == null || result[1] == null) continue;
+
+            String cycle = result[0].toString();
+
+            BigDecimal revenue = new BigDecimal(result[1].toString());
+
+            if ("YEARLY".equalsIgnoreCase(cycle)) {
                 totalMrr = totalMrr.add(revenue.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP));
-            } else if ("Monthly".equalsIgnoreCase(cycle)) {
-                // Monthly Price is already MRR
+            } else if ("MONTHLY".equalsIgnoreCase(cycle)) {
                 totalMrr = totalMrr.add(revenue);
             }
         }
@@ -174,13 +176,13 @@ public class SubscriptionService {
         return rawData.stream().collect(Collectors.groupingBy(
                 PlanDistributionDTO::getPlanName,
                 Collectors.collectingAndThen(Collectors.toList(), list -> {
-                    // Use Plan.BillingCycle.Monthly instead of "Monthly"
+
                     long monthly = list.stream()
-                            .filter(d -> d.getBillingCycle() == Plan.BillingCycle.Monthly)
+                            .filter(d -> "MONTHLY".equalsIgnoreCase(d.getBillingCycle()))
                             .mapToLong(PlanDistributionDTO::getCount).sum();
 
                     long yearly = list.stream()
-                            .filter(d -> d.getBillingCycle() == Plan.BillingCycle.Yearly)
+                            .filter(d -> "YEARLY".equalsIgnoreCase(d.getBillingCycle()))
                             .mapToLong(PlanDistributionDTO::getCount).sum();
 
                     Map<String, Object> stats = new HashMap<>();
@@ -208,5 +210,25 @@ public class SubscriptionService {
         }
 
         return new ArrayList<>(grouped.values());
+    }
+
+    public Double getRecentChurnCount() {
+
+        long totalUsersAtStart = userFeignClient.getTotalUsers().getBody();
+
+        List<Subscription.Status> churnStatuses = List.of(
+                Subscription.Status.Lapsed,
+                Subscription.Status.Cancelled
+        );
+        LocalDate thirtyDaysAgo = LocalDate.now().minusDays(30);
+
+        long lostUsers = subscriptionRepository.countByStatusInAndEndDateAfter(
+                churnStatuses,
+                thirtyDaysAgo
+        );
+
+        if (totalUsersAtStart == 0) return 0.0;
+
+        return ((double) lostUsers / totalUsersAtStart) * 100;
     }
 }

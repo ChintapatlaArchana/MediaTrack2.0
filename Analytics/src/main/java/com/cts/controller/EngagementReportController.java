@@ -43,4 +43,8 @@ public class EngagementReportController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/admin/DAU-MAUStats")
+    public ResponseEntity<Double> getDAUMAUStats() {
+        return ResponseEntity.ok(engagementReportService.getDAUMAUStats());
+    }
 }

@@ -22,6 +22,9 @@ public interface UserFeignClient {
 
     @PostMapping("/user/admin/batch-details")
     Map<Long, UserDetailsDTO> getUserDetailsBatch(@RequestBody List<Long> userIds);
+
+    @GetMapping("/user/admin/count")
+    ResponseEntity<Long> getTotalUsers();
 }
 
 

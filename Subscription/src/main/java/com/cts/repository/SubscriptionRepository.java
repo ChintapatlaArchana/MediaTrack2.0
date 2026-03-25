@@ -16,31 +16,31 @@ import java.util.List;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-    @Query("SELECT p.billingCycle, SUM(p.price) " +
+    @Query("SELECT str(p.billingCycle), SUM(p.price) " +
             "FROM Subscription s JOIN s.plan p " +
-            "WHERE s.status = 'Active' " +
+            "WHERE s.status = com.cts.model.Subscription$Status.Active " +
             "GROUP BY p.billingCycle")
     List<Object[]> getRevenueByBillingCycle();
 
-    @Query("SELECT SUM(p.price) FROM Subscription s JOIN s.plan p WHERE s.status = 'Active'")
+    @Query("SELECT SUM(p.price) FROM Subscription s JOIN s.plan p WHERE s.status = com.cts.model.Subscription$Status.Active")
     BigDecimal calculateTotalActiveRevenue();
 
-    @Query("SELECT COUNT(s) FROM Subscription s WHERE s.status = 'Active'")
+    @Query("SELECT COUNT(s) FROM Subscription s WHERE s.status = com.cts.model.Subscription$Status.Active")
     long countByStatus();
 
     @Modifying
-    @Query("UPDATE Subscription s SET s.status = 'Lapsed' " +
-            "WHERE s.status = 'Grace' AND s.endDate <= :sevenDaysAgo")
+    @Query("UPDATE Subscription s SET s.status = com.cts.model.Subscription$Status.Lapsed " +
+            "WHERE s.status = com.cts.model.Subscription$Status.Grace AND s.endDate <= :sevenDaysAgo")
     int updateStatusFromGraceToLapsed(@Param("sevenDaysAgo") LocalDateTime sevenDaysAgo);
 
     @Modifying
-    @Query("UPDATE Subscription s SET s.status = 'Grace' " +
-            "WHERE s.status = 'Active' AND s.endDate <= :now")
+    @Query("UPDATE Subscription s SET s.status = com.cts.model.Subscription$Status.Grace " +
+            "WHERE s.status = com.cts.model.Subscription$Status.Active AND s.endDate <= :now")
     int updateStatusFromActiveToGrace(@Param("now") LocalDateTime now);
 
     @Query("SELECT COUNT(s) FROM Subscription s " +
             "WHERE s.endDate BETWEEN :today AND :thirtyDaysHence " +
-            "AND s.status = 'Active'")
+            "AND s.status = com.cts.model.Subscription$Status.Active")
     Long countUpcomingRenewals(@Param("today") LocalDate today,
                                @Param("thirtyDaysHence") LocalDate thirtyDaysHence);
 
@@ -62,9 +62,9 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
             "ORDER BY monthGroup ASC")
     List<ChartDataDTO> getActiveSubscriberHistory(@Param("sixMonthsAgo") LocalDate sixMonthsAgo);
 
-    @Query("SELECT new com.cts.dto.PlanDistributionDTO(p.name, p.billingCycle, COUNT(s)) " +
+    @Query("SELECT new com.cts.dto.PlanDistributionDTO(p.name, str(p.billingCycle), COUNT(s)) " +
             "FROM Subscription s JOIN s.plan p " +
-            "WHERE s.status = 'Active' " +
+            "WHERE s.status = com.cts.model.Subscription$Status.Active " +
             "GROUP BY p.name, p.billingCycle")
     List<PlanDistributionDTO> getPlanDistribution();
 
@@ -76,5 +76,7 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
             "WHERE s.startDate >= :sixMonthsAgo " +
             "GROUP BY 1, p.name")
     List<RevenueDataDTO> getMrrByPlan(LocalDate sixMonthsAgo);
+
+    long countByStatusInAndEndDateAfter(List<Subscription.Status> statuses, LocalDate date);
 
 }

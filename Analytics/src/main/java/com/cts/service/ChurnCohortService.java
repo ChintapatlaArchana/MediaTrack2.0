@@ -3,14 +3,10 @@ package com.cts.service;
 import com.cts.dto.ChurnCohortRequestDTO;
 import com.cts.dto.ChurnCohortResponseDTO;
 import com.cts.dto.PlanResponseDTO;
-//import com.cts.repository.UserRepository;
 import com.cts.feign.PlanFeignClient;
 import com.cts.mapper.ChurnCohortMapper;
 import com.cts.model.ChurnCohort;
 import com.cts.repository.ChurnCohortRepository;
-import com.cts.repository.*;
-//import com.cts.repository.SubscriptionRepository;
-import jdk.jshell.JShell;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,8 +18,6 @@ public class ChurnCohortService {
     private final ChurnCohortRepository churnCohortRepository;
     private final ChurnCohortMapper churnCohortMapper;
     private final PlanFeignClient planFeignClient;
-//    private final UserRepository userRepository;
-//    private final SubscriptionRepository subscriptionRepository;
 
     public ChurnCohortService(ChurnCohortRepository churnCohortRepository,
                               ChurnCohortMapper churnCohortMapper,
@@ -31,8 +25,6 @@ public class ChurnCohortService {
         this.churnCohortRepository = churnCohortRepository;
         this.churnCohortMapper = churnCohortMapper;
         this.planFeignClient = planFeignClient;
-//        this.userRepository = userRepository;
-//        this.subscriptionRepository=subscriptionRepository;
     }
 
     public ChurnCohortResponseDTO generateChurnCohort(ChurnCohortRequestDTO dto) {
@@ -79,18 +71,18 @@ public class ChurnCohortService {
         }
     }
 
-//    public double calculateChurnRate() {
-//        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
-//
-//        // 1. Total users who WERE active 30 days ago
-//        long totalUsersAtStart = userRepository.count();
-//
-//        // 2. Users who are currently Lapsed or Cancelled
-//        long lostUsers = subscriptionRepository.countByStatusInAndLastModifiedDateAfter(
-//                List.of("Lapsed", "Cancelled"), thirtyDaysAgo);
-//
-//        if (totalUsersAtStart == 0) return 0.0;
-//
-//        return ((double) lostUsers / totalUsersAtStart) * 100;
-//    }
+    public double calculateChurnRate() {
+        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
+
+        // 1. Total users who WERE active 30 days ago
+        long totalUsersAtStart = userRepository.count();
+
+        // 2. Users who are currently Lapsed or Cancelled
+        long lostUsers = subscriptionRepository.countByStatusInAndLastModifiedDateAfter(
+                List.of("Lapsed", "Cancelled"), thirtyDaysAgo);
+
+        if (totalUsersAtStart == 0) return 0.0;
+
+        return ((double) lostUsers / totalUsersAtStart) * 100;
+    }
 }
