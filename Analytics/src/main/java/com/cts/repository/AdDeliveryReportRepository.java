@@ -1,5 +1,6 @@
 package com.cts.repository;
 
+import com.cts.dto.CampaignResponseDTO;
 import com.cts.dto.DashboardSummaryDTO;
 import com.cts.model.AdDeliveryReport;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -49,6 +50,16 @@ public interface AdDeliveryReportRepository extends JpaRepository<AdDeliveryRepo
             "FROM AdDeliveryReport a " +
             "WHERE a.generatedDate BETWEEN :startDate AND :endDate")
     List<Object[]> getStatsForPeriod(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    @Query(value = "SELECT c.id as campaignId, c.name as campaignName, c.status as status, " +
+            "SUM(r.impressions) as totalImpressions, SUM(r.clicks) as totalClicks, " +
+            "c.budget as budget, SUM(r.spent_amount) as budgetSpent " +
+            "FROM campaign c " +
+            "LEFT JOIN ad_delivery_report r ON c.id = r.campaign_id " +
+            "WHERE c.status = 'ACTIVE' OR c.status = 'PAUSED' " +
+            "GROUP BY c.id, c.name, c.status, c.budget",
+            nativeQuery = true)
+    List<CampaignResponseDTO> findActiveCampaignsMetrics();
 }
 
 

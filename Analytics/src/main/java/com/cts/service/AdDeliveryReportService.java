@@ -150,6 +150,10 @@ public class AdDeliveryReportService {
         if (result == null || result.length <= index || result[index] == null) return 0.0;
         return ((Number) result[index]).doubleValue();
     }
+
+    public List<CampaignResponseDTO> getActiveCampaignsForDashboard() {
+        return adDeliveryReportRepository.findActiveCampaignsMetrics();
+    }
 }
 
 

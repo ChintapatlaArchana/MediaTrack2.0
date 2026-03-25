@@ -4,6 +4,7 @@ package com.cts.controller;
 import com.cts.dto.AdDeliveryReportMetricsDTO;
 import com.cts.dto.AdDeliveryReportRequestDTO;
 import com.cts.dto.AdDeliveryReportResponseDTO;
+import com.cts.dto.CampaignResponseDTO;
 import com.cts.service.AdDeliveryReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,13 @@ public class AdDeliveryReportController {
     @GetMapping("/stats/summary")
     public ResponseEntity<Map<String, Object>> getDashboardSummary() {
         return ResponseEntity.ok(adDeliveryReportService.getDashboardWithGrowth());
+    }
+
+
+    @GetMapping("/active-campaigns")
+    public ResponseEntity<List<CampaignResponseDTO>> getActiveCampaigns() {
+        List<CampaignResponseDTO> data = adDeliveryReportService.getActiveCampaignsForDashboard();
+        return ResponseEntity.ok(data);
     }
     // Inside AdDeliveryReportController.java
 

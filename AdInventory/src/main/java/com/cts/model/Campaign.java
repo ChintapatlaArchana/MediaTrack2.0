@@ -35,6 +35,8 @@ public class Campaign {
     @Lob
     private String targetingJSON;
 
+
+
 //    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
 //    private List<AdImpression> adImpression;
 
@@ -43,3 +45,5 @@ public class Campaign {
     private Creative creative;
 
 }
+
+

@@ -56,7 +56,7 @@ public class TitleController {
         return ResponseEntity.ok(titleService.getCountByStatus());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/quickupdate/{id}")
     public Title updateTitle(
             @PathVariable Long id,
             @RequestParam(required = false) String name,

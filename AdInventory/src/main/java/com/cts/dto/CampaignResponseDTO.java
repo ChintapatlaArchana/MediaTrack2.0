@@ -21,7 +21,9 @@ public class CampaignResponseDTO {
     private Double budget;
     private Pacing pacing;
     private Status status;
-    private JsonNode targetingJSON;//ask archana
+    private JsonNode targetingJSON;
+
+
 
 //    // one to many
 //    private List<AdImpression> impressionIds;
