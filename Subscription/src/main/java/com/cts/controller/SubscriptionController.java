@@ -22,7 +22,7 @@ public class SubscriptionController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<SubscriptionResponseDTO> create(@RequestBody SubscriptionRequestDTO dto,  @RequestHeader("X-User-Id") String id) {
+    public ResponseEntity<SubscriptionResponseDTO> create(@RequestBody SubscriptionRequestDTO dto,  @RequestHeader("X-User-Id") String id ) {
         try {
             return new ResponseEntity(subscriptionService.create(dto, id), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -94,11 +94,6 @@ public class SubscriptionController {
     @GetMapping("/admin/plan-distribution")
     public ResponseEntity<List<PlanDistributionDTO>> getPlanDistribution() {
         return ResponseEntity.ok(subscriptionService.getActiveSubscriptionsByPlan());
-    }
-
-    @GetMapping("/admin/billin-mix")
-    public ResponseEntity<Map<String, Map<String, Object>>> getFormattedBillingMix() {
-        return ResponseEntity.ok(subscriptionService.getFormattedBillingMix());
     }
 
     @GetMapping("/admin/MRRbyPlan")

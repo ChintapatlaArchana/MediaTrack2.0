@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @Data
 public class Campaign {
 
-    //public enum TargetingJSON { Geo, Device, Genre}
+//    public enum TargetingJSON { Geo, Device, Genre}
 
-    public enum Pacing {Even,Asap}
-    public enum Status {Planned,Active,Paused,Completed}
+    public enum Pacing { Even, Asap }
+    public enum Status { Planned, Active, Paused, Completed }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,18 +26,14 @@ public class Campaign {
     private LocalDate endDate;
     private Double budget;
 
-
-
     @Enumerated(EnumType.STRING)
     private Pacing pacing;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Lob
-    private String targetingJSON;
-
-
+//    @Lob
+//    private String targetingJSON;
 
 //    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
 //    private List<AdImpression> adImpression;
@@ -47,5 +43,3 @@ public class Campaign {
     private Creative creative;
 
 }
-
-
