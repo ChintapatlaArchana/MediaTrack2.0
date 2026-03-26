@@ -2,6 +2,7 @@ package com.cts.controller;
 
 import com.cts.dto.PlanRequestDTO;
 import com.cts.dto.PlanResponseDTO;
+import com.cts.model.Plan;
 import com.cts.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class PlanController {
     @Autowired
     private PlanService planService;
 
-    @PostMapping("/add")
+    @PostMapping("/admin/add")
     public ResponseEntity<PlanResponseDTO> create(@RequestBody PlanRequestDTO dto) {
         try {
             return new ResponseEntity(planService.createPlan(dto), HttpStatus.CREATED);
@@ -43,5 +44,14 @@ public class PlanController {
         catch(IllegalArgumentException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("/admin/delete-by-details")
+    public ResponseEntity<Void> deletePlan(
+            @RequestParam String name,
+            @RequestParam Plan.BillingCycle billingCycle) {
+
+        planService.deleteByDetails(name, billingCycle);
+        return ResponseEntity.noContent().build();
     }
 }
