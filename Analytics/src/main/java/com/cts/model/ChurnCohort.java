@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table(name="churncohort")
 public class ChurnCohort {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cohortId;
 
     private Long planId;

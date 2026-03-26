@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table(name="engagementreport")
 public class EngagementReport {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
     @Embedded
