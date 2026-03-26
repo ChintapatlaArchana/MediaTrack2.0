@@ -74,7 +74,7 @@ public class CampaignService {
         existing.setBudget(dto.getBudget());
         existing.setPacing(Campaign.Pacing.valueOf(dto.getPacing()));
         existing.setStatus(Campaign.Status.valueOf(dto.getStatus()));
-        existing.setTargetingJSON(dto.getTargetingJSON().toString());
+        //existing.setTargetingJSON(dto.getTargetingJSON().toString());
 
         return mapper.toDTO(campaignRepo.save(existing));
     }
@@ -93,6 +93,12 @@ public class CampaignService {
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
+    // CampaignService.java
+
+    public long getActiveCount() {
+        return campaignRepo.countByStatus(Campaign.Status.Active);
+    }
+
 
     public List<CampaignResponseDTO> getAllCampaignsForDirectory() {
         // Fetch every campaign for the "View All" page
@@ -101,13 +107,12 @@ public class CampaignService {
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
+// CampaignService.java
+
     // Add this method to your existing CampaignService class for the dashboard in the frontend
 
 
 
 
 
-    public long getActiveCount() {
-        return campaignRepo.countByStatus(Campaign.Status.Active);
-    }
 }

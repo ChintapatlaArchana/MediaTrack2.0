@@ -21,28 +21,28 @@ public class AssetController {
 
     private final AssetService assetService;
 
-    @PostMapping
+    @PostMapping("/content/addAsset")
     public ResponseEntity<AssetResponseDTO> createAsset(@RequestBody AssetRequestDTO dto){
         return ResponseEntity.ok(assetService.createAsset(dto));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/content/{id}")
     public ResponseEntity<AssetResponseDTO> getAssetById(@PathVariable("id") Long id){
         return ResponseEntity.ok(assetService.getAsset(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/content/{id}")
     public ResponseEntity<AssetResponseDTO> updateAsset(@PathVariable("id") Long assetId,@RequestBody AssetRequestDTO dto){
         return ResponseEntity.ok(assetService.updateAsset(assetId,dto));
     }
 
 
-    @GetMapping("/title/{titleId}")
+    @GetMapping("/content/title/{titleId}")
     public ResponseEntity<List<AssetResponseDTO>> listAssetsByTitle(@PathVariable("titleId") Long titleId){
         return ResponseEntity.ok(assetService.getAssetsByTitle(titleId));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/content/{id}")
     public ResponseEntity<Void> deleteAsset(@PathVariable Long id){
         assetService.deleteAsset(id);
         return ResponseEntity.noContent().build();

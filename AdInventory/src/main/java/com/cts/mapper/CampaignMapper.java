@@ -12,27 +12,24 @@ import org.mapstruct.Mapping;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
-@Mapper(componentModel = "spring",imports = {ObjectMapper.class})
-public interface
-CampaignMapper {
+@Mapper(componentModel = "spring")
+public interface CampaignMapper {
 
-    @Mapping(target = "pacing", expression = "java(Campaign.Pacing.valueOf(dto.getPacing()))")
-    @Mapping(target = "status", expression = "java(Campaign.Status.valueOf(dto.getStatus()))")
-    @Mapping(target = "targetingJSON", expression = "java(dto.getTargetingJSON() == null ? null : dto.getTargetingJSON().toString())")
+    // Remove the expressions. MapStruct will automatically call
+    // Campaign.Pacing.valueOf() but with built-in null safety.
     Campaign toEntity(CampaignRequestDTO dto);
 
-    @Mapping(target = "creativeId",source = "creative.creativeId")
-    @Mapping(target="pacing", expression = "java(entity.getPacing())")
-    @Mapping(target="status", expression = "java(entity.getStatus())")
-    @Mapping(target = "targetingJSON", expression = "java(readJson(entity.getTargetingJSON()))")
+    @Mapping(target = "creativeId", source = "creative.creativeId")
     CampaignResponseDTO toDTO(Campaign entity);
 
-    default JsonNode readJson(String json) {
-        try {
-            return json == null ? null : new ObjectMapper().readTree(json);
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
+    // Keep your custom JSON logic if needed
+//    default JsonNode readJson(String json) {
+//        if (json == null) return null;
+//        try {
+//            return new ObjectMapper().readTree(json);
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
 }
+

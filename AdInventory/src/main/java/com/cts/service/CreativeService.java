@@ -61,4 +61,9 @@ public class CreativeService {
         repo.deleteById(id);
         return "Creative deleted successfully";
     }
+
+    public Long getCreativeIdByAdvertiser(String advertiser) {
+        return repo.findIdByAdvertiser(advertiser)
+                .orElseThrow(() -> new RuntimeException("Creative not found for advertiser: " + advertiser));
+    }
 }
