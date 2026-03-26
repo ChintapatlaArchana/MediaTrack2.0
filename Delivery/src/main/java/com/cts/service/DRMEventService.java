@@ -215,5 +215,51 @@ public class DRMEventService {
         return distribution;
     }
 
+    public List<Map<String, Object>> getHydratedEvents() {
+        log.info("Fetching hydrated DRM events for live feed");
+        try {
+            List<DRMEvent> events = drmEventRepository.findAll();
+
+            return events.stream().map(event -> {
+                Map<String, Object> map = new HashMap<>();
+                PlaybackSession session = event.getPlaybackSession();
+
+                // Basic Event Info
+                map.put("id", event.getDrmEventID());
+                map.put("status", event.getLicenseStatus().toString());
+                map.put("type", event.getDrmType());
+                map.put("time", "Just Now"); // Or format event.getTimestamp()
+
+                if (session != null) {
+                    // 1. User Detail (Requirement: user.userId)
+                    map.put("user", session.getUser() != null ? session.getUser().getUsername() : "Anonymous");
+                    map.put("userId", session.getUser() != null ? session.getUser().getUserID() : null);
+
+                    // 2. Asset Detail (Requirement: asset.assetId)
+                    map.put("title", session.getAsset() != null ? session.getAsset().getTitle() : "Unknown Content");
+                    map.put("assetId", session.getAsset() != null ? session.getAsset().getAssetID() : "---");
+
+                    // 3. CDN/Region (Requirement: cdn.region)
+                    // Assuming PlaybackSession or Asset is linked to a CDN
+                    map.put("region", session.getRegion() != null ? session.getRegion() : "Global");
+                    map.put("ip", "192.168.1.1"); // Placeholder or session.getIpAddress()
+
+                    // 4. Device (Requirement: device.deviceType)
+                    map.put("device", session.getDevice() != null ? session.getDevice().getDeviceType() : "Unknown");
+                } else {
+                    map.put("user", "Anonymous");
+                    map.put("title", "Untitled");
+                    map.put("region", "Global");
+                    map.put("device", "Unknown");
+                }
+
+                return map;
+            }).toList();
+        } catch (Exception ex) {
+            log.error("Error hydrating DRM events: {}", ex.getMessage());
+            throw new GlobalException("Could not load complete event data");
+        }
+    }
+
 
 }

@@ -127,60 +127,60 @@ public class AdDeliveryReportService {
 //        return metrics;
 //    }
 
-    public AdDeliveryReportMetricsDTO getDashboardMetrics() {
-        List<AdDeliveryReport> reports = adDeliveryReportRepository.findAll();
-        AdDeliveryReportMetricsDTO metrics = new AdDeliveryReportMetricsDTO();
-
-        if (reports.isEmpty()) return metrics;
-
-        int totalImpressions = 0;
-        double totalClicks = 0;
-        double sumEcpm = 0;
-        double sumFill = 0;
-        double sumView = 0;
-
-        for (AdDeliveryReport r : reports) {
-            // You MUST check the embedded metrics object first
-            if (r.getAdDeliveryReportMetrics() != null) {
-                var m = r.getAdDeliveryReportMetrics();
-
-                totalImpressions += m.getImpressions();
-                // Calculate raw clicks from CTR percentage
-                totalClicks += (m.getCTR() / 100.0) * m.getImpressions();
-
-                // FIX: Use the exact getter for eCPM
-                sumEcpm += m.getECPM();
-                sumFill += m.getFillRate();
-                sumView += m.getViewabilityRate();
-            }
-        }
-
-        metrics.setImpressions(totalImpressions);
-
-        // Set Averages
-        int count = reports.size();
-        metrics.setECPM(sumEcpm / count);
-        metrics.setFillRate(sumFill / count);
-        metrics.setViewabilityRate(sumView / count);
-
-        if (totalImpressions > 0) {
-            metrics.setCTR((totalClicks / totalImpressions) * 100);
-        }
-
-        return metrics;
-    }
+//    public AdDeliveryReportMetricsDTO getDashboardMetrics() {
+//        List<AdDeliveryReport> reports = adDeliveryReportRepository.findAll();
+//        AdDeliveryReportMetricsDTO metrics = new AdDeliveryReportMetricsDTO();
+//
+//        if (reports.isEmpty()) return metrics;
+//
+//        int totalImpressions = 0;
+//        double totalClicks = 0;
+//        double sumEcpm = 0;
+//        double sumFill = 0;
+//        double sumView = 0;
+//
+//        for (AdDeliveryReport r : reports) {
+//            // You MUST check the embedded metrics object first
+//            if (r.getAdDeliveryReportMetrics() != null) {
+//                var m = r.getAdDeliveryReportMetrics();
+//
+//                totalImpressions += m.getImpressions();
+//                // Calculate raw clicks from CTR percentage
+//                totalClicks += (m.getCTR() / 100.0) * m.getImpressions();
+//
+//                // FIX: Use the exact getter for eCPM
+//                sumEcpm += m.getECPM();
+//                sumFill += m.getFillRate();
+//                sumView += m.getViewabilityRate();
+//            }
+//        }
+//
+//        metrics.setImpressions(totalImpressions);
+//
+//        // Set Averages
+//        int count = reports.size();
+//        metrics.setECPM(sumEcpm / count);
+//        metrics.setFillRate(sumFill / count);
+//        metrics.setViewabilityRate(sumView / count);
+//
+//        if (totalImpressions > 0) {
+//            metrics.setCTR((totalClicks / totalImpressions) * 100);
+//        }
+//
+//        return metrics;
+//    }
     // Inside AdDeliveryReportService.java
 
-    public List<Map<String, Object>> getChartData() {
-        List<AdDeliveryReport> reports = adDeliveryReportRepository.findAll();
-
-        // We transform the reports into a simple format for the Frontend Chart library
-        return reports.stream().map(report -> {
-            Map<String, Object> dataPoint = new HashMap<>();
-            dataPoint.put("date", report.getGeneratedDate());
-            dataPoint.put("impressions", report.getAdDeliveryReportMetrics().getImpressions());
-            dataPoint.put("ctr", report.getAdDeliveryReportMetrics().getCTR());
-            return dataPoint;
-        }).toList();
+//    public List<Map<String, Object>> getChartData() {
+//        List<AdDeliveryReport> reports = adDeliveryReportRepository.findAll();
+//
+//        // We transform the reports into a simple format for the Frontend Chart library
+//        return reports.stream().map(report -> {
+//            Map<String, Object> dataPoint = new HashMap<>();
+//            dataPoint.put("date", report.getGeneratedDate());
+//            dataPoint.put("impressions", report.getAdDeliveryReportMetrics().getImpressions());
+//            dataPoint.put("ctr", report.getAdDeliveryReportMetrics().getCTR());
+//            return dataPoint;
+//        }).toList();
     }
 }

@@ -28,7 +28,7 @@ public class CDNController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<CDNEndpointResponseDTO>> findAll() {
         return ResponseEntity.ok(cdnService.findAll());
     }

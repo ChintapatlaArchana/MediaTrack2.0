@@ -28,7 +28,7 @@ public class DRMEventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<DRMEventResponseDTO>> findAll(@RequestParam(required = false) Long sessionId) {
         return ResponseEntity.ok(drmEventService.findAll(sessionId));
     }
@@ -84,6 +84,7 @@ public class DRMEventController {
     public ResponseEntity<Map<String, Double>> getDrmTypeDistribution() {
         return ResponseEntity.ok(drmEventService.getDrmTypeDistribution());
     }
+
 }
 
 

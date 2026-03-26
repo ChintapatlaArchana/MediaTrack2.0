@@ -29,7 +29,7 @@ public class DeviceController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/all)")
     public ResponseEntity<List<DeviceResponseDTO>> findAll(
 //            @RequestParam(value = "userId", required = false) Long userId,
 //            @RequestParam(value = "status", required = false) String status

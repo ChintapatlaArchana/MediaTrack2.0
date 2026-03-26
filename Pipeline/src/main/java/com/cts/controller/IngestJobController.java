@@ -27,7 +27,7 @@ public class IngestJobController {
         return ResponseEntity.ok(ingestJobService.createIngestJob(dto));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<IngestJobResponseDTO>> getAll() {
         return ResponseEntity.ok(ingestJobService.getAllIngestJobs());
     }

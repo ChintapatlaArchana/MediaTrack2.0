@@ -4,38 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d157241b-d579-4ab0-994c-38be6edbc5e2" name="Changes" comment="&quot;Test for Repository&quot;">
-      <change afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/dto/ChartDataDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/dto/PlanDistributionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/dto/RevenueDataDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/record/ExpiryDistributionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/record/PolicyDriftDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/record/UserDetailsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/dto/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/dto/UserDetailsDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="84275a3f-6ab6-4ec8-b9f8-730be90503e6" name="Changes" comment="content and pipeline functionalities added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/AdDeliveryReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/AdDeliveryReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/AdDeliveryReportMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/AdDeliveryReportMetrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/ChurnCohort.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/ChurnCohort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/repository/AdDeliveryReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/repository/AdDeliveryReportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/repository/EngagementReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/repository/EngagementReportRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/AdDeliveryReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/AdDeliveryReportService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/ChurnCohortService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/ChurnCohortService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/EngagementReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/EngagementReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/cts/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notifications/src/main/java/com/cts/controller/NotificationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/cts/repository/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notifications/src/main/java/com/cts/repository/NotificationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notifications/src/main/java/com/cts/service/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Notifications/src/main/java/com/cts/service/NotificationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/controller/EntitlementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/controller/EntitlementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/controller/SubscriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/controller/SubscriptionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/feign/UserFeignClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/feign/UserFeignClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/repository/EntitlementRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/repository/EntitlementRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/repository/SubscriptionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/repository/SubscriptionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/service/EntitlementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/service/EntitlementService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/service/SubscriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription/src/main/java/com/cts/service/SubscriptionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/src/main/java/com/cts/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/AdDeliveryReportControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/AdDeliveryReportControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/ChurnCohortControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/ChurnCohortControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/EngagementReportControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/EngagementReportControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/AdDeliveryReportMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/AdDeliveryReportMapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/ChurnCohortMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/ChurnCohortMapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/EngagementReportMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/EngagementReportMapperTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/AdDeliveryReportServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/AdDeliveryReportServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/ChurnCohortServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/ChurnCohortServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/EngagementReportServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/EngagementReportServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/AssetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/AssetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/TitleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/TitleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/DeliveryMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/DeliveryMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/CDNController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/CDNController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DRMEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DRMEventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DeviceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DeviceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DRMEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DRMEventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/IngestJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/IngestJobController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/TranscodeJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/TranscodeJobController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/repository/IngestJobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/repository/IngestJobRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/service/TranscodeJobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/service/TranscodeJobService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/application-prod.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,33 +35,26 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;ChintapatlaArchana&quot;
+    &quot;assignee&quot;: &quot;ShilpaS2025&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/ChintapatlaArchana/MediaTrack2.0.git&quot;,
-    &quot;accountId&quot;: &quot;51411115-d7f7-48a0-9368-b86e3123928d&quot;
+    &quot;url&quot;: &quot;https://github.com/ChintapatlaArchana/MediaTrack2.0&quot;,
+    &quot;accountId&quot;: &quot;9c046cdb-6b4a-4c92-920f-4b3268d97318&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="3AZcUoTI49KOBfngTnlNv0JR37A" />
+  <component name="ProjectId" id="3B6RMerLLNGw6vdMG9HgSJQjZZv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -77,39 +62,28 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.APIGatewayMain.executor": "Run",
-    "Application.AnalyticsMain.executor": "Run",
-    "Application.ConfigServerApp.executor": "Run",
+    "Application.ContentMain.executor": "Run",
+    "Application.DeliveryMain.executor": "Run",
     "Application.EurekaServer.executor": "Run",
-    "Application.NotificationsMain.executor": "Run",
-    "Application.SubscriptionMain.executor": "Run",
+    "Application.PipelineApplication.executor": "Run",
     "Application.UserAuthenticationMain.executor": "Run",
-    "JUnit.EntitlementRepositoryTest.executor": "Run",
-    "JUnit.PlanRepositoryTest.executor": "Run",
-    "JUnit.SubscriptionRepositoryTest.executor": "Run",
-    "JUnit.UserControllerTest.executor": "Run",
-    "JUnit.UserMapperTest.executor": "Run",
-    "JUnit.UserServiceTest.executor": "Run",
-    "JUnit.com.cts in Subscription.executor": "Run",
-    "JUnit.com.cts in UserAuthentication.executor": "Run",
-    "JUnit.com.cts.service in Subscription.executor": "Run",
-    "JUnit.com.cts.test.repositoryTest in Content.executor": "Run",
-    "JUnit.cts in UserAuthentication.executor": "Run",
-    "Maven.Subscription [clean].executor": "Run",
-    "Maven.Subscription [package].executor": "Run",
-    "Maven.Subscription [test].executor": "Run",
+    "JUnit.All in Analytics.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Git_Project/MediaTrack2.0"
+    "last_opened_file_path": "C:/Users/2465998/IdeaProjects/MediaTrack2.0",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="APIGatewayMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cts.APIGatewayMain" />
-      <module name="APIGateway" />
+  <component name="RunManager" selected="JUnit.All in Analytics">
+    <configuration name="ContentMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.ContentMain" />
+      <module name="Content" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.cts.*" />
@@ -120,122 +94,99 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EntitlementRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Subscription" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cts.repository.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cts.repository" />
-      <option name="MAIN_CLASS_NAME" value="com.cts.repository.EntitlementRepositoryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SubscriptionRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Subscription" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cts.repository.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cts.repository" />
-      <option name="MAIN_CLASS_NAME" value="com.cts.repository.SubscriptionRepositoryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="com.cts in Subscription" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Subscription" />
+    <configuration name="DeliveryMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.DeliveryMain" />
+      <module name="Delivery" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.cts.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.cts" />
-      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cts in UserAuthentication" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PipelineApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.PipelineApplication" />
+      <module name="Pipeline" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserAuthenticationMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.UserAuthenticationMain" />
       <module name="UserAuthentication" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/UserAuthentication/src/test/java/com/cts" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cts.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in Analytics" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Analytics" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.APIGatewayMain" />
-        <item itemvalue="JUnit.cts in UserAuthentication" />
-        <item itemvalue="JUnit.com.cts in Subscription" />
-        <item itemvalue="JUnit.SubscriptionRepositoryTest" />
-        <item itemvalue="JUnit.EntitlementRepositoryTest" />
+        <item itemvalue="JUnit.All in Analytics" />
+        <item itemvalue="Application.DeliveryMain" />
+        <item itemvalue="Application.ContentMain" />
+        <item itemvalue="Application.PipelineApplication" />
+        <item itemvalue="Application.UserAuthenticationMain" />
       </list>
     </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d157241b-d579-4ab0-994c-38be6edbc5e2" name="Changes" comment="" />
-      <created>1772803553247</created>
+      <changelist id="84275a3f-6ab6-4ec8-b9f8-730be90503e6" name="Changes" comment="" />
+      <created>1773807486756</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1772803553247</updated>
+      <updated>1773807486756</updated>
     </task>
-    <task id="LOCAL-00001" summary="&quot;Test for Repository&quot;">
+    <task id="LOCAL-00001" summary="content functionalities added">
       <option name="closed" value="true" />
-      <created>1772893290841</created>
+      <created>1774269779094</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1772893290841</updated>
+      <updated>1774269779094</updated>
     </task>
-    <task id="LOCAL-00002" summary="&quot;Test for Repository&quot;">
-      <option name="closed" value="true" />
-      <created>1773807657071</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1773807657071</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="&quot;Test for Repository&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;Test for Repository&quot;" />
+    <MESSAGE value="content functionalities added" />
+    <option name="LAST_COMMIT_MESSAGE" value="content functionalities added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Subscription/src/test/java/com/cts/repository/EntitlementRepositoryTest.java</url>
-          <line>14</line>
+          <url>file://$PROJECT_DIR$/EurekaServer/src/main/java/com/cts/server/EurekaServer.java</url>
+          <line>8</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="org.hibernate.query.SemanticException" package="org.hibernate.query" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/APIGateway/src/main/java/com/cts/APIGatewayMain.java</url>
+          <line>5</line>
           <option name="timeStamp" value="2" />
-        </breakpoint>
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
