@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/db9
+    url: jdbc:mysql://localhost:3306/db9?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'
     username: root
-    password: GreenStar@19
+    password: 2003
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

@@ -9,6 +9,7 @@ import com.cts.service.AdDeliveryReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,11 @@ public class AdDeliveryReportController {
     public ResponseEntity<Void> deleteAdDeliveryReport(@PathVariable("id") Long id){
         adDeliveryReportService.deleteAdDeliveryReport(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/admin/monthlyAdRevenue")
+    public ResponseEntity<BigDecimal> getMonthlyAdRevenue() {
+        return ResponseEntity.ok(adDeliveryReportService.getMonthlyAdRevenue());
     }
     //for frontend
 
