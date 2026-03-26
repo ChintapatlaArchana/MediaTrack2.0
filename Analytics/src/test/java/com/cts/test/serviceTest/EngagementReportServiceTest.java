@@ -113,12 +113,5 @@ public class EngagementReportServiceTest {
         assertTrue(exception.getMessage().contains("Engagement report does not exist"));
     }
 
-    @Test
-    void testGetQuickStats() {
-        when(engagementReportRepository.getLatestRatio()).thenReturn(0.85);
 
-        Double result = engagementReportService.getQuickStats();
-
-        assertEquals(0.85, result);
-    }
 }

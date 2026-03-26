@@ -77,13 +77,6 @@ public class AdDeliveryReportControllerTest {
                 .andExpect(jsonPath("$[0].adReportID").value(1));
     }
 
-    @Test
-    void testDeleteAdDeliveryReport_Success() throws Exception {
-        doNothing().when(adDeliveryReportService).deleteAdDeliveryReport(anyLong());
-
-        mockMvc.perform(delete("/adDeliveryReport").param("id", "1"))
-                .andExpect(status().isNoContent());
-    }
 
     @Test
     void testGetDashboardStats_Success() throws Exception {

@@ -4,31 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="84275a3f-6ab6-4ec8-b9f8-730be90503e6" name="Changes" comment="content and pipeline functionalities added">
+    <list default="true" id="84275a3f-6ab6-4ec8-b9f8-730be90503e6" name="Changes" comment="&quot;commit for pipeline ,added test for notifications and analytics&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/AdDeliveryReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/AdDeliveryReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/ChurnCohortService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/service/ChurnCohortService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/AdDeliveryReportControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/AdDeliveryReportControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/ChurnCohortControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/ChurnCohortControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/EngagementReportControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/controllerTest/EngagementReportControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/AdDeliveryReportMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/AdDeliveryReportMapperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/ChurnCohortMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/ChurnCohortMapperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/EngagementReportMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/EngagementReportMapperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/AdDeliveryReportServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/AdDeliveryReportServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/ChurnCohortServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/ChurnCohortServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/mapperTest/AdDeliveryReportMapperTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/EngagementReportServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/test/java/com/cts/test/serviceTest/EngagementReportServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/AssetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/AssetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/TitleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Content/src/main/java/com/cts/controller/TitleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/DeliveryMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/DeliveryMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/CDNController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/CDNController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DRMEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DRMEventController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DeviceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/controller/DeviceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DRMEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/src/main/java/com/cts/service/DRMEventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/IngestJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/IngestJobController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/TranscodeJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/controller/TranscodeJobController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/repository/IngestJobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/repository/IngestJobRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/service/TranscodeJobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pipeline/src/main/java/com/cts/service/TranscodeJobService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/application-prod.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,9 +48,12 @@
     "Application.PipelineApplication.executor": "Run",
     "Application.UserAuthenticationMain.executor": "Run",
     "JUnit.All in Analytics.executor": "Run",
+    "JUnit.All in Notifications.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/2465998/IdeaProjects/MediaTrack2.0",
@@ -120,21 +103,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserAuthenticationMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cts.UserAuthenticationMain" />
-      <module name="UserAuthentication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cts.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration name="All in Analytics" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Analytics" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in Analytics" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Analytics" />
+    <configuration name="All in Notifications" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Notifications" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
@@ -144,10 +122,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in Analytics" />
+        <item itemvalue="JUnit.All in Notifications" />
         <item itemvalue="Application.DeliveryMain" />
         <item itemvalue="Application.ContentMain" />
         <item itemvalue="Application.PipelineApplication" />
-        <item itemvalue="Application.UserAuthenticationMain" />
       </list>
     </recent_temporary>
   </component>
@@ -167,12 +145,21 @@
       <option name="project" value="LOCAL" />
       <updated>1774269779094</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="&quot;commit for pipeline ,added test for notifications and analytics&quot;">
+      <option name="closed" value="true" />
+      <created>1774508953318</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774508953318</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="content functionalities added" />
-    <option name="LAST_COMMIT_MESSAGE" value="content functionalities added" />
+    <MESSAGE value="&quot;commit for pipeline ,added test for notifications and analytics&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;commit for pipeline ,added test for notifications and analytics&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
