@@ -19,7 +19,7 @@ public class GatewayConfig {
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("user-authentication", r-> r.path("/user/**")
-                        .uri("http://localhost:9090"))
+                        .uri("http://localhost:9094"))
                 .route("subscription", r-> r.path("/subscription/**", "/plan/**", "/entitlement/**")
                         .uri("http://localhost:7070"))
                 .route("content", r-> r.path("/asset/**","/categories/**","/titles/**","/versions/**")

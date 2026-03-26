@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d157241b-d579-4ab0-994c-38be6edbc5e2" name="Changes" comment="adinventory changes added">
+    <list default="true" id="d157241b-d579-4ab0-994c-38be6edbc5e2" name="Changes" comment="commiting to pull">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/application-prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIGateway/src/main/java/com/cts/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/APIGateway/src/main/java/com/cts/config/GatewayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/dto/CampaignResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/dto/CampaignResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/AdDeliveryReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/model/AdDeliveryReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/repository/AdDeliveryReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/src/main/java/com/cts/repository/AdDeliveryReportRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAuthentication/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/UserAuthentication/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +87,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Git_Project/MediaTrack2.0&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.PipelineApplication">
+  <component name="RunManager" selected="Application.AnalyticsMain">
     <configuration name="AdInventoryMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.cts.AdInventoryMain" />
       <module name="AdInventory" />
@@ -123,9 +127,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PipelineApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.cts.PipelineApplication" />
-      <module name="Pipeline" />
+    <configuration name="SubscriptionMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cts.SubscriptionMain" />
+      <module name="Subscription" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.cts.*" />
@@ -151,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PipelineApplication" />
-        <item itemvalue="Application.AdInventoryMain" />
         <item itemvalue="Application.AnalyticsMain" />
-        <item itemvalue="Application.ContentMain" />
         <item itemvalue="Application.UserAuthenticationMain" />
+        <item itemvalue="Application.SubscriptionMain" />
+        <item itemvalue="Application.AdInventoryMain" />
+        <item itemvalue="Application.ContentMain" />
       </list>
     </recent_temporary>
   </component>
@@ -215,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774500461854</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="commiting to pull">
+      <option name="closed" value="true" />
+      <created>1774513218789</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1774513218789</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -232,9 +244,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="&quot;Test for Repository&quot;" />
     <MESSAGE value="added frontend logic" />
-    <MESSAGE value="commiting to pull" />
     <MESSAGE value="adinventory changes added" />
-    <option name="LAST_COMMIT_MESSAGE" value="adinventory changes added" />
+    <MESSAGE value="commiting to pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="commiting to pull" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
