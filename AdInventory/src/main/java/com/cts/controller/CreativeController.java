@@ -69,4 +69,10 @@ public class CreativeController {
     public ResponseEntity<String> delete(@PathVariable Long id) {
         return ResponseEntity.ok(service.delete(id));
     }
+
+    @GetMapping("/idAdvertiser")
+    public ResponseEntity<Long> getCreativeId(@RequestParam String advertiser) {
+        Long id = service.getCreativeIdByAdvertiser(advertiser);
+        return ResponseEntity.ok(id);
+    }
 }

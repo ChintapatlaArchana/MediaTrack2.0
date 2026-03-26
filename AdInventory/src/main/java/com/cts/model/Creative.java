@@ -25,6 +25,5 @@ public class Creative {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-//    @OneToMany(mappedBy = "creative", cascade = CascadeType.ALL)
-//    private List<Campaign> campaign;
+
 }

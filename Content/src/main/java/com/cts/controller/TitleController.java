@@ -24,47 +24,56 @@ public class TitleController {
 
     private final TitleService titleService;
 
-    @PostMapping
+    @PostMapping("/content/addTitle")
     public ResponseEntity<TitleResponseDTO> createTitle(@RequestBody TitleRequestDTO dto){
         return ResponseEntity.ok(titleService.createTitle(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/content/{id}")
     public  ResponseEntity<TitleResponseDTO> updateTitle(@PathVariable("id") Long titleId,@RequestBody TitleRequestDTO dto){
         return ResponseEntity.ok(titleService.updateTitle(titleId,dto));
     }
 
-    @GetMapping
+    @GetMapping("/content/getTitle")
     public ResponseEntity<List<TitleResponseDTO>> ListTitles(){
         return ResponseEntity.ok(titleService.getAllTitles());
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/content/{id}")
     public ResponseEntity<TitleResponseDTO> getTitleById(@PathVariable("id") Long titleId){
         return ResponseEntity.ok(titleService.getTitle(titleId));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/content/{id}")
     public ResponseEntity<Void> deleteTitle(@PathVariable Long id){
         titleService.deleteTitle(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/counts")
+    @GetMapping("/content/counts")
     public ResponseEntity<Map<Title.ApplicationStatus, Long>> getStatusCounts() {
         return ResponseEntity.ok(titleService.getCountByStatus());
     }
 
-    @PutMapping("/quickupdate/{id}")
-    public Title updateTitle(
+    @PatchMapping("/content/quickupdate/{id}")
+    public ResponseEntity<Title> updateTitle(
             @PathVariable Long id,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String genre,
-            @RequestParam(required = false) LocalDate releaseDate) {
+            @RequestBody Map<String, String> updates) {
 
-        return titleService.updateTitle(id, name, genre, releaseDate);
+        // Note: React formData uses "title", but your Service uses "name"
+        String name = updates.get("name");
+        String genre = updates.get("genre");
+        String applicationStatus = updates.get("applicationStatus");
+
+        Title updated = titleService.updateTitle(id, name, genre, applicationStatus);
+        return ResponseEntity.ok(updated);
     }
 
+    @GetMapping("/content/name")
+    public ResponseEntity<Long> getTitleId(@RequestParam String name) {
+        Long id = titleService.getTitleIdByName(name);
+        return ResponseEntity.ok(id);
+    }
 
 }

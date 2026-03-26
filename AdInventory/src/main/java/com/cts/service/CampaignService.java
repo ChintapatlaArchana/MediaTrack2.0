@@ -74,7 +74,7 @@ public class CampaignService {
         existing.setBudget(dto.getBudget());
         existing.setPacing(Campaign.Pacing.valueOf(dto.getPacing()));
         existing.setStatus(Campaign.Status.valueOf(dto.getStatus()));
-        existing.setTargetingJSON(dto.getTargetingJSON().toString());
+        //existing.setTargetingJSON(dto.getTargetingJSON().toString());
 
         return mapper.toDTO(campaignRepo.save(existing));
     }

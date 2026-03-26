@@ -2,6 +2,8 @@ package com.cts.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,10 +11,10 @@ import java.time.LocalDateTime;
 @Data
 public class Campaign {
 
-    public enum TargetingJSON { Geo, Device, Genre}
+    //public enum TargetingJSON { Geo, Device, Genre}
 
-    public enum Pacing { Even, Asap }
-    public enum Status { Planned, Active, Paused, Completed }
+    public enum Pacing {Even,Asap}
+    public enum Status {Planned,Active,Paused,Completed}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +22,8 @@ public class Campaign {
 
     private String name;
     private String advertiser;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Double budget;
 
 

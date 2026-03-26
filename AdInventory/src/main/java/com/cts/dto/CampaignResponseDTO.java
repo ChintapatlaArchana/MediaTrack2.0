@@ -8,6 +8,7 @@ import lombok.Data;
 import tools.jackson.databind.JsonNode;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,12 +17,12 @@ public class CampaignResponseDTO {
     private Long creativeId;
     private String name;
     private String advertiser;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Double budget;
     private Pacing pacing;
     private Status status;
-    private JsonNode targetingJSON;
+    //private JsonNode targetingJSON;
 
 
 
