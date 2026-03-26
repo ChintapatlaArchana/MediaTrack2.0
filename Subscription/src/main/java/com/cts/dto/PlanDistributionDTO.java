@@ -1,6 +1,5 @@
 package com.cts.dto;
 
-import com.cts.model.Plan;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

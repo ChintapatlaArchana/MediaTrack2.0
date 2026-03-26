@@ -40,17 +40,17 @@ public class EntitlementController {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/admin/entitlements/count")
+    @GetMapping("/admin/count")
     public ResponseEntity<Long> getCustomEntitlementCount() {
         return ResponseEntity.ok(entitlementService.getUniqueUserCount());
     }
 
-    @GetMapping()
+    @GetMapping("/admin/entitlement-distribution")
     public ResponseEntity<Map<String, Long>> getEntitlementScopeDistribution() {
         return ResponseEntity.ok(entitlementService.getScopeDistribution());
     }
 
-    @GetMapping("/admin/entitlements/stats/expiring-soon")
+    @GetMapping("/admin/expiry-stats")
     public ResponseEntity<ExpiryDistributionDTO> getExpiringSoon() {
         return ResponseEntity.ok(entitlementService.getExpiringSoonStats());
     }

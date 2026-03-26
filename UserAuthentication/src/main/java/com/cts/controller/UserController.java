@@ -125,12 +125,12 @@ public class UserController {
         return ResponseEntity.ok(userService.findDistinctUserIds());
     }
 
-    @GetMapping("/admin/admin-user-ids")
+    @GetMapping("/admin/admin-stats")
     public ResponseEntity<Long> countUserByRole() {
-        return ResponseEntity.ok(userService.countByRole());
+        return ResponseEntity.ok(userService.countByRoleAdmin());
     }
 
-    @GetMapping("/admin/roles-count")
+    @GetMapping("/admin/role-distribution")
     public ResponseEntity<Map<String, Long>> allUserCountByRole() {
         return ResponseEntity.ok(userService.getUserRoleDistribution());
     }

@@ -5,10 +5,31 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface EngagementReportRepository extends JpaRepository<EngagementReport,Long> {
+
+    @Query("SELECT AVG(e.engagementReportMetrics.dau), " +
+            "AVG(e.engagementReportMetrics.mau), " +
+            "AVG(e.engagementReportMetrics.watchTimeSeconds), " +
+            "AVG(e.engagementReportMetrics.completionRate) " +
+            "FROM EngagementReport e")
+    Object[] findGlobalAverages();
+
+    @Query("SELECT e FROM EngagementReport e " +
+            "WHERE e.generatedDate >= :startDate " +
+            "ORDER BY e.generatedDate ASC")
+    List<EngagementReport> findReportsInDateRange(@Param("startDate") LocalDate startDate);
+
+    @Query("SELECT e.generatedDate, e.engagementReportMetrics.watchTimeSeconds " +
+            "FROM EngagementReport e " +
+            "WHERE e.generatedDate >= :startDate " +
+            "ORDER BY e.generatedDate ASC")
+    List<Object[]> findWatchTimeTrend(@Param("startDate") LocalDate startDate);
+
     @Query("SELECT (CAST(e.engagementReportMetrics.dau AS double) / e.engagementReportMetrics.mau) " +
             "FROM EngagementReport e " +
             "ORDER BY e.generatedDate DESC")

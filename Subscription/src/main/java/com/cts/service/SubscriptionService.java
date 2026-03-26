@@ -56,8 +56,6 @@ public class SubscriptionService {
                         : start.plusMonths(1);
 
                 Subscription sub = new Subscription();
-                System.out.println(user);
-                System.out.println(plan);
                 sub.setUserId(user.getBody().getUserId());
                 sub.setPlan(plan);
                 sub.setStartDate(start);
@@ -170,30 +168,6 @@ public class SubscriptionService {
         return subscriptionRepository.getPlanDistribution();
     }
 
-    public Map<String, Map<String, Object>> getFormattedBillingMix() {
-        List<PlanDistributionDTO> rawData = subscriptionRepository.getPlanDistribution();
-
-        return rawData.stream().collect(Collectors.groupingBy(
-                PlanDistributionDTO::getPlanName,
-                Collectors.collectingAndThen(Collectors.toList(), list -> {
-
-                    long monthly = list.stream()
-                            .filter(d -> "MONTHLY".equalsIgnoreCase(d.getBillingCycle()))
-                            .mapToLong(PlanDistributionDTO::getCount).sum();
-
-                    long yearly = list.stream()
-                            .filter(d -> "YEARLY".equalsIgnoreCase(d.getBillingCycle()))
-                            .mapToLong(PlanDistributionDTO::getCount).sum();
-
-                    Map<String, Object> stats = new HashMap<>();
-                    stats.put("monthly", monthly);
-                    stats.put("yearly", yearly);
-                    stats.put("total", monthly + yearly);
-                    return stats;
-                })
-        ));
-    }
-
     public List<Map<String, Object>> getMrrByPlan() {
         LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6).withDayOfMonth(1);
         List<RevenueDataDTO> rawData = subscriptionRepository.getMrrByPlan(sixMonthsAgo);
@@ -215,19 +189,21 @@ public class SubscriptionService {
     public Double getRecentChurnCount() {
 
         long totalUsersAtStart = userFeignClient.getTotalUsers().getBody();
+        if (totalUsersAtStart == 0) return 0.0;
 
         List<Subscription.Status> churnStatuses = List.of(
                 Subscription.Status.Lapsed,
-                Subscription.Status.Cancelled
+                Subscription.Status.Cancelled,
+                Subscription.Status.Grace
         );
+        LocalDate today = LocalDate.now();
         LocalDate thirtyDaysAgo = LocalDate.now().minusDays(30);
 
-        long lostUsers = subscriptionRepository.countByStatusInAndEndDateAfter(
+        long lostUsers = subscriptionRepository.countChurnedUsers(
                 churnStatuses,
-                thirtyDaysAgo
+                thirtyDaysAgo,
+                today
         );
-
-        if (totalUsersAtStart == 0) return 0.0;
 
         return ((double) lostUsers / totalUsersAtStart) * 100;
     }

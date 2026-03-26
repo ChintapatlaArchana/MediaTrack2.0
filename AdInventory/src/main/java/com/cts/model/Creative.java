@@ -3,8 +3,6 @@ package com.cts.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "creative")

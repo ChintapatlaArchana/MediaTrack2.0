@@ -77,6 +77,10 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
             "GROUP BY 1, p.name")
     List<RevenueDataDTO> getMrrByPlan(LocalDate sixMonthsAgo);
 
-    long countByStatusInAndEndDateAfter(List<Subscription.Status> statuses, LocalDate date);
-
+    @Query("SELECT COUNT(s) FROM Subscription s " +
+            "WHERE s.status IN :statuses " +
+            "AND s.endDate >= :startDate " +
+            "AND s.endDate <= :endDate")
+    long countChurnedUsers( @Param("statuses") List<Subscription.Status> statuses, @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
 }
