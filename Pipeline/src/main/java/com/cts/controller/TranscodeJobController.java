@@ -47,7 +47,10 @@ public class TranscodeJobController {
     public ResponseEntity<Map<String, Long>> getMetrics() {
         return ResponseEntity.ok(transcodeJobService.getTranscodeMetrics());
     }
-
+    @GetMapping("/metrics/health")
+    public ResponseEntity<Double> getTranscodePipelineHealth() {
+        return ResponseEntity.ok(transcodeJobService.getTranscodePipelineHealth());
+    }
 
 
 
