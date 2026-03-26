@@ -7,6 +7,8 @@ import com.cts.repository.EngagementReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -59,17 +61,43 @@ public class EngagementReportService {
         }
     }
 
-    public Map<String, Double> getAverageMetrics() {
-        Object[] results = (Object[]) engagementReportRepository.findGlobalAverages();
+    public Map<String, Object> getAverageMetrics() {
 
-        Map<String, Double> metrics = new HashMap<>();
-        // results[0] = avgDau, [1] = avgMau, [2] = avgWatchTime, [3] = avgCompletion
-        metrics.put("avgDau", results[0] != null ? (Double) results[0] : 0.0);
-        metrics.put("avgMau", results[1] != null ? (Double) results[1] : 0.0);
-        metrics.put("avgWatchTime", results[2] != null ? (Double) results[2] : 0.0);
-        metrics.put("avgCompletion", results[3] != null ? (Double) results[3] : 0.0);
+        List<Object[]> resultsList = engagementReportRepository.findGlobalAverages();
+
+        Map<String, Object> metrics = new HashMap<>();
+
+        if (resultsList != null && !resultsList.isEmpty() && resultsList.get(0) != null) {
+            Object[] results = resultsList.get(0);
+
+            metrics.put("avgDau", formatToTwoDecimals(results[0]));
+            metrics.put("avgMau", formatToTwoDecimals(results[1]));
+            metrics.put("avgWatchTime", convertToMinutes(results[2]));
+            metrics.put("avgCompletion", formatToTwoDecimals(results[3]));
+        } else {
+            metrics.put("avgDau", 0.0);
+            metrics.put("avgMau", 0.0);
+            metrics.put("avgWatchTime", 0.0);
+            metrics.put("avgCompletion", 0.0);
+        }
 
         return metrics;
+    }
+
+    private Double formatToTwoDecimals(Object val) {
+        if (val == null) return 0.00;
+
+        double doubleVal = (val instanceof Number) ? ((Number) val).doubleValue() : 0.0;
+
+        return BigDecimal.valueOf(doubleVal)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+    }
+
+    private Long convertToMinutes(Object val) {
+        if (val == null) return 0L;
+        double seconds = (val instanceof Number) ? ((Number) val).doubleValue() : 0.0;
+        return Math.round(seconds / 60.0); // Rounds to the nearest whole minute
     }
 
     public List<Map<String, Object>> getDailyActiveTrends() {
@@ -92,8 +120,9 @@ public class EngagementReportService {
         return results.stream().map(result -> {
             Map<String, Object> map = new HashMap<>();
             map.put("date", result[0].toString());
-            // Convert seconds to minutes for a better chart display if needed
-            map.put("watchTime", result[1]);
+            Number seconds = (result[1] != null) ? (Number) result[1] : 0;
+            long minutes = Math.round(seconds.doubleValue() / 60.0);
+            map.put("watchTime", minutes);
             return map;
         }).collect(Collectors.toList());
     }

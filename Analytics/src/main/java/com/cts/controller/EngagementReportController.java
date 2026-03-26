@@ -45,7 +45,7 @@ public class EngagementReportController {
     }
 
     @GetMapping("/admin/engagement-kpis")
-    public ResponseEntity<Map<String, Double>> getOverallStats() {
+    public ResponseEntity<Map<String, Object>> getOverallStats() {
         return ResponseEntity.ok(engagementReportService.getAverageMetrics());
     }
 

@@ -57,4 +57,8 @@ public class PlanService {
             throw new GlobalException("Can't get Plans");
         }
     }
+
+    public void deleteByDetails(String name, Plan.BillingCycle billCycle) {
+        planRepository.deleteByNameAndBillingCycle(name, billCycle);
+    }
 }

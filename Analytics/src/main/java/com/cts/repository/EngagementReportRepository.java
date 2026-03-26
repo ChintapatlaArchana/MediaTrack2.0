@@ -17,7 +17,7 @@ public interface EngagementReportRepository extends JpaRepository<EngagementRepo
             "AVG(e.engagementReportMetrics.watchTimeSeconds), " +
             "AVG(e.engagementReportMetrics.completionRate) " +
             "FROM EngagementReport e")
-    Object[] findGlobalAverages();
+    List<Object[]> findGlobalAverages();
 
     @Query("SELECT e FROM EngagementReport e " +
             "WHERE e.generatedDate >= :startDate " +

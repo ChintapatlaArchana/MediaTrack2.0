@@ -9,6 +9,7 @@ import com.cts.feign.UserFeignClient;
 import com.cts.mapper.NotificationMapper;
 import com.cts.model.Notification;
 import com.cts.repository.NotificationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +63,10 @@ public class NotificationService {
 
     public Long unreadNotifications() {
         return notificationRepository.countUnreadNotifications();
+    }
+
+    @Transactional
+    public void markAllNotificationsAsRead() {
+        notificationRepository.markAllAsRead();
     }
 }
