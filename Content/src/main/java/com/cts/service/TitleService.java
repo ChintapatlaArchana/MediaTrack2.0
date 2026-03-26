@@ -78,23 +78,33 @@ public class TitleService {
                 result -> (Long) result[1]
         ));
     }
-    public Title updateTitle(Long id, String name, String genre, LocalDate releaseDate) {
-        Optional<Title> optionalTitle = titleRepository.findById(id);
-        if (optionalTitle.isEmpty()) {
-            throw new RuntimeException("Title not found with id: " + id);
-        }
+    public Title updateTitle(Long id, String name, String genre, String applicationStatus) {
+        Title title = titleRepository.findById(id)
+                .orElseThrow(() -> new GlobalException("Title not found with id: " + id));
 
-        Title title = optionalTitle.get();
-        if (name != null) {
+        if (name != null && !name.isEmpty()) {
             title.setName(name);
         }
-        if (genre != null) {
+        if (genre != null && !genre.isEmpty()) {
             title.setGenre(genre);
         }
-        if (releaseDate != null) {
-            title.setReleaseDate(releaseDate);
+        if (applicationStatus != null && !applicationStatus.isEmpty()) {
+            try {
+                // Convert string to Enum safely
+                title.setApplicationStatus(Title.ApplicationStatus.valueOf(applicationStatus));
+            } catch (IllegalArgumentException e) {
+                throw new GlobalException("Invalid status value: " + applicationStatus);
+            }
         }
 
         return titleRepository.save(title);
+    }
+
+    public Long getTitleIdByName(String name) {
+        try {
+            return titleRepository.findIdByName(name);
+        } catch (Exception e){
+            throw new  RuntimeException("Title not found with name: " + name);
+        }
     }
 }

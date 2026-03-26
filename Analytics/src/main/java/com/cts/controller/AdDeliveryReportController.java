@@ -4,10 +4,12 @@ package com.cts.controller;
 import com.cts.dto.AdDeliveryReportMetricsDTO;
 import com.cts.dto.AdDeliveryReportRequestDTO;
 import com.cts.dto.AdDeliveryReportResponseDTO;
+import com.cts.dto.CampaignResponseDTO;
 import com.cts.service.AdDeliveryReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -36,18 +38,38 @@ public class AdDeliveryReportController {
         adDeliveryReportService.deleteAdDeliveryReport(id);
         return ResponseEntity.noContent().build();
     }
-    //for frontend
-    // Inside AdDeliveryReportController.java
 
-    @GetMapping("/metrics")
-    public ResponseEntity<AdDeliveryReportMetricsDTO> getDashboardKpis() {
-        // Calling the simple logic we just wrote in the Service
-        return ResponseEntity.ok(adDeliveryReportService.getDashboardMetrics());
+    @GetMapping("/admin/monthlyAdRevenue")
+    public ResponseEntity<BigDecimal> getMonthlyAdRevenue() {
+        return ResponseEntity.ok(adDeliveryReportService.getMonthlyAdRevenue());
     }
-    // Inside AdDeliveryReportController.java
+    //for frontend
 
-    @GetMapping("/charts")
-    public ResponseEntity<List<Map<String, Object>>> getChartData() {
+    // Add to AdDeliveryReportController.java
+
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Object>> getDashboardStats() {
+        return ResponseEntity.ok(adDeliveryReportService.getDashboardStats());
+    }
+
+    // AdDeliveryReportController.java
+
+    @GetMapping("/stats/chart")
+    public ResponseEntity<List<Map<String, Object>>> getPerformanceChart() {
         return ResponseEntity.ok(adDeliveryReportService.getChartData());
     }
+
+    @GetMapping("/stats/summary")
+    public ResponseEntity<Map<String, Object>> getDashboardSummary() {
+        return ResponseEntity.ok(adDeliveryReportService.getDashboardWithGrowth());
+    }
+
+
+    @GetMapping("/active-campaigns")
+    public ResponseEntity<List<CampaignResponseDTO>> getActiveCampaigns() {
+        List<CampaignResponseDTO> data = adDeliveryReportService.getActiveCampaignsForDashboard();
+        return ResponseEntity.ok(data);
+    }
+    // Inside AdDeliveryReportController.java
+
 }

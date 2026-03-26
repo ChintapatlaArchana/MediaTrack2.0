@@ -16,5 +16,10 @@ public interface TitleMapper {
 
     @Mapping(target = "categoryId", source = "category.categoryId")
     TitleResponseDTO toDto(Title title);
-    default Title.ApplicationStatus mapApplicationStatus(String status) { return Title.ApplicationStatus.valueOf(status); } default String mapApplicationStatus(Title.ApplicationStatus status) { return status.name();}
+    default Title.ApplicationStatus mapApplicationStatus(String status) {
+        return Title.ApplicationStatus.valueOf(status);
+    }
+    default String mapApplicationStatus(Title.ApplicationStatus status) {
+        return status.name();
+    }
 }

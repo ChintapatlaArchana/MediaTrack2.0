@@ -44,6 +44,8 @@ public class SecurityConfig {
                         .disable())
                 .authorizeHttpRequests(req-> req.requestMatchers("/user/**")
                         .permitAll())
+                .authorizeHttpRequests(req-> req.requestMatchers("/user/admin/**")
+                        .permitAll())
                 .authorizeHttpRequests(req->req.requestMatchers("/h2-console/**")
                         .permitAll())
                 .authorizeHttpRequests(req-> req.anyRequest().authenticated())

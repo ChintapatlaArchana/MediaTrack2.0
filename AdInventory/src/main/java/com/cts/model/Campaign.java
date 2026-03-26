@@ -2,6 +2,8 @@ package com.cts.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 public class Campaign {
 
-    public enum TargetingJSON { Geo, Device, Genre}
+//    public enum TargetingJSON { Geo, Device, Genre}
 
     public enum Pacing { Even, Asap }
     public enum Status { Planned, Active, Paused, Completed }
@@ -20,11 +22,9 @@ public class Campaign {
 
     private String name;
     private String advertiser;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Double budget;
-
-
 
     @Enumerated(EnumType.STRING)
     private Pacing pacing;
@@ -32,8 +32,8 @@ public class Campaign {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Lob
-    private String targetingJSON;
+//    @Lob
+//    private String targetingJSON;
 
 //    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
 //    private List<AdImpression> adImpression;

@@ -3,8 +3,6 @@ package com.cts.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "creative")
@@ -25,6 +23,5 @@ public class Creative {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-//    @OneToMany(mappedBy = "creative", cascade = CascadeType.ALL)
-//    private List<Campaign> campaign;
+
 }

@@ -56,8 +56,6 @@ public class SubscriptionService {
                         : start.plusMonths(1);
 
                 Subscription sub = new Subscription();
-                System.out.println(user);
-                System.out.println(plan);
                 sub.setUserId(user.getBody().getUserId());
                 sub.setPlan(plan);
                 sub.setStartDate(start);
@@ -97,13 +95,15 @@ public class SubscriptionService {
         BigDecimal totalMrr = BigDecimal.ZERO;
 
         for (Object[] result : results) {
-            String cycle = (String) result[0];
-            BigDecimal revenue = (BigDecimal) result[1];
-            if ("Yearly".equalsIgnoreCase(cycle)) {
-                // Normalize: Yearly Price / 12
+            if (result[0] == null || result[1] == null) continue;
+
+            String cycle = result[0].toString();
+
+            BigDecimal revenue = new BigDecimal(result[1].toString());
+
+            if ("YEARLY".equalsIgnoreCase(cycle)) {
                 totalMrr = totalMrr.add(revenue.divide(new BigDecimal("12"), 2, RoundingMode.HALF_UP));
-            } else if ("Monthly".equalsIgnoreCase(cycle)) {
-                // Monthly Price is already MRR
+            } else if ("MONTHLY".equalsIgnoreCase(cycle)) {
                 totalMrr = totalMrr.add(revenue);
             }
         }
@@ -168,30 +168,6 @@ public class SubscriptionService {
         return subscriptionRepository.getPlanDistribution();
     }
 
-    public Map<String, Map<String, Object>> getFormattedBillingMix() {
-        List<PlanDistributionDTO> rawData = subscriptionRepository.getPlanDistribution();
-
-        return rawData.stream().collect(Collectors.groupingBy(
-                PlanDistributionDTO::getPlanName,
-                Collectors.collectingAndThen(Collectors.toList(), list -> {
-                    // Use Plan.BillingCycle.Monthly instead of "Monthly"
-                    long monthly = list.stream()
-                            .filter(d -> d.getBillingCycle() == Plan.BillingCycle.Monthly)
-                            .mapToLong(PlanDistributionDTO::getCount).sum();
-
-                    long yearly = list.stream()
-                            .filter(d -> d.getBillingCycle() == Plan.BillingCycle.Yearly)
-                            .mapToLong(PlanDistributionDTO::getCount).sum();
-
-                    Map<String, Object> stats = new HashMap<>();
-                    stats.put("monthly", monthly);
-                    stats.put("yearly", yearly);
-                    stats.put("total", monthly + yearly);
-                    return stats;
-                })
-        ));
-    }
-
     public List<Map<String, Object>> getMrrByPlan() {
         LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6).withDayOfMonth(1);
         List<RevenueDataDTO> rawData = subscriptionRepository.getMrrByPlan(sixMonthsAgo);
@@ -208,5 +184,27 @@ public class SubscriptionService {
         }
 
         return new ArrayList<>(grouped.values());
+    }
+
+    public Double getRecentChurnCount() {
+
+        long totalUsersAtStart = userFeignClient.getTotalUsers().getBody();
+        if (totalUsersAtStart == 0) return 0.0;
+
+        List<Subscription.Status> churnStatuses = List.of(
+                Subscription.Status.Lapsed,
+                Subscription.Status.Cancelled,
+                Subscription.Status.Grace
+        );
+        LocalDate today = LocalDate.now();
+        LocalDate thirtyDaysAgo = LocalDate.now().minusDays(30);
+
+        long lostUsers = subscriptionRepository.countChurnedUsers(
+                churnStatuses,
+                thirtyDaysAgo,
+                today
+        );
+
+        return ((double) lostUsers / totalUsersAtStart) * 100;
     }
 }

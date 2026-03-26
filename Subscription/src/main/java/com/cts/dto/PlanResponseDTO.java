@@ -2,8 +2,8 @@ package com.cts.dto;
 
 import com.cts.model.Plan.BillingCycle;
 import com.cts.model.Plan.Status;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.Data;
-import tools.jackson.databind.JsonNode;
 
 @Data
 public class PlanResponseDTO {
@@ -11,6 +11,9 @@ public class PlanResponseDTO {
     private String name;
     private Double price;
     private BillingCycle billingCycle;
-    private JsonNode entitlementsJSON;
+
+    @JsonRawValue
+    private String entitlementsJSON;
+
     private Status status;
 }

@@ -26,10 +26,10 @@ public class PlanController {
         }
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/admin/getAll")
     public ResponseEntity<List<PlanResponseDTO>> getAllPlans() {
         try {
-            return new ResponseEntity(planService.getAllPlans(), HttpStatus.FOUND);
+            return new ResponseEntity(planService.getAllPlans(), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }

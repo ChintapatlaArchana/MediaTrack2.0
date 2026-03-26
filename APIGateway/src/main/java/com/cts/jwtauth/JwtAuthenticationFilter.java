@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         if(jwtService.validateToken(token)){
             String role = jwtService.extractUserRole(token);
 
-            if(path.contains("/plan/add") && !role.equals("Admin")) {
+            if((path.contains("/plan/admin") || path.contains("/user/admin")) && !role.equals("Admin")) {
                 exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
                 return exchange.getResponse().setComplete();
             }

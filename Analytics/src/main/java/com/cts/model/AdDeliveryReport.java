@@ -12,12 +12,8 @@ public class AdDeliveryReport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long AdReportID;
-
-
     private Long campaignId;
-
     @Embedded
     private AdDeliveryReportMetrics metrics;
-
-    private LocalDate GeneratedDate;
+    private LocalDate generatedDate;
 }

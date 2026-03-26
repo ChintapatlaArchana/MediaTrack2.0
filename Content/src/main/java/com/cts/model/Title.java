@@ -25,12 +25,11 @@ public class Title {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "title_categoryId",nullable = false)
     private Category category;
 
-//    @OneToMany(mappedBy = "title",cascade = CascadeType.ALL)
-//    private List<Asset> asset;
+
 
     public enum ApplicationStatus {
         coming_soon,
