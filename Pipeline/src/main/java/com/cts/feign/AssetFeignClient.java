@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "content")
 public interface AssetFeignClient {
 
-    @GetMapping("/asset/{id}")
+    @GetMapping("/asset/content/{id}")
     AssetResponseDTO getAssetById(@PathVariable("id") Long id);
 }

@@ -15,7 +15,7 @@ public interface IngestJobMapper {
 
     @Mapping(target = "ingestId", ignore = true)
     @Mapping(target = "submittedDate", source = "submittedDate", defaultExpression = "java(LocalDate.now())")
-    @Mapping(target = "ingestStatus", expression = "java(IngestStatus.Queued)") // default status
+    @Mapping(target = "ingestStatus", defaultExpression = "java(IngestStatus.Queued)") // default status
 //    @Mapping(target = "asset", ignore = true) // handled in service layer
     IngestJob toEntity(IngestJobRequestDTO dto);
 

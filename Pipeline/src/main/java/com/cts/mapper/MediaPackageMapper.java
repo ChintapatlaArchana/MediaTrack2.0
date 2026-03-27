@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 public interface MediaPackageMapper {
 
     @Mapping(target = "packageId", ignore = true)
-    @Mapping(target = "qcStatus", expression = "java(QCStatus.Pending)") // default QC status
+    @Mapping(target = "qcStatus", defaultExpression = "java(QCStatus.Pending)") // default QC status
 //    @Mapping(target = "asset", ignore = true) // resolved in service layer using assetId
     MediaPackage toEntity(MediaPackageRequestDTO dto);
 
