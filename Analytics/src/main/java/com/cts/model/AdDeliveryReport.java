@@ -10,10 +10,10 @@ import java.time.LocalDate;
 @Table(name="addeliveryreport")
 public class AdDeliveryReport {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long AdReportID;
     private Long campaignId;
     @Embedded
-    private AdDeliveryReportMetrics metrics;
+    private AdDeliveryReportMetrics adDeliveryReportMetrics;
     private LocalDate generatedDate;
 }
