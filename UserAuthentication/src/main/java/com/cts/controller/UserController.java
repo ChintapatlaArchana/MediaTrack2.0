@@ -47,7 +47,6 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> generateToken(@RequestBody AuthRequest authRequest) {
-        System.out.println("Controller came here line 51");
         try {
             Authentication authentication =  authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
@@ -64,7 +63,7 @@ public class UserController {
             }
         } catch (AuthenticationException e){
             log.error("Error in generating user token "+e.getMessage());
-            throw new RuntimeException(e.getMessage());
+            throw new GlobalException(e.getMessage());
         }
     }
 
@@ -86,7 +85,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getUser")
+    @GetMapping("/admin/getUsers")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         try {
             return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);

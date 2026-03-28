@@ -12,6 +12,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -58,7 +59,18 @@ public class PlanService {
         }
     }
 
-    public void deleteByDetails(String name, Plan.BillingCycle billCycle) {
-        planRepository.deleteByNameAndBillingCycle(name, billCycle);
+    public void deleteById(long id) {
+        planRepository.deleteById(id);
+    }
+
+    public void updatePlanById(long id, PlanRequestDTO dto) {
+        Plan plan = planRepository.findById(id).orElseThrow(()->new RuntimeException("No plan found with plan id"+id));
+        plan.setBillingCycle(Plan.BillingCycle.valueOf(dto.getBillingCycle()));
+        plan.setName(dto.getName());
+        plan.setStatus(Plan.Status.valueOf(dto.getStatus()));
+        plan.setPrice(dto.getPrice());
+        plan.setEntitlementsJSON(dto.getEntitlements().toString());
+
+        planRepository.save(plan);
     }
 }

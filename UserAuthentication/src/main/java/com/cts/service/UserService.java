@@ -58,11 +58,11 @@ public class UserService implements UserDetailsService{
 
     public List<UserResponseDTO> getAllUsers() {
         List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
-        if(userRepository.findAll().size() == 0) {
+        if(userRepository.findByRoleNot(User.Role.Viewer).isEmpty()) {
             log.warn("No user got registered to get all users list");
             throw new GlobalException("No one got registered");
         } else {
-            for (User u: userRepository.findAll()) {
+            for (User u: userRepository.findByRoleNot(User.Role.Viewer)) {
                 userResponseDTOList.add(userMapper.toDTO(u));
             }
         }

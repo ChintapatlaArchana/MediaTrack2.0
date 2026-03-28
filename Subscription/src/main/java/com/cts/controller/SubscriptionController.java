@@ -60,6 +60,11 @@ public class SubscriptionController {
         return ResponseEntity.ok(subscriptionService.getARPU());
     }
 
+    @GetMapping("/admin/netAdds")
+    public ResponseEntity<Long> getMonthlyNetAdds() {
+        return ResponseEntity.ok(subscriptionService.getMonthlyNetAdds());
+    }
+
     @GetMapping("/admin/churnCount")
     public ResponseEntity<Double> getRecentChurnCount() {
         return ResponseEntity.ok(subscriptionService.getRecentChurnCount());
@@ -96,8 +101,13 @@ public class SubscriptionController {
         return ResponseEntity.ok(subscriptionService.getActiveSubscriptionsByPlan());
     }
 
-    @GetMapping("/admin/MRRbyPlan")
+    @GetMapping("/admin/charts/mrr-by-plan")
     public ResponseEntity<List<Map<String, Object>>> getFormattedMrrByPlan() {
         return ResponseEntity.ok(subscriptionService.getMrrByPlan());
+    }
+
+    @GetMapping("/admin/charts/revenue-history")
+    public ResponseEntity<List<Map<String,Object>>> getSubRevenue() {
+        return ResponseEntity.ok(subscriptionService.getSubRevenueHistory());
     }
 }

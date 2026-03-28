@@ -21,7 +21,7 @@ public class PlanController {
     @PostMapping("/admin/add")
     public ResponseEntity<PlanResponseDTO> create(@RequestBody PlanRequestDTO dto) {
         try {
-            return new ResponseEntity(planService.createPlan(dto), HttpStatus.CREATED);
+            return new ResponseEntity(planService.createPlan(dto), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -46,12 +46,16 @@ public class PlanController {
         }
     }
 
-    @DeleteMapping("/admin/delete-by-details")
-    public ResponseEntity<Void> deletePlan(
-            @RequestParam String name,
-            @RequestParam Plan.BillingCycle billingCycle) {
+    @DeleteMapping("/admin/delete/{id}")
+    public ResponseEntity<Void> deletePlan(@PathVariable long id) {
 
-        planService.deleteByDetails(name, billingCycle);
+        planService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/admin/update/{id}")
+    public ResponseEntity<Void> updatePlan(@PathVariable long id, @RequestBody PlanRequestDTO dto) {
+        planService.updatePlanById(id, dto);
         return ResponseEntity.noContent().build();
     }
 }

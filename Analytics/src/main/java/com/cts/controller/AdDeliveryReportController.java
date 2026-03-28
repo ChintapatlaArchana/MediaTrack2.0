@@ -72,4 +72,14 @@ public class AdDeliveryReportController {
     }
     // Inside AdDeliveryReportController.java
 
+    @GetMapping("/admin/monthlyAdRevenueStats")
+    public ResponseEntity<Map<String, Object>> getAdSummary() {
+        return ResponseEntity.ok(adDeliveryReportService.getAdRevenueDashboard());
+    }
+
+    @GetMapping("/admin/charts/revenue-history")
+    public ResponseEntity<List<Map<String,Object>>> getSubRevenue() {
+        return ResponseEntity.ok(adDeliveryReportService.getAdRevenueHistory());
+    }
+
 }

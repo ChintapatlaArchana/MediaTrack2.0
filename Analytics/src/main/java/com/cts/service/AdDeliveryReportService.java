@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Service
 public class AdDeliveryReportService {
@@ -166,6 +167,37 @@ public class AdDeliveryReportService {
 
     public List<CampaignResponseDTO> getActiveCampaignsForDashboard() {
         return adDeliveryReportRepository.findActiveCampaignsMetrics();
+    }
+
+    public Map<String, Object> getAdRevenueDashboard() {
+        LocalDate startOfMonth = LocalDate.now().withDayOfMonth(1);
+        List<Object[]> results = adDeliveryReportRepository.getAdRevenueKPIs(startOfMonth);
+
+        Map<String, Object> kpis = new HashMap<>();
+        if (!results.isEmpty() && results.get(0)[0] != null) {
+            Object[] row = results.get(0);
+            kpis.put("adRev", row[0]);     // Total Ad Revenue
+            kpis.put("ecpm", row[1]);      // Avg eCPM
+            kpis.put("ctr", String.format("%.2f%%", (Double)row[2]));      // Format for React
+            kpis.put("fillRate", String.format("%.2f%%", (Double)row[3])); // Format for React
+        } else {
+            kpis.put("adRev", 0.0);
+            kpis.put("ecpm", 0.0);
+            kpis.put("ctr", "0%");
+            kpis.put("fillRate", "0%");
+        }
+        return kpis;
+    }
+
+    public List<Map<String, Object>> getAdRevenueHistory() {
+        LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6).withDayOfMonth(1);
+        List<Object[]> results = adDeliveryReportRepository.getAdRevenueHistory(sixMonthsAgo);
+        return results.stream().map(row -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("month", row[0]);
+            map.put("adRevenue", row[1]);
+            return map;
+        }).collect(Collectors.toList());
     }
 }
 

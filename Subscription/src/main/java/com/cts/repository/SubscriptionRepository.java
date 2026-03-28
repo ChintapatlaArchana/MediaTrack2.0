@@ -83,4 +83,20 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
             "AND s.endDate <= :endDate")
     long countChurnedUsers( @Param("statuses") List<Subscription.Status> statuses, @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
+
+    @Query("SELECT COUNT(s) FROM Subscription s WHERE s.startDate >= :start AND s.startDate <= :end")
+    long countNewActivations(@Param("start") LocalDate start, @Param("end") LocalDate end);
+
+    // Count Lapsed/Cancelled users in the same range
+    @Query("SELECT COUNT(s) FROM Subscription s WHERE s.status IN ('Lapsed', 'Cancelled') " +
+            "AND s.endDate >= :start AND s.endDate <= :end")
+    long countLapsedUsers(@Param("start") LocalDate start, @Param("end") LocalDate end);
+
+    @Query("SELECT FUNCTION('MONTHNAME', s.startDate) as month, " +
+            "SUM(CASE WHEN p.billingCycle = 'Monthly' THEN p.price ELSE (p.price / 12) END) as revenue " +
+            "FROM Subscription s JOIN s.plan p " +
+            "WHERE s.startDate >= :sixMonthsAgo " +
+            "GROUP BY FUNCTION('MONTHNAME', s.startDate), FUNCTION('MONTH', s.startDate) " +
+            "ORDER BY FUNCTION('MONTH', s.startDate) ASC")
+    List<Object[]> getSubscriptionRevenueHistory(@Param("sixMonthsAgo") LocalDate sixMonthsAgo);
 }

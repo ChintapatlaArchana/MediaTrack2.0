@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByPhone(String phNo);
     boolean existsByEmail(String email);
     boolean existsByPhone(String phone);
+    List<User> findByRoleNot(User.Role role);
 
     @Query("SELECT COUNT(u) FROM User u")
     long countTotalUsers();

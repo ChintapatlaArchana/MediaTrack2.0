@@ -207,4 +207,25 @@ public class SubscriptionService {
 
         return ((double) lostUsers / totalUsersAtStart) * 100;
     }
+
+    public Long getMonthlyNetAdds() {
+        LocalDate startOfMonth = LocalDate.now().withDayOfMonth(1);
+        LocalDate endOfMonth = LocalDate.now();
+
+        long newActivations = subscriptionRepository.countNewActivations(startOfMonth, endOfMonth);
+        long lapsedUsers = subscriptionRepository.countLapsedUsers(startOfMonth, endOfMonth);
+
+        return (newActivations - lapsedUsers);
+    }
+
+    public List<Map<String, Object>> getSubRevenueHistory() {
+        LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6).withDayOfMonth(1);
+        List<Object[]> results = subscriptionRepository.getSubscriptionRevenueHistory(sixMonthsAgo);
+        return results.stream().map(row -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("month", row[0]);
+            map.put("subRevenue", row[1]);
+            return map;
+        }).collect(Collectors.toList());
+    }
 }

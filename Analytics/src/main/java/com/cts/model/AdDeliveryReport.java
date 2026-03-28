@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class AdDeliveryReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long AdReportID;
+    private long adReportId;
     private Long campaignId;
     @Embedded
     private AdDeliveryReportMetrics adDeliveryReportMetrics;

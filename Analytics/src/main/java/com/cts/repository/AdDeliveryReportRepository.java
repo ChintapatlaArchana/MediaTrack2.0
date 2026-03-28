@@ -1,7 +1,6 @@
 package com.cts.repository;
 
 import com.cts.dto.CampaignResponseDTO;
-import com.cts.dto.DashboardSummaryDTO;
 import com.cts.model.AdDeliveryReport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -60,6 +59,23 @@ public interface AdDeliveryReportRepository extends JpaRepository<AdDeliveryRepo
             "GROUP BY c.id, c.name, c.status, c.budget",
             nativeQuery = true)
     List<CampaignResponseDTO> findActiveCampaignsMetrics();
+
+    @Query("SELECT " +
+            "SUM((m.impressions * m.eCPM) / 1000) as totalRevenue, " +
+            "AVG(m.eCPM) as avgECPM, " +
+            "AVG(m.CTR) as avgCTR, " +
+            "AVG(m.fillRate) as avgFillRate " +
+            "FROM AdDeliveryReport r JOIN r.adDeliveryReportMetrics m " +
+            "WHERE r.generatedDate >= :startDate")
+    List<Object[]> getAdRevenueKPIs(@Param("startDate") LocalDate startDate);
+
+    @Query("SELECT FUNCTION('MONTHNAME', r.generatedDate) as month, " +
+            "SUM((m.impressions * m.eCPM) / 1000) as revenue " +
+            "FROM AdDeliveryReport r JOIN r.adDeliveryReportMetrics m " +
+            "WHERE r.generatedDate >= :sixMonthsAgo " +
+            "GROUP BY FUNCTION('MONTHNAME', r.generatedDate), FUNCTION('MONTH', r.generatedDate) " +
+            "ORDER BY FUNCTION('MONTH', r.generatedDate) ASC")
+    List<Object[]> getAdRevenueHistory(@Param("sixMonthsAgo") LocalDate sixMonthsAgo);
 }
 
 
