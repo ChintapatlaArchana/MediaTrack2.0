@@ -73,10 +73,12 @@ public class IngestJobService {
     public Map<String, Long> getIngestMetrics() {
         long failed = ingestJobRepository.countByIngestStatus(IngestStatus.Failed);
         long queued = ingestJobRepository.countByIngestStatus(IngestStatus.Queued);
+        long in_progress=ingestJobRepository.countByIngestStatus(IngestStatus.In_progress);
         long completed = ingestJobRepository.countByIngestStatus(IngestStatus.Completed);
 
         Map<String, Long> metrics = new HashMap<>();
         metrics.put("failed", failed);
+        metrics.put("in_progress",in_progress);
         metrics.put("queued", queued);
         metrics.put("completed", completed);
 
