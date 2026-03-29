@@ -31,6 +31,7 @@ public class User {
     public enum Role {
         Viewer,Editor,AdOps,Operator,Admin
     }
+
     //    @JsonIgnoreProperties("user")
 //    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    private List<Subscription> subscription;

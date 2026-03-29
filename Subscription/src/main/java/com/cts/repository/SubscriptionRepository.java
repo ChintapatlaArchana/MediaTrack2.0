@@ -75,7 +75,7 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
             "FROM Subscription s JOIN s.plan p " +
             "WHERE s.startDate >= :sixMonthsAgo " +
             "GROUP BY 1, p.name")
-    List<RevenueDataDTO> getMrrByPlan(LocalDate sixMonthsAgo);
+    List<RevenueDataDTO> getMrrByPlan(@Param("sixMonthsAgo") LocalDate sixMonthsAgo);
 
     @Query("SELECT COUNT(s) FROM Subscription s " +
             "WHERE s.status IN :statuses " +

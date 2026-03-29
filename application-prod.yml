@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/db9
+    url: jdbc:mysql://localhost:3306/db9?sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'&allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: 2003
     driver-class-name: com.mysql.cj.jdbc.Driver

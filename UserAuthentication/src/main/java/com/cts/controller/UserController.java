@@ -55,7 +55,10 @@ public class UserController {
                 User user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Email"));
                 String token = jwtService.generateToken(user);
                 String role = user.getRole().toString();
-                LoginResponse response = new LoginResponse(token, role);
+                String name = user.getName();
+                String email = user.getEmail();
+                long userId = user.getUserId();
+                LoginResponse response = new LoginResponse(token, role, name, email, userId);
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
                 log.warn("UserId is not found to generate user token");
