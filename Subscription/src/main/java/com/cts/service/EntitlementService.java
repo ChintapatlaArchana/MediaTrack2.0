@@ -114,8 +114,8 @@ public class EntitlementService {
         List<PolicyDriftDTO> dtos = entitlementPage.getContent().stream().map(e -> {
             var user = userMap.get(e.getUserId());
             return new PolicyDriftDTO(
-                    "user-" + user != null ? user.name() : "Unknown",
-                    user != null ? user.email() : "N/A",
+                    (user != null ? user.name() : "Unknown"),
+                    (user != null ? user.email() : "N/A"),
                     e.getContentScope().name(),
                     e.getGrantedDate(),
                     e.getExpiryDate()

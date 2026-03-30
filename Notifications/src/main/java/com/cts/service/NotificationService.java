@@ -69,4 +69,14 @@ public class NotificationService {
     public void markAllNotificationsAsRead() {
         notificationRepository.markAllAsRead();
     }
+
+    @Transactional
+    public void markNotificationRead(long id) {
+        notificationRepository.markAsRead(id);
+    }
+
+    @Transactional
+    public void dismissNotification(Long id) {
+        notificationRepository.dismissNotification(id);
+    }
 }

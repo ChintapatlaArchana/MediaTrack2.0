@@ -146,6 +146,11 @@ public class UserController {
                 ));
     }
 
+    @PatchMapping("/admin/update/{userId}")
+    public ResponseEntity<UserResponseDTO> updateUserDetails(@PathVariable("userId") long userId, @RequestBody UserRequestDTO updateDto) {
+        return ResponseEntity.ok(userService.partialUpdate(userId,updateDto));
+    }
+
 //    @PutMapping("/user/id/oldPassword/newPassword")
 //    public ResponseEntity<UserResponseDTO> updateUserPassword(@PathVariable long id, @PathVariable String oldPassword, @PathVariable String newPassword) {
 //        try {

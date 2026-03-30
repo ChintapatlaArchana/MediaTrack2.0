@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
 
     @Mapping(target = "role", source = "role", defaultValue = "Viewer") // default role
-    @Mapping(target="status", source = "status", defaultValue = "Active")
+    @Mapping(target="status", source = "status", defaultValue = "ACTIVE")
     User toEntity(UserRequestDTO dto);
 
     @Mapping(target = "role", expression = "java(entity.getRole())")

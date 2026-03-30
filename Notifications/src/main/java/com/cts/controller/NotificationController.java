@@ -53,4 +53,16 @@ public class NotificationController {
         response.put("message", "All notifications marked as read successfully");
         return ResponseEntity.ok(response);
     }
+
+    @PatchMapping("/admin/mark-read/{id}")
+    public ResponseEntity<Void> markRead(@PathVariable("id") Long id) {
+        notificationService.markNotificationRead(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/admin/dismiss/{id}")
+    public ResponseEntity<Void> dismiss(@PathVariable("id") Long id) {
+        notificationService.dismissNotification(id);
+        return ResponseEntity.ok().build();
+    }
 }

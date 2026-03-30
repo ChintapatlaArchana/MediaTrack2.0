@@ -26,10 +26,15 @@ public class User {
     private String password;
 
     @Column(name="status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     public enum Role {
         Viewer,Editor,AdOps,Operator,Admin
+    }
+
+    public enum Status {
+        ACTIVE, INACTIVE
     }
 
     //    @JsonIgnoreProperties("user")

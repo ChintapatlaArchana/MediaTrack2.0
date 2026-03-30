@@ -58,7 +58,7 @@ public class TitleController {
 
     @PatchMapping("/content/quickupdate/{id}")
     public ResponseEntity<Title> updateTitle(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @RequestBody Map<String, String> updates) {
 
         // Note: React formData uses "title", but your Service uses "name"
@@ -71,7 +71,7 @@ public class TitleController {
     }
 
     @GetMapping("/content/name")
-    public ResponseEntity<Long> getTitleId(@RequestParam String name) {
+    public ResponseEntity<Long> getTitleId(@RequestParam("name") String name) {
         Long id = titleService.getTitleIdByName(name);
         return ResponseEntity.ok(id);
     }

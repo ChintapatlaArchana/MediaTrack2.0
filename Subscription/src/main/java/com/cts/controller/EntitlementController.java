@@ -57,8 +57,8 @@ public class EntitlementController {
 
     @GetMapping("/admin/policy-drift")
     public ResponseEntity<Page<PolicyDriftDTO>> getPolicyDrift(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size) {
         return ResponseEntity.ok(entitlementService.getPolicyDriftData(page, size));
     }
 

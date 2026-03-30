@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,7 +23,7 @@ public interface EntitlementRepository extends JpaRepository<Entitlement, Long> 
             "SUM(CASE WHEN e.expiryDate > :sevenDaysOut AND e.expiryDate <= :thirtyDaysOut THEN 1 ELSE 0 END), " +
             "SUM(CASE WHEN e.expiryDate > :thirtyDaysOut THEN 1 ELSE 0 END)) " +
             "FROM Entitlement e WHERE e.expiryDate >= CURRENT_DATE")
-    ExpiryDistributionDTO getExpiryDistribution(LocalDate sevenDaysOut, LocalDate thirtyDaysOut);
+    ExpiryDistributionDTO getExpiryDistribution(@Param("sevenDaysOut") LocalDate sevenDaysOut, @Param("thirtyDaysOut") LocalDate thirtyDaysOut);
 
     Page<Entitlement> findAll(Pageable pageable);
 }

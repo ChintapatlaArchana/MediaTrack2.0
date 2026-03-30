@@ -9,6 +9,7 @@ import com.cts.mapper.UserMapper;
 import com.cts.model.User;
 import com.cts.principal.UserPrincipal;
 import com.cts.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -134,6 +135,19 @@ public class UserService implements UserDetailsService{
                 array -> ((User.Role) array[0]).name(),
                 array -> (Long) array[1]
         ));
+    }
+
+    @Transactional
+    public UserResponseDTO partialUpdate(long id, UserRequestDTO updateDto) {
+        User existing = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+        log.info(updateDto+" this is the update DTO");
+        if (updateDto.getName() != null) existing.setName(updateDto.getName());
+        if (updateDto.getEmail() != null) existing.setEmail(updateDto.getEmail());
+        if (updateDto.getPhone() != null) existing.setPhone(updateDto.getPhone());
+        if (updateDto.getRole() != null) existing.setRole(updateDto.getRole());
+        if (updateDto.getStatus() != null) existing.setStatus(User.Status.valueOf(updateDto.getStatus()));
+        log.info("User details updated" + existing);
+        return userMapper.toDTO(existing);
     }
 
     @Override
